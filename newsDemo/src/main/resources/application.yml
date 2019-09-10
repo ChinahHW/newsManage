@@ -1,0 +1,42 @@
+server:
+  port: 8085
+spring:
+  application:
+    name: app-newsDemo
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/huwei?characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    name: root
+    password:
+
+  main:
+    allow-bean-definition-overriding: true
+
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+#mybatis-plus
+mybatis-plus:
+  mapper-locations: classpath:mappers/*.xml
+  type-aliases-package: com.huwei.mybatisplus.biz.entity
+  global-config:
+    id-type: 2
+    metaObjectHandler: com.huwei.newsdemo.biz.config.MyMetaObjectHandler
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8100/eureka/, http://127.0.0.1:9100/eureka/
+
+filePath: F:\IdeaWorkSpace\html\
+
+logging:
+  config: F:\IdeaWorkSpace\newsDemo\src\main\resources\logback.xml
+  path: /workspace/news/log
+
+
+

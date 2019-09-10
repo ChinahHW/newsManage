@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Tables</title>
+        <!-- Mobile specific metas -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <!-- Force IE9 to render in normal mode -->
+        <!--[if IE]><meta http-equiv="x-ua-compatible" content="IE=9" /><![endif]-->
+        <meta name="author" content="SuggeElson" />
+        <meta name="description" content=""
+        />
+        <meta name="keywords" content=""
+        />
+        <meta name="application-name" content="sprFlat admin template" />
+        <!-- Import google fonts - Heading first/ text second -->
+        <link rel='stylesheet' type='text/css' />
+        <!--[if lt IE 9]>
+<link href="http://fonts.googleapis.com/css?family=Open+Sans:400" rel="stylesheet" type="text/css" />
+<link href="http://fonts.googleapis.com/css?family=Open+Sans:700" rel="stylesheet" type="text/css" />
+<link href="http://fonts.googleapis.com/css?family=Droid+Sans:400" rel="stylesheet" type="text/css" />
+<link href="http://fonts.googleapis.com/css?family=Droid+Sans:700" rel="stylesheet" type="text/css" />
+<![endif]-->
+        <!-- Css files -->
+        <!-- Icons -->
+        <link href="assets/css/icons.css" rel="stylesheet" />
+        <!-- jQueryUI -->
+        <link href="assets/css/sprflat-theme/jquery.ui.all.css" rel="stylesheet" />
+        <!-- Bootstrap stylesheets (included template modifications) -->
+        <!-- <link href="assets/css/bootstrap.css" rel="stylesheet" /> -->
+        <!-- Plugins stylesheets (all plugin custom css) -->
+        <link href="assets/css/plugins.css" rel="stylesheet" />
+        <!-- Main stylesheets (template main css file) -->
+        <link href="assets/css/main.css" rel="stylesheet" />
+        <!-- Custom stylesheets ( Put your own changes here ) -->
+        <link href="assets/css/custom.css" rel="stylesheet" />
+        <!-- Fav and touch icons -->
+
+
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/img/ico/apple-touch-icon-144-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/img/ico/apple-touch-icon-114-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/img/ico/apple-touch-icon-72-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" href="assets/img/ico/apple-touch-icon-57-precomposed.png">
+        <link rel="icon" href="assets/img/ico/favicon.ico" type="image/png">
+        <link href="http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+        <link href="bootstrap_select/css/bootstrap-select.min.css" rel="stylesheet" />
+        
+
+        
+
+            <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+            <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+            <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+
+            <script src="ckeditor/ckeditor.js"></script>
+
+            <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+            <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+            <script type="text/javascript" src="assets/js/bootstrap-paginator.js"></script>
+            <script src="ckeditor/ckeditor.js"></script>
+
+        <script type="text/javascript" src="bootstrap_select/js/bootstrap-select.js"></script>
+
+        <!-- Windows8 touch icon ( http://www.buildmypinnedsite.com/ )-->
+        <meta name="msapplication-TileColor" content="#3399cc" />
+        <style type="text/css">
+            .modal {padding-top: 25px}
+            .table th{
+                text-align: center;
+                font-size: 15px
+            }
+        </style>
+        
+    </head>
+    <body>
+        <!-- Start #header -->
+        <div id="header">
+            <div class="container-fluid">
+                <div class="navbar">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="index.html">
+                            <i class="im-windows8 text-logo-element animated bounceIn"></i><span class="text-logo">spr</span><span class="text-slogan">flat</span> 
+                        </a>
+                    </div>
+                    <nav class="top-nav" role="navigation">
+                        <ul class="nav navbar-nav pull-right">
+                           
+                            
+                            <li class="dropdown">
+                                <a href="#" data-toggle="dropdown">
+                                    <img class="user-avatar" src="assets/img/avatars/48.jpg" alt="SuggeElson">SuggeElson</a>
+                                <ul class="dropdown-menu right" role="menu">
+                                    <li><a href="profile.html"><i class="st-user"></i> Profile</a>
+                                    </li>
+                                    <li><a href="file.html"><i class="st-cloud"></i> Files</a>
+                                    </li>
+                                    <li><a href="#"><i class="st-settings"></i> Settings</a>
+                                    </li>
+                                    <li><a href="login.html"><i class="im-exit"></i> Logout</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li id="toggle-right-sidebar-li"><a href="#" id="toggle-right-sidebar"><i class="ec-cog"></i></a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <!-- Start #header-area -->
+                <div id="header-area" class="fadeInDown">
+                    <div class="header-area-inner">
+                        <ul class="list-unstyled list-inline">
+                            <li>
+                                <div class="shortcut-button">
+                                    <a href="#">
+                                        <i class="im-pie"></i>
+                                        <span>Earning Stats</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="shortcut-button">
+                                    <a href="#">
+                                        <i class="ec-images color-dark"></i>
+                                        <span>Gallery</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="shortcut-button">
+                                    <a href="#">
+                                        <i class="en-light-bulb color-orange"></i>
+                                        <span>Fresh ideas</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="shortcut-button">
+                                    <a href="#">
+                                        <i class="ec-link color-blue"></i>
+                                        <span>Links</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="shortcut-button">
+                                    <a href="#">
+                                        <i class="ec-support color-red"></i>
+                                        <span>Support</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="shortcut-button">
+                                    <a href="#">
+                                        <i class="st-lock color-teal"></i>
+                                        <span>Lock area</span>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- End #header-area -->
+            </div>
+            <!-- Start .header-inner -->
+        </div>
+        <!-- End #header -->
+        
+        <!-- End #sidebar -->
+        <!-- Start #right-sidebar -->
+        <div id="right-sidebar" class="hide-sidebar">
+            <!-- Start .sidebar-inner -->
+            
+            <!-- End .sidebar-inner -->
+        </div>
+        <!-- End #right-sidebar -->
+        <!-- Start #content -->
+        <div id="content">
+            <!-- Start .content-wrapper -->
+            <div class="content-wrapper">
+                <div class="row">
+                    <!-- Start .row -->
+                    <!-- Start .page-header -->
+                    <div class="col-lg-12 heading">
+                        <h1 class="page-header"><i class="im-profile"></i> 角色管理列表</h1>
+                        <!-- Start .bredcrumb -->
+                        
+                        <!-- End .option-buttons -->
+                    </div>
+                    <!-- End .page-header -->
+                </div>
+                <!-- End .row -->
+                <div class="outlet"  id="roleTable">
+                    <!-- Start .outlet -->
+                    <!-- Page start here ( usual with .row ) -->
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <!-- col-lg-12 start here -->
+                            <div class="panel plain toggle panelClose panelRefresh">
+                                <!-- Start .panel -->
+                                <div class="panel-heading white-bg">
+                                    <!-- <h4 class="panel-title">Data table</h4> -->
+                                    <button class="btn btn-primary" v-on:click="showAdd">新增角色</button>
+                                </div>
+
+
+
+
+
+                        <!-- 添加的遮盖层 -->
+                                <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" style="padding-top: 25px">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title" id="addModalLabel">新增</h4>
+                                        </div>
+
+                                        <div class="modal-body">
+                                            <div id="testCkeditor">
+                                                <div class="form-group">
+                                                    <label for="role_name">角色名称：</label>
+                                                    <input type="text" name="role_name" class="form-control" id="role_name" placeholder="角色名称" ref="role_name">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="role_code">角色对应编码：</label>
+                                                    <input type="text" name="role_code" class="form-control" id="role_code" placeholder="角色编码" ref="role_code">
+                                                </div>
+                                                
+                                                <div class="form-group">
+                                                    <label for="description">角色描述：</label>
+                                                    <input type="text" name="description" class="form-control" id="description" placeholder="角色描述" ref="description">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="update_parent_name">角色权限:</label>
+                                                    <select class="selectpicker" id="add_allNode" multiple v-html="nodeList"></select>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="update_parent_name">角色部门:</label>
+                                                    <select class="selectpicker" id="add_allDept" multiple v-html="deptList"></select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
+                                            <button type="button" id="btn_submit" class="btn btn-primary" data-dismiss="modal" v-on:click="upload"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>保存</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>        
+
+
+
+
+
+                        <!-- 修改的遮盖层 -->
+                                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title" id="myModalLabel">修改</h4>
+                                        </div>
+                                        <div class="modal-body">
+
+                                            <div class="form-group">
+                                                    <label for="update_role_name">角色名称：</label>
+                                                    <input type="text" name="role_name" class="form-control" id="update_role_name" placeholder="角色名称" ref="update_role_name">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="update_role_code">角色对应编码：</label>
+                                                    <input type="text" name="update_role_code" class="form-control" id="update_role_code" placeholder="角色编码" ref="update_role_code">
+                                                </div>
+                                                
+                                                <div class="form-group">
+                                                    <label for="update_description">角色描述：</label>
+                                                    <input type="text" name="update_description" class="form-control" id="update_description" placeholder="角色编码" ref="update_description">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="update_parent_name">角色权限:</label>
+                                                    <input type="text" name="news_class" class="form-control" id="news_class"  readonly="true" v-model="selectClass" placeholder="该用户暂无权限"><br>
+                                                    <label for="update_parent_name">角色权限赋予:</label>
+                                                    <select class="selectpicker" id="update_allNode" multiple v-html="nodeList"></select>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="detail_dept_name">角色所属部门:</label>
+                                                    <input type="text" name="detail_dept_name" class="form-control" id="detail_dept_name"  readonly="true" v-model="selectDept" placeholder="该用户暂无部门信息">
+                                                    <br/>
+                                                    <label for="update_parent_name">角色部门选择:</label>
+                                                    <select class="selectpicker" id="update_allDept" multiple v-html="deptList"></select>
+                                                </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
+                                            <button type="button" id="btn_submit" class="btn btn-primary" data-dismiss="modal" v-on:click="change"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>保存</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+                                <!-- 详情的遮盖层 -->
+                                <div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title" id="detailModalLabel">详情</h4>
+                                        </div>
+                                        <div class="modal-body">
+
+                                            <div class="form-group">
+                                                    <label for="detail_role_name">角色名称：</label>
+                                                    <input type="text" name="detail_role_name" class="form-control" readonly="true" id="detail_role_name" placeholder="角色名称" ref="role_name">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="detail_role_code">角色对应编码：</label>
+                                                    <input type="text" name="detail_role_code" class="form-control"  readonly="true" id="detail_role_code" placeholder="角色编码" ref="detail_role_code">
+                                                </div>
+                                                
+                                                <!--在需要使用编辑器的地方插入textarea标签 -->
+                                                <div class="form-group">
+                                                    <label for="detail_description">角色描述：</label>
+                                                    <input type="text" name="detail_description" class="form-control"  readonly="true" id="detail_description" placeholder="角色编码" ref="detail_description">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="detail_create_time">角色创建时间：</label>
+                                                    <input type="text" name="detail_create_time" class="form-control"  readonly="true" id="detail_create_time" placeholder="角色创建时间" ref="detail_create_time">
+                                                </div>
+                                                
+
+                                                <div class="form-group">
+                                                    <label for="detail_parent_name">角色权限:</label>
+                                                    <input type="text" name="news_class" class="form-control" id="news_class"  readonly="true" v-model="selectClass" placeholder="该用户暂无权限信息">
+                                                    <br/>
+                                              
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="detail_dept_name">角色所属部门:</label>
+                                                    <input type="text" name="detail_dept_name" class="form-control" id="detail_dept_name"  readonly="true" v-model="selectDept" placeholder="该用户暂无部门信息">
+                                                    <br/>
+                                              
+                                                </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
+                                            <button type="button" id="btn_submit" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>保存</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+
+                                <div  style="height: 460px">
+                                    <table class="table table-hover table-striped table-bordered" id="datatable" style="table-layout:fixed;word-break:break-all;//表格固定布局">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 100px;">角色编号</th>
+                                                <th style="width: 180px;">角色姓名</th>
+                                                <th>角色编码</th>
+                                                <th>角色描述</th>
+                                                <th>创建时间</th>
+                                                <th>操作</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody v-html="roleDetail" id="roleDetail">
+                                        </tbody>
+                                    </table>
+                                     
+                                </div>
+
+                                <div id="example" style="text-align: right;padding-right: 150px;padding-top: 100px"> <ul id="pageLimit"></ul> </div>
+                            </div>
+                            <!-- End .panel -->
+                        </div>
+                        <!-- col-lg-12 end here -->
+                    </div>
+                        <!-- col-lg-12 end here -->
+                    </div>
+                    <!-- Page End here -->
+                </div>
+
+                <!-- End .outlet -->
+            </div>
+            <!-- End .content-wrapper -->
+
+            <div class="clearfix"></div>
+        </div>
+        <!-- End #content -->
+        <!-- Javascripts -->
+        <!-- Load pace first -->
+        
+
+
+    </body>
+    <script type="text/javascript">
+        var vm = new Vue({
+            el: "#roleTable",
+            data: {
+                roleList: [],
+                roleDetail: "",
+                permission: "",
+                nodeList: "",
+                deptList: "",
+                id : "",
+                selectClass : "",
+                selectDept : ""
+            },
+            methods: {
+                ceshi:function(){
+                    alert(vm.roleDetail)
+                },
+                change : function(){
+                    let param = new URLSearchParams()
+                param.append("roleId" ,this.id)
+                param.append("roleName" , $("#update_role_name").val())
+                param.append("roleDesc" , $("#update_description").val())
+                param.append("roleCode" , $("#update_role_code").val())
+                if($("#update_allNode").val() != null){
+                    param.append('permission' , $("#update_allNode").val())
+                }
+                if($("#update_allDept").val() != null){
+                    param.append('depts', $("#update_allDept").val())
+                }
+                axios
+                .post("http://localhost:8085/biz/role/update",param)
+                .then(response => {
+                    if(response.data.code == '200'){
+                        alert("修改成功");
+                        location.reload();
+                    }else{
+                        alert(response.data.msg)
+                    }
+                })
+                },
+                showAdd : function(){
+                    $('#addModal').modal();
+                },
+                upload:function(){
+                let param = new URLSearchParams()
+                param.append('roleDesc', $("#description").val()),
+                param.append("roleName" , $("#role_name").val()),
+                param.append("roleCode" , $("#role_code").val())
+                if($("#add_allNode").val() != null){
+                    param.append('permission' , $("#add_allNode").val())
+                    if($("#add_allDept").val() != null){
+                        param.append('depts' , $("#add_allDept").val())
+                    }
+
+                    axios
+                    .post("http://localhost:8085/biz/role/add",param
+                    )
+                    .then(response => {
+                        if(response.data.code == '200'){
+                            alert("添加成功")
+                            location.reload();
+                        }else if(response.data.code == '400'){
+                            alert(response.data.msg)
+                        }
+                    })
+                }else{
+                    alert("角色权限不能为空")
+                }
+                
+                
+            }
+            },
+            mounted(){
+                axios
+                .get('http://localhost:8085/biz/role/page',{
+                    params: {
+                        "page" : 1,
+                        "count" : 10
+                    }
+                })
+                .then(response => {
+                    window.total = response.data.data.pages
+                    for(var i = 0;i < response.data.data.records.length;i++) {
+                        vm.roleList.push(response.data.data.records[i]),
+                        vm.roleDetail += '<tr class="gradeA" ><td>'+this.roleList[i].roleId+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+this.roleList[i].roleName+'</td><td>'+this.roleList[i].roleCode+"..."+'</td><td>'+this.roleList[i].roleDesc+'</td><td>'+this.roleList[i].createTime+'</td><td><button class="btn btn-info detail" id='+i+'>详情</button>  <button class="btn btn-warning update" id='+i+'>修改</button>   <button class="btn btn-danger delete" id='+i+'>删除</button></td></tr>';
+                    }
+
+
+
+
+                    //给修改按钮添加事件
+                    this.$nextTick().then(() => {
+                          $('.update').on('click',function(){
+                            vm.id = vm.roleList[$(this).attr("id")].roleId;
+                            axios
+                                .get("http://localhost:8085/biz/roleMenu/queryMenuByRoleId",{
+                                    params : {
+                                        "roleId" : vm.id
+                                    }
+                                })
+                                .then(response => {
+                                    vm.selectClass = "";
+                                    for(var i = 0;i < response.data.data.length;i++) {
+                                        console.log(response.data.data[i]);
+                                        vm.selectClass += " "+response.data.data[i].name
+                                    }
+                                })
+
+                            axios
+                                .get("http://localhost:8085/biz/roleDept/queryDeptByRoleId",{
+                                    params : {
+                                        "roleId" : vm.id
+                                    }
+                                })
+                                .then(response => {
+                                    vm.selectDept = "";
+                                    for(var j = 0;j < response.data.data.length;j++){
+                                        vm.selectDept += " "+ response.data.data[j].deptName
+                                    }
+                                })
+
+
+                           $("#myModalLabel").text("修改");
+                            $("#update_role_name").val(vm.roleList[$(this).attr("id")].roleName);
+                            // $("#role_content").val(vm.roleList[$(this).attr("id")].roleContent);
+                            $("#update_role_code").val(vm.roleList[$(this).attr("id")].roleCode);
+                            $("#update_description").val(vm.roleList[$(this).attr("id")].roleDesc);
+                            $('#myModal').modal();
+                            
+                         })
+
+                    })
+
+                    //给详情按钮添加事件
+                    this.$nextTick().then(() => {
+                          $('.detail').on('click',function(){
+                            vm.id = vm.roleList[$(this).attr("id")].roleId;
+                            axios
+                                .get("http://localhost:8085/biz/roleMenu/queryMenuByRoleId",{
+                                    params : {
+                                        "roleId" : vm.id
+                                    }
+                                })
+                                .then(response => {
+                                    vm.selectClass = "";
+                                    for(var i = 0;i < response.data.data.length;i++) {
+                                        vm.selectClass += " "+response.data.data[i].name
+                                    }
+                                })
+
+                            axios
+                                .get("http://localhost:8085/biz/roleDept/queryDeptByRoleId",{
+                                    params : {
+                                        "roleId" : vm.id
+                                    }
+                                })
+                                .then(response => {
+                                    vm.selectDept = "";
+                                    for(var j = 0;j < response.data.data.length;j++){
+                                        vm.selectDept += " "+ response.data.data[j].deptName
+                                    }
+                                })
+                            $("#detailModalLabel").text("详情");
+                            $("#detail_role_name").val(vm.roleList[$(this).attr("id")].roleName);
+                            // $("#role_content").val(vm.roleList[$(this).attr("id")].roleContent);
+                            $("#detail_create_time").val(vm.roleList[$(this).attr("id")].createTime);
+                            $("#detail_role_code").val(vm.roleList[$(this).attr("id")].roleCode);
+                            $("#detail_description").val(vm.roleList[$(this).attr("id")].roleDesc);
+                            $('#detailModal').modal();
+                            vm.id = vm.roleList[$(this).attr("id")].roleId;
+                         })
+
+                    })
+
+                    //给删除按钮添加事件
+                    this.$nextTick().then(() => {
+                          $('.delete').on('click',function(){
+                            axios
+                                .get("http://localhost:8085/biz/role/delete",{
+                                    params : {
+                                        "roleId" :  vm.roleList[$(this).attr("id")].roleId
+                                    }
+                                })
+                                .then(response => {
+                                    if(response.data.code == '200'){
+                                        alert("删除成功");
+                                        location.reload();
+                                    }else{
+                                        alert(response.data.msg)
+                                    }
+                                })
+                         })
+
+                    })
+                    
+
+
+                    $('#pageLimit').bootstrapPaginator({
+                         currentPage: 1,//当前的请求页面。
+                         totalPages: window.total,//一共多少页。
+                         size:"normal",//应该是页眉的大小。
+                         bootstrapMajorVersion: 3,//bootstrap的版本要求。
+                         alignment:"right",
+                         numberOfPages:5,//一页列出多少数据。
+                         itemTexts: function (type, page, current) {//如下的代码是将页眉显示的中文显示我们自定义的中文。
+                             switch (type) {
+                             case "first": return "首页";
+                             case "prev": return "上一页";
+                             case "next": return "下一页";
+                             case "last": return "末页";
+                             case "page": return page;
+                             }
+                         },
+                         
+                         onPageClicked: function (event, originalEvent, type, page){//给每个页眉绑定一个事件，其实就是ajax请求，其中page变量为当前点击的页上的数字。
+                                 $.ajax({
+                                     url:'http://localhost:8085/biz/role/page',
+                                     type:'POST',
+                                     data:{'page':page,'count':7},
+                                     dataType:'JSON',
+                                     success:function (callback) {
+                                            $('#roleDetail').empty();
+                                            var roleDetail = "";
+                                            var roleList = [];
+                                            for(var i = 0;i < callback.data.records.length;i++) {
+                                                roleList.push(callback.data.records[i]);
+                                                roleDetail += '<tr class="gradeA"><td>'+callback.data.records[i].roleId+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+callback.data.records[i].roleName+'</td><td>'+callback.data.records[i].roleCode+"..."+'</td><td>'+callback.data.records[i].roleDesc+'</td><td>'+callback.data.records[i].createTime+'</td><td><button class="btn btn-info detail" id='+i+'>详情</button>  <button class="btn btn-warning update" id='+i+'>修改</button>  <button class="btn btn-danger delete" id='+i+'>删除</button></td></tr>';
+                                            }
+
+                                            $('#roleDetail').html(roleDetail)
+
+                                            //给分页返回的修改按钮添加事件
+                                            vm.$nextTick().then(() => {
+                                                  $('.update').on('click',function(){
+                                                    vm.id = roleList[$(this).attr("id")].roleId;
+                                                     axios
+                                                            .get("http://localhost:8085/biz/roleMenu/queryMenuByRoleId",{
+                                                                params : {
+                                                                    "roleId" : vm.id
+                                                                }
+                                                            })
+                                                            .then(response => {
+                                                                vm.selectClass = "";
+                                                                for(var i = 0;i < response.data.data.length;i++) {
+                                                                 vm.selectClass += " "+response.data.data[i].name
+                                                                }
+                                                            })
+
+                                                    axios
+                                                        .get("http://localhost:8085/biz/roleDept/queryDeptByRoleId",{
+                                                            params : {
+                                                                "roleId" : vm.id
+                                                            }
+                                                        })
+                                                        .then(response => {
+                                                            vm.selectDept = "";
+                                                            for(var j = 0;j < response.data.data.length;j++){
+                                                                vm.selectDept += " "+ response.data.data[j].deptName
+                                                            }
+                                                        })
+
+                                                    $("#myModalLabel").text("修改");
+                                                    $("#update_role_name").val(roleList[$(this).attr("id")].roleName);
+                                                    // $("#role_content").val(vm.roleList[$(this).attr("id")].roleContent);
+                                                    $("#update_role_code").val(roleList[$(this).attr("id")].roleCode);
+                                                    $("#update_description").val(roleList[$(this).attr("id")].roleDesc);
+                                                    $('#myModal').modal();
+                                                   
+                                                 })
+
+                                            })
+
+
+                                            //给分页返回的详情按钮添加事件
+                                            vm.$nextTick().then(() => {
+                                                  $('.detail').on('click',function(){
+                                                    vm.id = roleList[$(this).attr("id")].roleId;
+                                                     axios
+                                                            .get("http://localhost:8085/biz/roleMenu/queryMenuByRoleId",{
+                                                                params : {
+                                                                    "roleId" : vm.id
+                                                                }
+                                                            })
+                                                            .then(response => {
+                                                                vm.selectClass = "";
+                                                                for(var i = 0;i < response.data.data.length;i++) {
+                                                                 vm.selectClass += " "+response.data.data[i].name
+                                                                }
+                                                            })
+
+                                                    axios
+                                                        .get("http://localhost:8085/biz/roleDept/queryDeptByRoleId",{
+                                                            params : {
+                                                                "roleId" : vm.id
+                                                            }
+                                                        })
+                                                        .then(response => {
+                                                            vm.selectDept = "";
+                                                            for(var j = 0;j < response.data.data.length;j++){
+                                                                vm.selectDept += " "+ response.data.data[j].deptName
+                                                            }
+                                                        })
+
+                                                    $("#detailModalLabel").text("详情");
+                                                    $("#detail_role_name").val(roleList[$(this).attr("id")].roleName);
+                                                    // $("#role_content").val(vm.roleList[$(this).attr("id")].roleContent);
+                                                    $("#detail_create_time").val(roleList[$(this).attr("id")].createTime);
+                                                    $("#detail_role_code").val(roleList[$(this).attr("id")].roleCode);
+                                                    $("#detail_description").val(roleList[$(this).attr("id")].roleDesc);
+                                                    $('#detailModal').modal();
+                                                 })
+
+                                            })
+
+                                            //给分页返回的删除按钮添加事件
+                                            vm.$nextTick().then(() => {
+                                                  $('.delete').on('click',function(){
+                                                        axios
+                                                            .get("http://localhost:8085/biz/role/delete",{
+                                                                params : {
+                                                                    "roleId" :  roleList[$(this).attr("id")].roleId
+                                                                }
+                                                            })
+                                                            .then(response => {
+                                                                if(response.data.code == '200'){
+                                                                    alert("删除成功");
+                                                                    location.reload();
+                                                                }else{
+                                                                    alert(response.data.msg)
+                                                                }
+                                                            })
+                                                     })
+
+                                            })
+                                         }
+                                 })
+
+
+                             }
+
+
+
+                     });
+
+
+
+
+                }
+                    
+                    )
+                .catch(function (error){
+                })
+               // 下拉框添加剩余数据
+                axios
+                .get("http://localhost:8085/biz/menu/queryAll")
+                .then(response => {
+
+                    for (var i = 0; i < response.data.data.length; i++) {
+                        vm.nodeList += "<option value="+response.data.data[i].menuId+">"+response.data.data[i].name+"</option>"
+                    }
+                    //要以编程方式更新JavaScript的选择，首先操作选择，然后使用refresh方法更新UI以匹配新状态。 在删除或添加选项时，或通过JavaScript禁用/启用选择时，这是必需的。
+                    $('.selectpicker').selectpicker('refresh');
+                    //render方法强制重新渲染引导程序 - 选择ui,如果当您编程时更改任何相关值而影响元素布局，这将非常有用。
+                    $('.selectpicker').selectpicker('render');
+                })
+
+                axios
+                    .get("http://localhost:8085/biz/dept/queryAll")
+                    .then(response => {
+                        for(var j = 0; j < response.data.data.length; j++){
+                            vm.deptList += "<option value="+response.data.data[j].deptId+">"+response.data.data[j].deptName+"</option>"
+                        }
+                    })
+            }
+        })
+    </script>
+</html>

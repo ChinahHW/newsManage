@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Dashboard</title>
+        <!-- Mobile specific metas -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <!-- Force IE9 to render in normal mode -->
+        <!--[if IE]><meta http-equiv="x-ua-compatible" content="IE=9" /><![endif]-->
+        <meta name="author" content="SuggeElson" />
+        <meta name="description" content=""
+        />
+        <meta name="keywords" content=""
+        />
+        <meta name="application-name" content="sprFlat admin template" />
+        <!-- Import google fonts - Heading first/ text second -->
+        <link rel='stylesheet' type='text/css' >
+        <!--[if lt IE 9]>
+
+<![endif]-->
+        <!-- Css files -->
+        <!-- Icons -->
+        <link href="assets/css/icons.css" rel="stylesheet" />
+        <!-- jQueryUI -->
+        <link href="assets/css/sprflat-theme/jquery.ui.all.css" rel="stylesheet" />
+        <!-- Bootstrap stylesheets (included template modifications) -->
+        <link href="assets/css/bootstrap.css" rel="stylesheet" />
+        <!-- Plugins stylesheets (all plugin custom css) -->
+        <link href="assets/css/plugins.css" rel="stylesheet" />
+        <!-- Main stylesheets (template main css file) -->
+        <link href="assets/css/main.css" rel="stylesheet" />
+        <!-- Custom stylesheets ( Put your own changes here ) -->
+        <link href="assets/css/custom.css" rel="stylesheet" />
+        <!-- Fav and touch icons -->
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/img/ico/apple-touch-icon-144-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/img/ico/apple-touch-icon-114-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/img/ico/apple-touch-icon-72-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" href="assets/img/ico/apple-touch-icon-57-precomposed.png">
+        <link rel="icon" href="assets/img/ico/favicon.ico" type="image/png">
+
+        
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="treeMenu/css/bootstrap-treeview.css" rel="stylesheet" />
+        <!-- Windows8 touch icon ( http://www.buildmypinnedsite.com/ )-->
+        <meta name="msapplication-TileColor" content="#3399cc" />
+        <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+        <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+
+    </head>
+    <body>
+        <div  id="showPage">
+        <!-- Start #header -->
+        <div id="header" style="height: 35px">
+            <div class="container-fluid" style="height: 35px">
+                <div class="navbar" style="height: 35px">
+                    <div class="navbar-header" style="height: 35px">
+                        <a class="navbar-brand" href="index.html">
+                            <i class="im-windows8 text-logo-element animated bounceIn"></i><span class="text-logo">新闻</span><span class="text-slogan">管理</span> 
+                        </a>
+                    </div>
+                    <nav class="top-nav" role="navigation">
+                        <ul class="nav navbar-nav pull-right">
+                           
+                            
+                            <li class="dropdown">
+                                <a href="#" data-toggle="dropdown" v-html="userName + '用户  ,您好'">
+                                    </a>
+                                <ul class="dropdown-menu right" role="menu">
+                                    <li><a href="profile.html"><i class="st-user"></i> Profile</a>
+                                    </li>
+                                    <li><a href="file.html"><i class="st-cloud"></i> Files</a>
+                                    </li>
+                                    <li><a href="#"><i class="st-settings"></i> Settings</a>
+                                    </li>
+                                    <li><a href="login.html"><i class="im-exit"></i> Logout</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li id="toggle-right-sidebar-li"><a href="#" id="toggle-right-sidebar"><i class="ec-cog"></i></a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                
+                <!-- End #header-area -->
+            </div>
+            <!-- Start .header-inner -->
+        </div>
+        <!-- End #header -->
+        <!-- Start #sidebar -->
+        <div id="sidebar">
+            <!-- Start .sidebar-inner -->
+            <div class="sidebar-inner">
+                <!-- Start #sideNav -->
+                <!-- <ul id="sideNav"> -->
+                    <div id="tree"></div>
+                    <!-- 点击事件无效是因为在不同的vue实例中，无法访问showPage的vue实例 -->
+                    <!-- <li><a href="index.html">新闻管理平台总览 <i class="im-screen"></i></a>
+                    </li>
+                    
+                    <li><a class="accordion-toggle collapsed" data-parent="#accordion-705974" data-toggle="collapse" href="#accordion-element-145847" v-if="permission.indexOf('userManage') != -1">用户管理 <i class="ec-users"></i></a>
+                       <div class="accordion-body collapse" id="accordion-element-145847">
+                        <div class="accordion-inner">
+                            <a class="accordion-toggle collapsed" style="padding-left: 45px" v-on:click="iframeSrc = 'permission.html'" v-if="permission.indexOf('permissionManage') != -1">权限管理</a>
+                        </div>
+                        <div class="accordion-inner">
+                            <a class="accordion-toggle collapsed" style="padding-left: 45px" v-on:click="iframeSrc = 'user-tables.html'" v-if="permission.indexOf('userManage') != -1">用户管理</a>
+                        </div>
+                    </div>
+                    </li>
+                   
+                    
+                   
+                    <li><a class="accordion-toggle collapsed" data-parent="#accordion-705974" data-toggle="collapse" href="#accordion-element-863092" v-if="permission.indexOf('newsManage') != -1">新闻管理 <i class="st-files"></i></a>
+                        <div class="accordion-body collapse" id="accordion-element-863092">
+                        
+                        
+                        <div class="accordion-inner">
+                            <a class="accordion-toggle collapsed" style="padding-left: 45px" v-on:click="iframeSrc = 'news-tables.html'" >新闻管理</a>
+                        </div>
+
+                        <div class="accordion-inner">
+                            <a class="accordion-toggle collapsed" style="padding-left: 45px" v-on:click="iframeSrc = 'newsClass.html'" >新闻分类管理</a>
+                        </div>
+
+                    </div>
+                    </li> -->
+                <!-- </ul> -->
+                <!-- End #sideNav -->
+            </div>
+            <!-- End .sidebar-inner -->
+        </div>
+        <!-- End #sidebar -->
+        <!-- Start #right-sidebar -->
+        <div id="right-sidebar" class="hide-sidebar">
+            <!-- Start .sidebar-inner -->
+            <div class="sidebar-inner">
+                <div class="sidebar-panel mt0">
+                    <div class="sidebar-panel-content fullwidth pt0">
+                        <div class="chat-user-list">
+                            <form class="form-horizontal chat-search" role="form">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Search for user...">
+                                    <button type="submit"><i class="ec-search s16"></i>
+                                    </button>
+                                </div>
+                                <!-- End .form-group  -->
+                            </form>
+                            
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <!-- End .sidebar-inner -->
+        </div>
+        <!-- End #right-sidebar -->
+        <!-- Start #content -->
+        <div style="height: 1000px;padding-top: -20px">
+            <iframe v-bind:src="iframeSrc" frameborder="0" scrolling="yes" name="main" id="main" style="width: 100%;height: 100%"></iframe>
+        </div>
+    </div>
+
+        
+
+        <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+        <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+        <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+
+        <script src="treeMenu/js/bootstrap-treeview.js"></script>
+
+
+    </body>
+    <script type="text/javascript">
+            var my_vue = new Vue({
+                el: "#showPage",
+                data:{
+                    iframeSrc: "indexContent.html",
+                    userName: sessionStorage.getItem("userName"),
+                    userId: sessionStorage.getItem("userId")
+                },
+                methods: {
+                },
+                mounted(){
+                    axios
+                        .get('http://localhost:8085/biz/menu/queryTreeMenu',{
+                            params : {
+                                "userId" : sessionStorage.getItem("userId")
+                            }
+                        })
+                        .then(response =>{
+                            $('#tree').treeview({
+                                color : "#428bca",
+                                backColor:"#f3f5f6",
+                                enableLinks: true,
+                                data : response.data.data,
+                                onNodeSelected : function(event, node) {
+                                    if(node.path != null){
+                                        my_vue.iframeSrc = node.path
+                                    }
+                                    // console.log(node)
+                                },
+                                onNodeUnselected:function (event, node) {
+                                    // var anh = $('#top').offset().top;
+                                    // debugger
+                                    // $("#content").stop().animate({scrollTop:anh},400);
+                                }
+                            })
+                        })
+                }
+            })
+        </script>
+</html>

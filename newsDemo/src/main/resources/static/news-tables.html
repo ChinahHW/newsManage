@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Tables</title>
+        <!-- Mobile specific metas -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <!-- Force IE9 to render in normal mode -->
+        <!--[if IE]><meta http-equiv="x-ua-compatible" content="IE=9" /><![endif]-->
+        <meta name="author" content="SuggeElson" />
+        <meta name="description" content=""
+        />
+        <meta name="keywords" content=""
+        />
+        <meta name="application-name" content="sprFlat admin template" />
+        <!-- Import google fonts - Heading first/ text second -->
+        <link rel='stylesheet' type='text/css' />
+        <!--[if lt IE 9]>
+<link href="http://fonts.googleapis.com/css?family=Open+Sans:400" rel="stylesheet" type="text/css" />
+<link href="http://fonts.googleapis.com/css?family=Open+Sans:700" rel="stylesheet" type="text/css" />
+<link href="http://fonts.googleapis.com/css?family=Droid+Sans:400" rel="stylesheet" type="text/css" />
+<link href="http://fonts.googleapis.com/css?family=Droid+Sans:700" rel="stylesheet" type="text/css" />
+<![endif]-->
+        <!-- Css files -->
+        <!-- Icons -->
+        <link href="assets/css/icons.css" rel="stylesheet" />
+        <!-- jQueryUI -->
+        <link href="assets/css/sprflat-theme/jquery.ui.all.css" rel="stylesheet" />
+        <!-- Bootstrap stylesheets (included template modifications) -->
+        <!-- <link href="assets/css/bootstrap.css" rel="stylesheet" /> -->
+        <!-- Plugins stylesheets (all plugin custom css) -->
+        <link href="assets/css/plugins.css" rel="stylesheet" />
+        <!-- Main stylesheets (template main css file) -->
+        <link href="assets/css/main.css" rel="stylesheet" />
+        <!-- Custom stylesheets ( Put your own changes here ) -->
+        <link href="assets/css/custom.css" rel="stylesheet" />
+        <!-- Fav and touch icons -->
+
+
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/img/ico/apple-touch-icon-144-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/img/ico/apple-touch-icon-114-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/img/ico/apple-touch-icon-72-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" href="assets/img/ico/apple-touch-icon-57-precomposed.png">
+        <link rel="icon" href="assets/img/ico/favicon.ico" type="image/png">
+        <link href="http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+        <link href="bootstrap_select/css/bootstrap-select.min.css" rel="stylesheet" />
+        
+
+        
+
+            <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+            <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+            <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+
+            <script src="ckeditor/ckeditor.js"></script>
+
+            <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+            <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+            <script type="text/javascript" src="assets/js/bootstrap-paginator.js"></script>
+            <script src="ckeditor/ckeditor.js"></script>
+
+        <script type="text/javascript" src="bootstrap_select/js/bootstrap-select.js"></script>
+
+        <!-- Windows8 touch icon ( http://www.buildmypinnedsite.com/ )-->
+        <meta name="msapplication-TileColor" content="#3399cc" />
+        <style type="text/css">
+            .modal {padding-top: 25px}
+            .table th{
+                text-align: center;
+                font-size: 15px
+            }
+        </style>
+        
+    </head>
+    <body>
+        <!-- Start #header -->
+        <div id="header">
+            <div class="container-fluid">
+                <div class="navbar">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="index.html">
+                            <i class="im-windows8 text-logo-element animated bounceIn"></i><span class="text-logo">spr</span><span class="text-slogan">flat</span> 
+                        </a>
+                    </div>
+                    <nav class="top-nav" role="navigation">
+                        <ul class="nav navbar-nav pull-right">
+                           
+                            
+                            <li class="dropdown">
+                                <a href="#" data-toggle="dropdown">
+                                    <img class="user-avatar" src="assets/img/avatars/48.jpg" alt="SuggeElson">SuggeElson</a>
+                                <ul class="dropdown-menu right" role="menu">
+                                    <li><a href="profile.html"><i class="st-user"></i> Profile</a>
+                                    </li>
+                                    <li><a href="file.html"><i class="st-cloud"></i> Files</a>
+                                    </li>
+                                    <li><a href="#"><i class="st-settings"></i> Settings</a>
+                                    </li>
+                                    <li><a href="login.html"><i class="im-exit"></i> Logout</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li id="toggle-right-sidebar-li"><a href="#" id="toggle-right-sidebar"><i class="ec-cog"></i></a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <!-- Start #header-area -->
+                <div id="header-area" class="fadeInDown">
+                    <div class="header-area-inner">
+                        <ul class="list-unstyled list-inline">
+                            <li>
+                                <div class="shortcut-button">
+                                    <a href="#">
+                                        <i class="im-pie"></i>
+                                        <span>Earning Stats</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="shortcut-button">
+                                    <a href="#">
+                                        <i class="ec-images color-dark"></i>
+                                        <span>Gallery</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="shortcut-button">
+                                    <a href="#">
+                                        <i class="en-light-bulb color-orange"></i>
+                                        <span>Fresh ideas</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="shortcut-button">
+                                    <a href="#">
+                                        <i class="ec-link color-blue"></i>
+                                        <span>Links</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="shortcut-button">
+                                    <a href="#">
+                                        <i class="ec-support color-red"></i>
+                                        <span>Support</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="shortcut-button">
+                                    <a href="#">
+                                        <i class="st-lock color-teal"></i>
+                                        <span>Lock area</span>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- End #header-area -->
+            </div>
+            <!-- Start .header-inner -->
+        </div>
+        <!-- End #header -->
+        
+        <!-- End #sidebar -->
+        <!-- Start #right-sidebar -->
+        <div id="right-sidebar" class="hide-sidebar">
+            <!-- Start .sidebar-inner -->
+            <div class="sidebar-inner">
+                <div class="sidebar-panel mt0">
+                    <div class="sidebar-panel-content fullwidth pt0">
+                        <div class="chat-user-list">
+                            <form class="form-horizontal chat-search" role="form">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Search for user...">
+                                    <button type="submit"><i class="ec-search s16"></i>
+                                    </button>
+                                </div>
+                                <!-- End .form-group  -->
+                            </form>
+                            <ul class="chat-ui bsAccordion">
+                                <li>
+                                    <a href="#">Favorites <span class="notification teal">4</span><i class="en-arrow-down5"></i></a>
+                                    <ul class="in">
+                                        <li>
+                                            <a href="#" class="chat-name">
+                                                <img class="chat-avatar" src="assets/img/avatars/49.jpg" alt="@chadengle">Chad Engle
+                                                <span class="has-message"><i class="im-pencil"></i></span>
+                                            </a>
+                                            <span class="status online"><i class="en-dot"></i></span>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="chat-name">
+                                                <img class="chat-avatar" src="assets/img/avatars/54.jpg" alt="@alagoon">Anthony Lagoon</a>
+                                            <span class="status offline"><i class="en-dot"></i></span>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="chat-name">
+                                                <img class="chat-avatar" src="assets/img/avatars/52.jpg" alt="@koridhandy">Kory Handy</a>
+                                            <span class="status"><i class="en-dot"></i></span>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="chat-name">
+                                                <img class="chat-avatar" src="assets/img/avatars/50.jpg" alt="@divya">Divia Manyan</a>
+                                            <span class="status"><i class="en-dot"></i></span>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#">Online <span class="notification green">3</span><i class="en-arrow-down5"></i></a>
+                                    <ul class="in">
+                                        <li>
+                                            <a href="#" class="chat-name">
+                                                <img class="chat-avatar" src="assets/img/avatars/51.jpg" alt="@kolage">Eric Hofman</a>
+                                            <span class="status online"><i class="en-dot"></i></span>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="chat-name">
+                                                <img class="chat-avatar" src="assets/img/avatars/55.jpg" alt="@mikebeecham">Mike Beecham</a>
+                                            <span class="status online"><i class="en-dot"></i></span>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="chat-name">
+                                                <img class="chat-avatar" src="assets/img/avatars/53.jpg" alt="@derekebradley">Darek Bradly</a>
+                                            <span class="status online"><i class="en-dot"></i></span>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#">Offline <span class="notification red">5</span><i class="en-arrow-down5"></i></a>
+                                    <ul>
+                                        <li>
+                                            <a href="#" class="chat-name">
+                                                <img class="chat-avatar" src="assets/img/avatars/56.jpg" alt="@laurengray">Lauren Grey</a>
+                                            <span class="status offline"><i class="en-dot"></i></span>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="chat-name">
+                                                <img class="chat-avatar" src="assets/img/avatars/49.jpg" alt="@chadengle">Chad Engle</a>
+                                            <span class="status offline"><i class="en-dot"></i></span>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="chat-name">
+                                                <img class="chat-avatar" src="assets/img/avatars/58.jpg" alt="@frankiefreesbie">Frankie Freesibie</a>
+                                            <span class="status offline"><i class="en-dot"></i></span>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="chat-name">
+                                                <img class="chat-avatar" src="assets/img/avatars/57.jpg" alt="@joannefournier">Joane Fornier</a>
+                                            <span class="status offline"><i class="en-dot"></i></span>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="chat-name">
+                                                <img class="chat-avatar" src="assets/img/avatars/59.jpg" alt="@aiiaiiaii">Alia Alien</a>
+                                            <span class="status offline"><i class="en-dot"></i></span>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="chat-box">
+                            <h5>Chad Engle</h5>
+                            <a id="close-user-chat" href="#" class="btn btn-xs btn-primary"><i class="en-arrow-left4"></i></a>
+                            <ul class="chat-ui chat-messages">
+                                <li class="chat-user">
+                                    <p class="avatar">
+                                        <img src="assets/img/avatars/49.jpg" alt="@chadengle">
+                                    </p>
+                                    <p class="chat-name">Chad Engle <span class="chat-time">15 seconds ago</span>
+                                    </p>
+                                    <span class="status online"><i class="en-dot"></i></span>
+                                    <p class="chat-txt">Hello Sugge check out the last order.</p>
+                                </li>
+                                <li class="chat-me">
+                                    <p class="avatar">
+                                        <img src="assets/img/avatars/48.jpg" alt="SuggeElson">
+                                    </p>
+                                    <p class="chat-name">SuggeElson <span class="chat-time">10 seconds ago</span>
+                                    </p>
+                                    <span class="status online"><i class="en-dot"></i></span>
+                                    <p class="chat-txt">Ok i will check it out.</p>
+                                </li>
+                                <li class="chat-user">
+                                    <p class="avatar">
+                                        <img src="assets/img/avatars/49.jpg" alt="@chadengle">
+                                    </p>
+                                    <p class="chat-name">Chad Engle <span class="chat-time">now</span>
+                                    </p>
+                                    <span class="status online"><i class="en-dot"></i></span>
+                                    <p class="chat-txt">Thank you, have a nice day</p>
+                                </li>
+                            </ul>
+                            <div class="chat-write">
+                                <form action="#" class="form-horizontal" role="form">
+                                    <div class="form-group">
+                                        <textarea name="sendmsg" id="sendMsg" class="form-control elastic" rows="1"></textarea>
+                                        <a role="button" class="btn" id="attach_photo_btn">
+                                            <i class="fa-picture s20"></i> 
+                                        </a>
+                                        <input type="file" name="attach_photo" id="attach_photo">
+                                    </div>
+                                    <!-- End .form-group  -->
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End .sidebar-inner -->
+        </div>
+        <!-- End #right-sidebar -->
+        <!-- Start #content -->
+        <div id="content">
+            <!-- Start .content-wrapper -->
+            <div class="content-wrapper">
+                <div class="row">
+                    <!-- Start .row -->
+                    <!-- Start .page-header -->
+                    <div class="col-lg-12 heading">
+                        <h1 class="page-header"><i class="im-newspaper"></i> 新闻管理列表</h1>
+                        <!-- Start .bredcrumb -->
+                        
+                        <!-- End .option-buttons -->
+                    </div>
+                    <!-- End .page-header -->
+                </div>
+                <!-- End .row -->
+                <div class="outlet"  id="newsTable">
+                    <!-- Start .outlet -->
+                    <!-- Page start here ( usual with .row ) -->
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <!-- col-lg-12 start here -->
+                            <div class="panel plain toggle panelClose panelRefresh">
+                                <!-- Start .panel -->
+                                <div class="panel-heading white-bg">
+                                    <!-- <h4 class="panel-title">Data table</h4> -->
+                                    <button class="btn btn-primary" v-on:click="showAdd">添加新闻</button>
+                                </div>
+
+
+
+
+
+                        <!-- 添加的遮盖层 -->
+                                <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" style="padding-top: 25px">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title" id="addModalLabel">新增</h4>
+                                        </div>
+
+                                        <div class="modal-body">
+                                            <div id="testCkeditor">
+                                                <div class="form-group">
+                                                    <label for="newsTitle">新闻标题：</label>
+                                                    <input type="text" name="newsTitle" class="form-control" id="newsTitle" placeholder="新闻标题" ref="newsTitle">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="newsTag">新闻标签：</label>
+                                                    <input type="text" name="newsTag" class="form-control" id="newsTag" placeholder="新闻标签" ref="newsTag">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="update_parent_name">新闻分类:</label>
+                                                    <select class="selectpicker" id="add_allNode" multiple v-html="nodeList"></select>
+                                                </div>
+                                                <!--在需要使用编辑器的地方插入textarea标签 -->
+                                                <label for="class_name">描述：</label>
+                                                <textarea name="description" id="description" ></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
+                                            <button type="button" id="btn_submit" class="btn btn-primary" data-dismiss="modal" v-on:click="upload"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>保存</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>        
+
+
+
+
+
+                        <!-- 修改的遮盖层 -->
+                                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title" id="myModalLabel">修改</h4>
+                                        </div>
+                                        <div class="modal-body">
+
+                                            <div class="form-group">
+                                                <label for="news_title">新闻标题</label>
+                                                <textarea name="news_title" class="form-control" id="news_title" placeholder="新闻标题" style="height: 60px"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="news_content">新闻内容</label>
+                                                <textarea type="text" name="news_content" class="form-control" id="news_content" placeholder="新闻内容" style="height: 100px"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="creator">创建人</label>
+                                                <input type="text" name="creator" class="form-control" id="creator" placeholder="0">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="update_parent_name">新闻分类</label>
+                                                <input type="text" name="news_class" class="form-control" id="news_class" v-model="selectClass" placeholder="0">
+                                                <br/>
+                                                <select class="selectpicker" multiple id="allNode" v-html="nodeList"></select>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
+                                            <button type="button" id="btn_submit" class="btn btn-primary" data-dismiss="modal" v-on:click="change"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>保存</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+                                <!-- 详情的遮盖层 -->
+                                <div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title" id="detailModalLabel">详情</h4>
+                                        </div>
+                                        <div class="modal-body">
+
+                                            <div class="form-group">
+                                                <label for="news_title">新闻标题</label>
+                                                <textarea name="news_title" class="form-control" id="detail_news_title" readonly="true" placeholder="新闻标题" style="height: 60px"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="news_content">新闻内容</label>
+                                                <textarea type="text" name="news_content" class="form-control" readonly="true" id="detail_news_content" placeholder="新闻内容" style="height: 100px"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="creator">创建人</label>
+                                                <input type="text" name="creator" class="form-control" readonly="true" id="detail_creator" placeholder="0">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="update_parent_name">新闻分类</label>
+                                                <input type="text" name="detail_news_class" class="form-control" readonly="true" id="detail_news_class" v-model="selectClass" placeholder="0">
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
+                                            <button type="button" id="btn_submit" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>保存</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+
+                                <div  style="height: 500px">
+                                    <table class="table table-hover table-striped table-bordered" id="datatable" style="table-layout:fixed;word-break:break-all;//表格固定布局">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 100px">新闻编号</th>
+                                                <th style="width: 180px">标题</th>
+                                                <th>内容</th>
+                                                <th>创建时间</th>
+                                                <th>创建人</th>
+                                                <th>操作</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody v-html="newsDetail" id="newsDetail">
+                                        </tbody>
+                                    </table>
+                                     
+                                </div>
+
+                                <div id="example" style="text-align: right;padding-right: 150px;padding-top: 100px"> <ul id="pageLimit"></ul> </div>
+                            </div>
+                            <!-- End .panel -->
+                        </div>
+                        <!-- col-lg-12 end here -->
+                    </div>
+                        <!-- col-lg-12 end here -->
+                    </div>
+                    <!-- Page End here -->
+                </div>
+
+                <!-- End .outlet -->
+            </div>
+            <!-- End .content-wrapper -->
+
+            <div class="clearfix"></div>
+        </div>
+        <!-- End #content -->
+        <!-- Javascripts -->
+        <!-- Load pace first -->
+        
+
+
+    </body>
+    <script type="text/javascript">
+        var myeditor ;
+        window.onload = function()
+            {
+                myeditor = CKEDITOR.replace( 'news_content');
+                detail_editor = CKEDITOR.replace( 'detail_news_content');
+                CKEDITOR.replace( 'description');
+            };
+
+        var vm = new Vue({
+            el: "#newsTable",
+            data: {
+                newsList: [],
+                newsDetail: "",
+                permission: "",
+                nodeList: "",
+                id : "",
+                selectClass : ""
+            },
+            methods: {
+                ceshi:function(){
+                    alert(vm.newsDetail)
+                },
+                change : function(){
+                    let param = new URLSearchParams()
+                param.append("newsId" ,this.id)
+                param.append("newsTitle" , $("#news_title").val())
+                param.append("newsContent" , myeditor.document.getBody().getHtml())
+                param.append("gmtModify" , $("#creator").val())
+                if($("#allNode").val() != null){
+                    param.append('classId' , $("#allNode").val())
+                }
+                axios
+                .post("http://localhost:8085/biz/news/update",param)
+                .then(response => {
+                    alert("修改成功");
+                    location.reload();
+                })
+                },
+                showAdd : function(){
+                    $('#addModal').modal();
+                },
+                upload:function(){
+                let param = new URLSearchParams()
+                param.append('newsContent', CKEDITOR.instances.description.getData()),
+                param.append("newsTitle" , this.$refs.newsTitle.value),
+                param.append("newsTag" , this.$refs.newsTag.value),
+                param.append("gmtModify" , $("#creator").val())
+                if($("#add_allNode").val() != null){
+                    param.append('classId' , $("#add_allNode").val())
+
+                    axios
+                    .post("http://localhost:8085/biz/news/add",param
+                    )
+                    .then(response => {
+                        if(response.data.code == '200'){
+                            alert("上传成功")
+                        }else if(response.data.code == '400'){
+                            alert(response.data.msg)
+                        }
+                    })
+                }else{
+                    alert("新闻分类不能为空")
+                }
+                
+                
+            }
+            },
+            mounted(){
+                axios
+                .get('http://localhost:8085/biz/news/page',{
+                    params: {
+                        "page" : 1,
+                        "count" : 10
+                    }
+                })
+                .then(response => {
+                    window.total = response.data.data.pages
+                    for(var i = 0;i < response.data.data.records.length;i++) {
+                        vm.newsList.push(response.data.data.records[i]),
+                        vm.newsDetail += '<tr class="gradeA" ><td>'+this.newsList[i].newsId+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+this.newsList[i].newsTitle+'</td><td>'+this.newsList[i].newsContent.substring(0,15)+"..."+'</td><td>'+this.newsList[i].gmtModify+'</td><td>'+this.newsList[i].gmtCreate+'</td><td><button class="btn btn-info detail" id='+i+'>详情</button>  <button class="btn btn-warning update" id='+i+'>修改</button>   <button class="btn btn-danger delete" id='+i+'>删除</button></td></tr>';
+                    }
+
+
+
+
+                    //给修改按钮添加事件
+                    this.$nextTick().then(() => {
+                          $('.update').on('click',function(){
+                            vm.id = vm.newsList[$(this).attr("id")].newsId;
+                            axios
+                                .get("http://localhost:8085/biz/newsClass/queryClassByNewsId",{
+                                    params : {
+                                        "newsId" : vm.id
+                                    }
+                                })
+                                .then(response => {
+                                    vm.selectClass = "";
+                                    for(var i = 0;i < response.data.data.length;i++) {
+                                        vm.selectClass += " "+response.data.data[i].name
+                                    }
+                                })
+                            $("#myModalLabel").text("修改");
+                            $("#news_title").val(vm.newsList[$(this).attr("id")].newsTitle);
+                            // $("#news_content").val(vm.newsList[$(this).attr("id")].newsContent);
+                            myeditor.setData(vm.newsList[$(this).attr("id")].newsContent);
+                            $("#creator").val(vm.newsList[$(this).attr("id")].gmtModify);
+                            $('#myModal').modal();
+                            
+                         })
+
+                    })
+
+                    //给详情按钮添加事件
+                    this.$nextTick().then(() => {
+                          $('.detail').on('click',function(){
+                            vm.id = vm.newsList[$(this).attr("id")].newsId;
+                            axios
+                                .get("http://localhost:8085/biz/newsClass/queryClassByNewsId",{
+                                    params : {
+                                        "newsId" : vm.id
+                                    }
+                                })
+                                .then(response => {
+                                    vm.selectClass = "";
+                                    for(var i = 0;i < response.data.data.length;i++) {
+                                        vm.selectClass += " "+response.data.data[i].name
+                                    }
+                                })
+                            $("#detailModalLabel").text("详情");
+                            $("#detail_news_title").val(vm.newsList[$(this).attr("id")].newsTitle);
+                            // $("#news_content").val(vm.newsList[$(this).attr("id")].newsContent);
+                            detail_editor.setData(vm.newsList[$(this).attr("id")].newsContent);
+                            $("#detail_creator").val(vm.newsList[$(this).attr("id")].gmtModify);
+                            $('#detailModal').modal();
+                            vm.id = vm.newsList[$(this).attr("id")].newsId;
+                         })
+
+                    })
+
+                    //给删除按钮添加事件
+                    this.$nextTick().then(() => {
+                          $('.delete').on('click',function(){
+                            axios
+                                .get("http://localhost:8085/biz/news/delete",{
+                                    params : {
+                                        "newsId" :  vm.newsList[$(this).attr("id")].newsId
+                                    }
+                                })
+                                .then(response => {
+                                    alert("success")
+                                    location.reload();
+                                })
+                         })
+
+                    })
+                    
+
+
+                    $('#pageLimit').bootstrapPaginator({
+                         currentPage: 1,//当前的请求页面。
+                         totalPages: window.total,//一共多少页。
+                         size:"normal",//应该是页眉的大小。
+                         bootstrapMajorVersion: 3,//bootstrap的版本要求。
+                         alignment:"right",
+                         numberOfPages:5,//一页列出多少数据。
+                         itemTexts: function (type, page, current) {//如下的代码是将页眉显示的中文显示我们自定义的中文。
+                             switch (type) {
+                             case "first": return "首页";
+                             case "prev": return "上一页";
+                             case "next": return "下一页";
+                             case "last": return "末页";
+                             case "page": return page;
+                             }
+                         },
+                         
+                         onPageClicked: function (event, originalEvent, type, page){//给每个页眉绑定一个事件，其实就是ajax请求，其中page变量为当前点击的页上的数字。
+                                 $.ajax({
+                                     url:'http://localhost:8085/biz/news/page',
+                                     type:'POST',
+                                     data:{'page':page,'count':10},
+                                     dataType:'JSON',
+                                     success:function (callback) {
+                                            $('#newsDetail').empty();
+                                            var newsDetail = "";
+                                            var newsList = [];
+                                            for(var i = 0;i < callback.data.records.length;i++) {
+                                                newsList.push(callback.data.records[i]);
+                                                newsDetail += '<tr class="gradeA"><td>'+callback.data.records[i].newsId+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+callback.data.records[i].newsTitle+'</td><td>'+callback.data.records[i].newsContent.substring(0,15)+"..."+'</td><td>'+callback.data.records[i].gmtModify+'</td><td>'+callback.data.records[i].gmtCreate+'</td><td><button class="btn btn-info detail" id='+i+'>详情</button>  <button class="btn btn-warning update" id='+i+'>修改</button>  <button class="btn btn-danger delete" id='+i+'>删除</button></td></tr>';
+                                            }
+
+                                            $('#newsDetail').html(newsDetail)
+
+                                            //给分页返回的修改按钮添加事件
+                                            vm.$nextTick().then(() => {
+                                                  $('.update').on('click',function(){
+                                                    vm.id = newsList[$(this).attr("id")].newsId;
+                                                     axios
+                                                            .get("http://localhost:8085/biz/newsClass/queryClassByNewsId",{
+                                                                params : {
+                                                                    "newsId" : vm.id
+                                                                }
+                                                            })
+                                                            .then(response => {
+                                                                vm.selectClass = "";
+                                                                for(var i = 0;i < response.data.data.length;i++) {
+                                                                 vm.selectClass += " "+response.data.data[i].name
+                                                                }
+                                                            })
+                                                    $("#myModalLabel").text("修改");
+                                                    $("#news_title").val(newsList[$(this).attr("id")].newsTitle);
+                                                    // $("#news_content").val(newsList[$(this).attr("id")].newsContent);
+                                                    myeditor.setData(newsList[$(this).attr("id")].newsContent);
+                                                    $("#creator").val(newsList[$(this).attr("id")].gmtModify);
+                                                    $('#myModal').modal();
+                                                   
+                                                 })
+
+                                            })
+
+
+                                            //给分页返回的详情按钮添加事件
+                                            vm.$nextTick().then(() => {
+                                                  $('.detail').on('click',function(){
+                                                    vm.id = newsList[$(this).attr("id")].newsId;
+                                                     axios
+                                                            .get("http://localhost:8085/biz/newsClass/queryClassByNewsId",{
+                                                                params : {
+                                                                    "newsId" : vm.id
+                                                                }
+                                                            })
+                                                            .then(response => {
+                                                                vm.selectClass = "";
+                                                                for(var i = 0;i < response.data.data.length;i++) {
+                                                                 vm.selectClass += " "+response.data.data[i].name
+                                                                }
+                                                            })
+                                                    $("#detailModalLabel").text("详情");
+                                                    $("#detail_news_title").val(newsList[$(this).attr("id")].newsTitle);
+                                                    // $("#news_content").val(newsList[$(this).attr("id")].newsContent);
+                                                    detail_editor.setData(newsList[$(this).attr("id")].newsContent);
+                                                    $("#detail_creator").val(newsList[$(this).attr("id")].gmtModify);
+                                                    $('#detailModal').modal();
+                                                 })
+
+                                            })
+
+                                            //给分页返回的删除按钮添加事件
+                                            vm.$nextTick().then(() => {
+                                                console.log(newsList[0])
+                                                console.log($(this).attr("id"))
+                                                  $('.delete').on('click',function(){
+                                                        axios
+                                                            .get("http://localhost:8085/biz/news/delete",{
+                                                                params : {
+                                                                    "newsId" :  newsList[$(this).attr("id")].newsId
+                                                                }
+                                                            })
+                                                            .then(response => {
+                                                                alert("success")
+                                                                location.reload();
+                                                            })
+                                                     })
+
+                                            })
+                                         }
+                                 })
+
+
+                             }
+
+
+
+                     });
+
+
+
+
+                }
+                    
+                    )
+                .catch(function (error){
+                })
+               // 下拉框添加剩余数据
+                                    axios
+                                    .get("http://localhost:8085/biz/class/queryAll")
+                                    .then(response => {
+
+                                        for (var i = 0; i < response.data.data.length; i++) {
+                                            vm.nodeList += "<option value="+response.data.data[i].id+">"+response.data.data[i].name+"</option>"
+                                        }
+                                    })
+            }
+        })
+    </script>
+</html>

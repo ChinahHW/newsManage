@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huwei.newsdemo.biz.dao.RoleDao">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        role_id AS roleId, role_name AS roleName, role_code AS roleCode, role_desc AS roleDesc, create_time AS createTime, update_time AS updateTime, delFlag AS delFlag
+    </sql>
+
+</mapper>
