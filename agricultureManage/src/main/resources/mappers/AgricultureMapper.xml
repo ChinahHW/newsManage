@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.agriculture.manage.biz.dao.AgricultureDao">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        agro_id AS agroId, agro_type AS agroType, year AS year, area AS area, test_location AS testLocation, longitude AS longitude, latitude AS latitude, altitude AS altitude, average_annual_temperature AS averageAnnualTemperature, sunshine_duration AS sunshineDuration, active_accumulated_temperature AS activeAccumulatedTemperature, annual_precipitation AS annualPrecipitation, frost_free_season AS frostFreeSeason, soil_texture AS soilTexture, soil_bulk_density AS soilBulkDensity, membrane_type AS membraneType, mulch_method AS mulchMethod, number_of_replication AS numberOfReplication, mulch_yield AS mulchYield, bare_land_production AS bareLandProduction, mulch_wue AS mulchWue, average_daily_temperature AS averageDailyTemperature, article_name AS articleName, author AS author, membrane_color AS membraneColor, mulch_yield_wue AS mulchYieldWue
+    </sql>
+
+</mapper>

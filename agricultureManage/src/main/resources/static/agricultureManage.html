@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Tables</title>
+        <!-- Mobile specific metas -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <!-- Force IE9 to render in normal mode -->
+        <!--[if IE]><meta http-equiv="x-ua-compatible" content="IE=9" /><![endif]-->
+        <meta name="author" content="SuggeElson" />
+        <meta name="description" content=""
+        />
+        <meta name="keywords" content=""
+        />
+        <meta name="application-name" content="sprFlat admin template" />
+        <!-- Import google fonts - Heading first/ text second -->
+        <link rel='stylesheet' type='text/css' />
+        <!--[if lt IE 9]>
+<link href="http://fonts.googleapis.com/css?family=Open+Sans:400" rel="stylesheet" type="text/css" />
+<link href="http://fonts.googleapis.com/css?family=Open+Sans:700" rel="stylesheet" type="text/css" />
+<link href="http://fonts.googleapis.com/css?family=Droid+Sans:400" rel="stylesheet" type="text/css" />
+<link href="http://fonts.googleapis.com/css?family=Droid+Sans:700" rel="stylesheet" type="text/css" />
+<![endif]-->
+        <!-- Css files -->
+        <!-- Icons -->
+        <link href="assets/css/icons.css" rel="stylesheet" />
+        <!-- jQueryUI -->
+        <link href="assets/css/sprflat-theme/jquery.ui.all.css" rel="stylesheet" />
+        <!-- Bootstrap stylesheets (included template modifications) -->
+        <!-- <link href="assets/css/bootstrap.css" rel="stylesheet" /> -->
+        <!-- Plugins stylesheets (all plugin custom css) -->
+        <link href="assets/css/plugins.css" rel="stylesheet" />
+        <!-- Main stylesheets (template main css file) -->
+        <link href="assets/css/main.css" rel="stylesheet" />
+        <!-- Custom stylesheets ( Put your own changes here ) -->
+        <link href="assets/css/custom.css" rel="stylesheet" />
+        <!-- Fav and touch icons -->
+
+
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/img/ico/apple-touch-icon-144-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/img/ico/apple-touch-icon-114-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/img/ico/apple-touch-icon-72-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" href="assets/img/ico/apple-touch-icon-57-precomposed.png">
+        <link rel="icon" href="assets/img/ico/favicon.ico" type="image/png">
+        <link href="http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+        <link href="bootstrap_select/css/bootstrap-select.min.css" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" href="css/fileinput.min.css">
+        
+
+        
+
+            <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+            <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+            <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+
+            <script src="ckeditor/ckeditor.js"></script>
+
+            <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+            <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+            <script type="text/javascript" src="assets/js/bootstrap-paginator.js"></script>
+            <script src="ckeditor/ckeditor.js"></script>
+
+            <script type="text/javascript" src="bootstrap_select/js/bootstrap-select.js"></script>
+            <script src="js/fileinput.min.js"></script>
+            <script src="js/zh.js"></script>
+
+        <!-- Windows8 touch icon ( http://www.buildmypinnedsite.com/ )-->
+        <meta name="msapplication-TileColor" content="#3399cc" />
+        <style type="text/css">
+            .modal {padding-top: 25px}
+            .table th{
+                text-align: center;
+                font-size: 15px
+            }
+        </style>
+        
+    </head>
+    <body>
+        <!-- Start #header -->
+        <div id="header">
+            <div class="container-fluid">
+                <div class="navbar">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="index.html">
+                            <i class="im-windows8 text-logo-element animated bounceIn"></i><span class="text-logo">spr</span><span class="text-slogan">flat</span> 
+                        </a>
+                    </div>
+                    <nav class="top-nav" agriculture="navigation">
+                        <ul class="nav navbar-nav pull-right">
+                           
+                            
+                            <li class="dropdown">
+                                <a href="#" data-toggle="dropdown">
+                                    <img class="user-avatar" src="assets/img/avatars/48.jpg" alt="SuggeElson">SuggeElson</a>
+                                <ul class="dropdown-menu right" agriculture="menu">
+                                    <li><a href="profile.html"><i class="st-user"></i> Profile</a>
+                                    </li>
+                                    <li><a href="file.html"><i class="st-cloud"></i> Files</a>
+                                    </li>
+                                    <li><a href="#"><i class="st-settings"></i> Settings</a>
+                                    </li>
+                                    <li><a href="login.html"><i class="im-exit"></i> Logout</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li id="toggle-right-sidebar-li"><a href="#" id="toggle-right-sidebar"><i class="ec-cog"></i></a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <!-- Start #header-area -->
+                <div id="header-area" class="fadeInDown">
+                    <div class="header-area-inner">
+                        <ul class="list-unstyled list-inline">
+                            <li>
+                                <div class="shortcut-button">
+                                    <a href="#">
+                                        <i class="im-pie"></i>
+                                        <span>Earning Stats</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="shortcut-button">
+                                    <a href="#">
+                                        <i class="ec-images color-dark"></i>
+                                        <span>Gallery</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="shortcut-button">
+                                    <a href="#">
+                                        <i class="en-light-bulb color-orange"></i>
+                                        <span>Fresh ideas</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="shortcut-button">
+                                    <a href="#">
+                                        <i class="ec-link color-blue"></i>
+                                        <span>Links</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="shortcut-button">
+                                    <a href="#">
+                                        <i class="ec-support color-red"></i>
+                                        <span>Support</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="shortcut-button">
+                                    <a href="#">
+                                        <i class="st-lock color-teal"></i>
+                                        <span>Lock area</span>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- End #header-area -->
+            </div>
+            <!-- Start .header-inner -->
+        </div>
+        <!-- End #header -->
+        
+        <!-- End #sidebar -->
+        <!-- Start #right-sidebar -->
+        <div id="right-sidebar" class="hide-sidebar">
+            <!-- Start .sidebar-inner -->
+            
+            <!-- End .sidebar-inner -->
+        </div>
+        <!-- End #right-sidebar -->
+        <!-- Start #content -->
+        <div id="content">
+            <!-- Start .content-wrapper -->
+            <div class="content-wrapper">
+                <div class="row">
+                    <!-- Start .row -->
+                    <!-- Start .page-header -->
+                    <div class="col-lg-12 heading">
+                        <h1 class="page-header"><i class="im-profile"></i> 角色管理列表</h1>
+                        <!-- Start .bredcrumb -->
+                        
+                        <!-- End .option-buttons -->
+                    </div>
+                    <!-- End .page-header -->
+                </div>
+                <!-- End .row -->
+                <div class="outlet"  id="agricultureTable">
+                    <!-- Start .outlet -->
+                    <!-- Page start here ( usual with .row ) -->
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <!-- col-lg-12 start here -->
+                            <div class="panel plain toggle panelClose panelRefresh">
+                                <!-- Start .panel -->
+                                <div class="panel-heading white-bg">
+                                    <!-- <h4 class="panel-title">Data table</h4> -->
+                                    <button class="btn btn-primary" v-on:click="showAdd">新增角色</button>
+
+                                    <button class="btn btn-primary" v-on:click="showAddAll">批量新增</button>
+
+                                    <button class="btn btn-primary" v-on:click="printExcel">结果导出为excel</button>
+                                </div>
+
+
+
+
+
+                        <!-- 添加的遮盖层 -->
+                                <div class="modal fade" id="addModal" tabindex="-1" agriculture="dialog" aria-labelledby="addModalLabel" style="padding-top: 25px">
+                                <div class="modal-dialog" agriculture="document">
+                                    <div class="modal-content">
+
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title" id="addModalLabel">新增</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                    <label for="agriculture_name">作物类型：</label>
+                                                    <input type="text" name="agro_type" class="form-control"  id="agro_type" placeholder="作物类型" ref="agriculture_name">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="year">实验年份：</label>
+                                                    <input type="text" name="year" class="form-control"   id="year" placeholder="实验年份" ref="year">
+                                                </div>
+                                                
+                                                <!--在需要使用编辑器的地方插入textarea标签 -->
+                                                <div class="form-group">
+                                                    <label for="area">区域：</label>
+                                                    <input type="text" name="area" class="form-control"   id="area" placeholder="区域" ref="area">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="test_location">试验地点：</label>
+                                                    <input type="text" name="test_location" class="form-control"   id="test_location" placeholder="试验地点" ref="test_location">
+                                                </div>
+                                                
+
+                                                <div class="form-group">
+                                                    <label for="longitude">经度:</label>
+                                                    <input type="text" name="longitude" class="form-control" id="longitude"   placeholder="经度">
+                                                    <br/>
+                                              
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="latitude">纬度:</label>
+                                                    <input type="text" name="latitude" class="form-control" id="latitude"   placeholder="纬度">
+                                                    <br/>
+                                              
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="altitude">海拔高度（m）：</label>
+                                                    <input type="text" name="altitude" class="form-control"   id="altitude" placeholder="海拔高度（m）" ref="altitude">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="average_annual_temperature">年均温：</label>
+                                                    <input type="text" name="average_annual_temperature" class="form-control"   id="average_annual_temperature" placeholder="年均温" ref="average_annual_temperature">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="sunshine_duration">日照时数h：</label>
+                                                    <input type="text" name="sunshine_duration" class="form-control"   id="sunshine_duration" placeholder="日照时数h" ref="sunshine_duration">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="active_accumulated_temperature">≥10℃活动积温℃：</label>
+                                                    <input type="text" name="active_accumulated_temperature" class="form-control"   id="active_accumulated_temperature" placeholder="≥10℃活动积温℃" ref="active_accumulated_temperature">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="annual_precipitation">年降水量：</label>
+                                                    <input type="text" name="annual_precipitation" class="form-control"   id="annual_precipitation" placeholder="年降水量" ref="annual_precipitation">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="frost_free_season">无霜期：</label>
+                                                    <input type="text" name="frost_free_season" class="form-control"   id="frost_free_season" placeholder="无霜期" ref="frost_free_season">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="soil_texture">土壤质地：</label>
+                                                    <input type="text" name="soil_texture" class="form-control"   id="soil_texture" placeholder="土壤质地" ref="soil_texture">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="soil_bulk_density">0-100cm土壤容重g/cm3：</label>
+                                                    <input type="text" name="soil_bulk_density" class="form-control"   id="soil_bulk_density" placeholder="0-100cm土壤容重g/cm3" ref="soil_bulk_density">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="membrane_type">地膜类型：</label>
+                                                    <input type="text" name="membrane_type" class="form-control"   id="membrane_type" placeholder="地膜类型" ref="membrane_type">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="membrane_color">地膜颜色：</label>
+                                                    <input type="text" name="membrane_color" class="form-control"   id="membrane_color" placeholder="地膜颜色" ref="membrane_color">
+                                                </div>
+
+
+                                                <div class="form-group">
+                                                    <label for="mulch_method">地膜覆盖方式：</label>
+                                                    <input type="text" name="mulch_method" class="form-control"   id="mulch_method" placeholder="地膜覆盖方式" ref="mulch_method">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="number_of_replication">重复数：</label>
+                                                    <input type="text" name="number_of_replication" class="form-control"   id="number_of_replication" placeholder="重复数" ref="number_of_replication">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="mulch_yield">地膜覆盖产量：</label>
+                                                    <input type="text" name="mulch_yield" class="form-control"   id="mulch_yield" placeholder="地膜覆盖产量" ref="mulch_yield">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="bare_land_production">裸地产量：</label>
+                                                    <input type="text" name="bare_land_production" class="form-control"   id="bare_land_production" placeholder="裸地产量" ref="bare_land_production">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="mulch_yield_wue">地膜覆盖WUE(kg/m3)：</label>
+                                                    <input type="text" name="mulch_yield_wue" class="form-control"   id="mulch_yield_wue" placeholder="地膜覆盖WUE(kg/m3)" ref="mulch_yield_wue">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="mulch_wue">裸地WUE(kg/m3)：</label>
+                                                    <input type="text" name="mulch_wue" class="form-control"   id="mulch_wue" placeholder="裸地WUE(kg/m3)" ref="mulch_wue">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="average_daily_temperature">生育期土壤5-25cm日均增温℃：</label>
+                                                    <input type="text" name="average_daily_temperature" class="form-control"   id="average_daily_temperature" placeholder="生育期土壤5-25cm日均增温℃" ref="average_daily_temperature">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="article_name">文章名称：</label>
+                                                    <input type="text" name="article_name" class="form-control"   id="article_name" placeholder="文章名称" ref="article_name">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="author">作者：</label>
+                                                    <input type="text" name="author" class="form-control" id="author" placeholder="作者">
+                                                </div>
+                                        </div>
+
+
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
+                                                    <button type="button" id="btn_submit" class="btn btn-primary" data-dismiss="modal" v-on:click="upload"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>保存</button>
+                                                    </div>
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                        <!-- 批量添加的遮盖层 -->
+                                <div class="modal fade" id="addAllModal" tabindex="-1" agriculture="dialog" aria-labelledby="addModalLabel" style="padding-top: 25px">
+                                <div class="modal-dialog" agriculture="document">
+                                    <div class="modal-content">
+
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title" id="addAllModalLabel">批量新增</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                           <input id="testfile" type="file" class="file" name="pdfFileAddress" multiple/>
+                                        </div>
+
+
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
+                                                    </div>
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+
+                        <!-- 修改的遮盖层 -->
+                                <div class="modal fade" id="myModal" tabindex="-1" agriculture="dialog" aria-labelledby="myModalLabel">
+                                <div class="modal-dialog" agriculture="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title" id="myModalLabel">修改</h4>
+                                        </div>
+
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                    <label for="update_agriculture_name">作物类型：</label>
+                                                    <input type="text" name="update_agro_type" class="form-control"  id="update_agro_type" placeholder="作物类型" ref="agriculture_name">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="update_year">实验年份：</label>
+                                                    <input type="text" name="update_year" class="form-control"   id="update_year" placeholder="实验年份" ref="update_year">
+                                                </div>
+                                                
+                                                <!--在需要使用编辑器的地方插入textarea标签 -->
+                                                <div class="form-group">
+                                                    <label for="update_area">区域：</label>
+                                                    <input type="text" name="update_area" class="form-control"   id="update_area" placeholder="区域" ref="update_area">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="update_test_location">试验地点：</label>
+                                                    <input type="text" name="update_test_location" class="form-control"   id="update_test_location" placeholder="试验地点" ref="update_test_location">
+                                                </div>
+                                                
+
+                                                <div class="form-group">
+                                                    <label for="update_longitude">经度:</label>
+                                                    <input type="text" name="update_longitude" class="form-control" id="update_longitude"   placeholder="经度">
+                                                    <br/>
+                                              
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="update_latitude">纬度:</label>
+                                                    <input type="text" name="update_latitude" class="form-control" id="update_latitude"   placeholder="纬度">
+                                                    <br/>
+                                              
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="update_altitude">海拔高度（m）：</label>
+                                                    <input type="text" name="update_altitude" class="form-control"   id="update_altitude" placeholder="海拔高度（m）" ref="update_altitude">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="update_average_annual_temperature">年均温：</label>
+                                                    <input type="text" name="update_average_annual_temperature" class="form-control"   id="update_average_annual_temperature" placeholder="年均温" ref="update_average_annual_temperature">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="update_sunshine_duration">日照时数h：</label>
+                                                    <input type="text" name="update_sunshine_duration" class="form-control"   id="update_sunshine_duration" placeholder="日照时数h" ref="update_sunshine_duration">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="update_active_accumulated_temperature">≥10℃活动积温℃：</label>
+                                                    <input type="text" name="update_active_accumulated_temperature" class="form-control"   id="update_active_accumulated_temperature" placeholder="≥10℃活动积温℃" ref="update_active_accumulated_temperature">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="update_annual_precipitation">年降水量：</label>
+                                                    <input type="text" name="update_annual_precipitation" class="form-control"   id="update_annual_precipitation" placeholder="年降水量" ref="update_annual_precipitation">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="update_frost_free_season">无霜期：</label>
+                                                    <input type="text" name="update_frost_free_season" class="form-control"   id="update_frost_free_season" placeholder="无霜期" ref="update_frost_free_season">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="update_soil_texture">土壤质地：</label>
+                                                    <input type="text" name="update_soil_texture" class="form-control"   id="update_soil_texture" placeholder="土壤质地" ref="update_soil_texture">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="update_soil_bulk_density">0-100cm土壤容重g/cm3：</label>
+                                                    <input type="text" name="update_soil_bulk_density" class="form-control"   id="update_soil_bulk_density" placeholder="0-100cm土壤容重g/cm3" ref="update_soil_bulk_density">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="update_membrane_type">地膜类型：</label>
+                                                    <input type="text" name="update_membrane_type" class="form-control"   id="update_membrane_type" placeholder="地膜类型" ref="update_membrane_type">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="update_membrane_color">地膜颜色：</label>
+                                                    <input type="text" name="update_membrane_color" class="form-control"   id="update_membrane_color" placeholder="地膜颜色" ref="update_membrane_color">
+                                                </div>
+
+
+                                                <div class="form-group">
+                                                    <label for="update_mulch_method">地膜覆盖方式：</label>
+                                                    <input type="text" name="update_mulch_method" class="form-control"   id="update_mulch_method" placeholder="地膜覆盖方式" ref="update_mulch_method">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="update_number_of_replication">重复数：</label>
+                                                    <input type="text" name="update_number_of_replication" class="form-control"   id="update_number_of_replication" placeholder="重复数" ref="update_number_of_replication">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="update_mulch_yield">地膜覆盖产量：</label>
+                                                    <input type="text" name="update_mulch_yield" class="form-control"   id="update_mulch_yield" placeholder="地膜覆盖产量" ref="update_mulch_yield">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="update_bare_land_production">裸地产量：</label>
+                                                    <input type="text" name="update_bare_land_production" class="form-control"   id="update_bare_land_production" placeholder="裸地产量" ref="update_bare_land_production">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="update_mulch_yield_wue">地膜覆盖WUE(kg/m3)：</label>
+                                                    <input type="text" name="update_mulch_yield_wue" class="form-control"   id="update_mulch_yield_wue" placeholder="地膜覆盖WUE(kg/m3)" ref="update_mulch_yield_wue">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="update_mulch_wue">裸地WUE(kg/m3)：</label>
+                                                    <input type="text" name="update_mulch_wue" class="form-control"   id="update_mulch_wue" placeholder="裸地WUE(kg/m3)" ref="update_mulch_wue">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="update_average_daily_temperature">生育期土壤5-25cm日均增温℃：</label>
+                                                    <input type="text" name="update_average_daily_temperature" class="form-control"   id="update_average_daily_temperature" placeholder="生育期土壤5-25cm日均增温℃" ref="update_average_daily_temperature">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="update_article_name">文章名称：</label>
+                                                    <input type="text" name="update_article_name" class="form-control"   id="update_article_name" placeholder="文章名称" ref="update_article_name">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="update_author">作者：</label>
+                                                    <input type="text" name="update_author" class="form-control" id="update_author" placeholder="作者">
+                                                </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
+                                            <button type="button" id="btn_submit" class="btn btn-primary" data-dismiss="modal"  v-on:click="change"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>保存</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+                                <!-- 详情的遮盖层 -->
+                                <div class="modal fade" id="detailModal" tabindex="-1" agriculture="dialog" aria-labelledby="detailModalLabel">
+                                <div class="modal-dialog" agriculture="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title" id="detailModalLabel">详情</h4>
+                                        </div>
+                                        <div class="modal-body">
+
+                                            <div class="form-group">
+                                                    <label for="detail_agriculture_name">作物类型：</label>
+                                                    <input type="text" name="detail_agro_type" class="form-control" readonly="true" id="detail_agro_type" placeholder="作物类型" ref="agriculture_name">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="detail_year">实验年份：</label>
+                                                    <input type="text" name="detail_year" class="form-control"  readonly="true" id="detail_year" placeholder="实验年份" ref="detail_year">
+                                                </div>
+                                                
+                                                <!--在需要使用编辑器的地方插入textarea标签 -->
+                                                <div class="form-group">
+                                                    <label for="detail_area">区域：</label>
+                                                    <input type="text" name="detail_area" class="form-control"  readonly="true" id="detail_area" placeholder="区域" ref="detail_area">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="detail_test_location">试验地点：</label>
+                                                    <input type="text" name="detail_test_location" class="form-control"  readonly="true" id="detail_test_location" placeholder="试验地点" ref="detail_test_location">
+                                                </div>
+                                                
+
+                                                <div class="form-group">
+                                                    <label for="detail_longitude">经度:</label>
+                                                    <input type="text" name="detail_longitude" class="form-control" id="detail_longitude"  readonly="true" placeholder="经度">
+                                                    <br/>
+                                              
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="detail_latitude">纬度:</label>
+                                                    <input type="text" name="detail_latitude" class="form-control" id="detail_latitude"  readonly="true" placeholder="纬度">
+                                                    <br/>
+                                              
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="detail_altitude">海拔高度（m）：</label>
+                                                    <input type="text" name="detail_altitude" class="form-control"  readonly="true" id="detail_altitude" placeholder="海拔高度（m）" ref="detail_altitude">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="detail_average_annual_temperature">年均温：</label>
+                                                    <input type="text" name="detail_average_annual_temperature" class="form-control"  readonly="true" id="detail_average_annual_temperature" placeholder="年均温" ref="detail_average_annual_temperature">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="detail_sunshine_duration">日照时数h：</label>
+                                                    <input type="text" name="detail_sunshine_duration" class="form-control"  readonly="true" id="detail_sunshine_duration" placeholder="日照时数h" ref="detail_sunshine_duration">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="detail_active_accumulated_temperature">≥10℃活动积温℃：</label>
+                                                    <input type="text" name="detail_active_accumulated_temperature" class="form-control"  readonly="true" id="detail_active_accumulated_temperature" placeholder="≥10℃活动积温℃" ref="detail_active_accumulated_temperature">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="detail_annual_precipitation">年降水量：</label>
+                                                    <input type="text" name="detail_annual_precipitation" class="form-control"  readonly="true" id="detail_annual_precipitation" placeholder="年降水量" ref="detail_annual_precipitation">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="detail_frost_free_season">无霜期：</label>
+                                                    <input type="text" name="detail_frost_free_season" class="form-control"  readonly="true" id="detail_frost_free_season" placeholder="无霜期" ref="detail_frost_free_season">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="detail_soil_texture">土壤质地：</label>
+                                                    <input type="text" name="detail_soil_texture" class="form-control"  readonly="true" id="detail_soil_texture" placeholder="土壤质地" ref="detail_soil_texture">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="detail_soil_bulk_density">0-100cm土壤容重g/cm3：</label>
+                                                    <input type="text" name="detail_soil_bulk_density" class="form-control"  readonly="true" id="detail_soil_bulk_density" placeholder="0-100cm土壤容重g/cm3" ref="detail_soil_bulk_density">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="detail_membrane_type">地膜类型：</label>
+                                                    <input type="text" name="detail_membrane_type" class="form-control"  readonly="true" id="detail_membrane_type" placeholder="地膜类型" ref="detail_membrane_type">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="detail_membrane_color">地膜颜色：</label>
+                                                    <input type="text" name="detail_membrane_color" class="form-control"  readonly="true" id="detail_membrane_color" placeholder="地膜颜色" ref="detail_membrane_color">
+                                                </div>
+
+
+                                                <div class="form-group">
+                                                    <label for="detail_mulch_method">地膜覆盖方式：</label>
+                                                    <input type="text" name="detail_mulch_method" class="form-control"  readonly="true" id="detail_mulch_method" placeholder="地膜覆盖方式" ref="detail_mulch_method">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="detail_number_of_replication">重复数：</label>
+                                                    <input type="text" name="detail_number_of_replication" class="form-control"  readonly="true" id="detail_number_of_replication" placeholder="重复数" ref="detail_number_of_replication">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="detail_mulch_yield">地膜覆盖产量：</label>
+                                                    <input type="text" name="detail_mulch_yield" class="form-control"  readonly="true" id="detail_mulch_yield" placeholder="地膜覆盖产量" ref="detail_mulch_yield">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="detail_bare_land_production">裸地产量：</label>
+                                                    <input type="text" name="detail_bare_land_production" class="form-control"  readonly="true" id="detail_bare_land_production" placeholder="裸地产量" ref="detail_bare_land_production">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="detail_mulch_yield_wue">地膜覆盖WUE(kg/m3)：</label>
+                                                    <input type="text" name="detail_mulch_yield_wue" class="form-control"  readonly="true" id="detail_mulch_yield_wue" placeholder="地膜覆盖WUE(kg/m3)" ref="detail_mulch_yield_wue">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="detail_mulch_wue">裸地WUE(kg/m3)：</label>
+                                                    <input type="text" name="detail_mulch_wue" class="form-control"  readonly="true" id="detail_mulch_wue" placeholder="裸地WUE(kg/m3)" ref="detail_mulch_wue">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="detail_average_daily_temperature">生育期土壤5-25cm日均增温℃：</label>
+                                                    <input type="text" name="detail_average_daily_temperature" class="form-control"  readonly="true" id="detail_average_daily_temperature" placeholder="生育期土壤5-25cm日均增温℃" ref="detail_average_daily_temperature">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="detail_article_name">文章名称：</label>
+                                                    <input type="text" name="detail_article_name" class="form-control"  readonly="true" id="detail_article_name" placeholder="文章名称" ref="detail_article_name">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="detail_author">作者：</label>
+                                                    <input type="text" name="detail_author" class="form-control"  readonly="true" id="detail_author" placeholder="作者" ref="detail_author">
+                                                </div>
+                                                
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
+                                            <button type="button" id="btn_submit" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>保存</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+
+                                <div  style="height: 460px">
+                                    <table class="table table-hover table-striped table-bordered" id="datatable" style="table-layout:fixed;word-break:break-all;//表格固定布局">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 100px;">作物类型</th>
+                                                <th style="width: 180px;">实验年份</th>
+                                                <th>区域</th>
+                                                <th>试验地点</th>
+                                                <th>文章名称</th>
+                                                <th>操作</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody v-html="agricultureDetail" id="agricultureDetail">
+                                        </tbody>
+                                    </table>
+                                     
+                                </div>
+
+                                <div id="example" style="text-align: right;padding-right: 150px;padding-top: 160px"> <ul id="pageLimit"></ul> </div>    
+                            </div>
+                            <!-- End .panel -->
+                        </div>
+                        <!-- col-lg-12 end here -->
+                    </div>
+                        <!-- col-lg-12 end here -->
+                    </div>
+                    <!-- Page End here -->
+                </div>
+
+                <!-- End .outlet -->
+            </div>
+            <!-- End .content-wrapper -->
+
+            <div class="clearfix"></div>
+        </div>
+        <!-- End #content -->
+        <!-- Javascripts -->
+        <!-- Load pace first -->
+        
+
+
+    </body>
+    <script type="text/javascript">
+        var vm = new Vue({
+            el: "#agricultureTable",
+            data: {
+                agricultureList: [],
+                agricultureAllList: [],
+                agricultureDetail: "",
+                permission: "",
+                nodeList: "",
+                deptList: "",
+                id : "",
+                selectClass : "",
+                selectDept : ""
+            },
+            methods:{
+                ceshi:function(){
+                    alert(vm.agricultureDetail)
+                },
+                printExcel:function(){
+                    console.log(vm.agricultureAllList)
+                    let param = new URLSearchParams()
+                    param.append("result" ,vm.agricultureAllList)
+                axios
+                .post("http://localhost:8085/biz/agriculture/printExcel",param)
+                .then(response => {
+                    if(response.data.code == '200'){
+                        alert("输出excel成功");
+                        location.reload();
+                    }else{
+                        alert(response.data.msg)
+                    }
+                })
+                },
+                change : function(){
+                    let param = new URLSearchParams()
+                    param.append("agroId" ,this.id)
+                    param.append("agroType" , $("#update_agro_type").val())
+                    param.append("year" , $("#update_year").val())
+                    param.append("area" , $("#update_area").val())
+
+                    param.append("testLocation" , $("#update_test_location").val())
+                    param.append("longitude" , $("#update_longitude").val())
+                    param.append("latitude" , $("#update_latitude").val())
+
+                    param.append("altitude" , $("#update_altitude").val())
+                    param.append("averageAnnualTemperature" , $("#update_average_annual_temperature").val())
+                    param.append("sunshineDuration" , $("#update_sunshine_duration").val())
+
+                    param.append("activeAccumulatedTemperature" , $("#update_active_accumulated_temperature").val())
+                    param.append("annualPrecipitation" , $("#update_annual_precipitation").val())
+                    param.append("frostFreeSeason" , $("#update_frost_free_season").val())
+
+                    param.append("soilTexture" , $("#update_soil_texture").val())
+                    param.append("soilBulkDensity" , $("#update_soil_bulk_density").val())
+                    param.append("membraneType" , $("#update_membrane_type").val())
+
+                    param.append("mulchMethod" , $("#update_mulch_method").val())
+                    param.append("numberOfReplication" , $("#update_number_of_replication").val())
+                    param.append("mulchYield" , $("#update_mulch_yield").val())
+
+                    param.append("bareLandProduction" , $("#update_bare_land_production").val())
+                    param.append("mulchWue" , $("#update_mulch_wue").val())
+                    param.append("averageDailyTemperature" , $("#update_average_daily_temperature").val())
+
+                    param.append("articleName" , $("#update_article_name").val())
+                    param.append("author" , $("#update_author").val())
+                    param.append("membraneColor" , $("#update_membrane_color").val())
+                    param.append("mulchYieldWue" , $("#update_mulch_yield_wue").val())  
+                axios
+                .post("http://localhost:8085/biz/agriculture/update",param)
+                .then(response => {
+                    if(response.data.code == '200'){
+                        alert("修改成功");
+                        location.reload();
+                    }else{
+                        alert(response.data.msg)
+                    }
+                })
+                },
+                showAdd : function(){
+                    $('#addModal').modal();
+                },
+                showAddAll : function(){
+                    $('#addAllModal').modal();
+                },
+                upload:function(){
+                let param = new URLSearchParams()
+                param.append("agroId" ,this.id)
+                    param.append("agroType" , $("#agro_type").val())
+                    param.append("year" , $("#year").val())
+                    param.append("area" , $("#area").val())
+
+                    param.append("testLocation" , $("#test_location").val())
+                    param.append("longitude" , $("#longitude").val())
+                    param.append("latitude" , $("#latitude").val())
+
+                    param.append("altitude" , $("#altitude").val())
+                    param.append("averageAnnualTemperature" , $("#average_annual_temperature").val())
+                    param.append("sunshineDuration" , $("#sunshine_duration").val())
+
+                    param.append("activeAccumulatedTemperature" , $("#active_accumulated_temperature").val())
+                    param.append("annualPrecipitation" , $("#annual_precipitation").val())
+                    param.append("frostFreeSeason" , $("#frost_free_season").val())
+
+                    param.append("soilTexture" , $("#soil_texture").val())
+                    param.append("soilBulkDensity" , $("#soil_bulk_density").val())
+                    param.append("membraneType" , $("#membrane_type").val())
+
+                    param.append("mulchMethod" , $("#mulch_method").val())
+                    param.append("numberOfReplication" , $("#number_of_replication").val())
+                    param.append("mulchYield" , $("#mulch_yield").val())
+
+                    param.append("bareLandProduction" , $("#bare_land_production").val())
+                    param.append("mulchWue" , $("#mulch_wue").val())
+                    param.append("averageDailyTemperature" , $("#average_daily_temperature").val())
+
+                    param.append("articleName" , $("#article_name").val())
+                    param.append("author" , $("#author").val())
+                    param.append("membraneColor" , $("#membrane_color").val())
+                    param.append("mulchYieldWue" , $("#mulch_yield_wue").val())
+
+                    axios
+                    .post("http://localhost:8085/biz/agriculture/insert",param
+                    )
+                    .then(response => {
+                        if(response.data.code == '200'){
+                            alert("添加成功")
+                            location.reload();
+                        }else if(response.data.code == '400'){
+                            alert(response.data.msg)
+                        }
+                    })
+                }
+            },
+            
+            mounted(){
+                axios
+                .get('http://localhost:8085/biz/agriculture/queryByPage',{
+                    params: {
+                        "page" : 1,
+                        "count" : 10
+                    }
+                })
+                .then(response => {
+                    window.total = response.data.data.pages
+                    for(var i = 0;i < response.data.data.records.length;i++) {
+
+                        vm.agricultureList.push(response.data.data.records[i]),
+                        vm.agricultureDetail += '<tr class="gradeA" ><td>'+this.agricultureList[i].agroType+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+this.agricultureList[i].year+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+this.agricultureList[i].area+"..."+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+this.agricultureList[i].testLocation+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+this.agricultureList[i].articleName+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px"><button class="btn btn-info detail" id='+i+'>详情</button>  <button class="btn btn-warning update" id='+i+'>修改</button>   <button class="btn btn-danger delete" id='+i+'>删除</button></td></tr>';
+                    }
+                    //给修改按钮添加事件
+                    this.$nextTick().then(() => {
+                          $('.update').on('click',function(){
+                            vm.id = vm.agricultureList[$(this).attr("id")].agroId;
+                            $("#myModalLabel").text("修改");
+                            $("#update_agro_type").val(vm.agricultureList[$(this).attr("id")].agroType);
+                            $("#update_year").val(vm.agricultureList[$(this).attr("id")].year);
+                            $("#update_area").val(vm.agricultureList[$(this).attr("id")].area);
+                            $("#update_test_location").val(vm.agricultureList[$(this).attr("id")].testLocation);
+
+                            $("#update_longitude").val(vm.agricultureList[$(this).attr("id")].longitude);
+                            $("#update_latitude").val(vm.agricultureList[$(this).attr("id")].latitude);
+                            $("#update_altitude").val(vm.agricultureList[$(this).attr("id")].altitude);
+                            $("#update_average_annual_temperature").val(vm.agricultureList[$(this).attr("id")].averageAnnualTemperature);
+
+                            $("#update_sunshine_duration").val(vm.agricultureList[$(this).attr("id")].sunshineDuration);
+                            $("#update_active_accumulated_temperature").val(vm.agricultureList[$(this).attr("id")].activeAccumulatedTemperature);
+                            $("#update_annual_precipitation").val(vm.agricultureList[$(this).attr("id")].annualPrecipitation);
+                            $("#update_frost_free_season").val(vm.agricultureList[$(this).attr("id")].frostFreeSeason);
+
+                            $("#update_soil_texture").val(vm.agricultureList[$(this).attr("id")].soilTexture);
+                            $("#update_soil_bulk_density").val(vm.agricultureList[$(this).attr("id")].soilBulkDensity);
+                            $("#update_membrane_type").val(vm.agricultureList[$(this).attr("id")].membraneType);
+                            $("#update_mulch_method").val(vm.agricultureList[$(this).attr("id")].mulchMethod);
+
+                            $("#update_number_of_replication").val(vm.agricultureList[$(this).attr("id")].numberOfReplication);
+                            $("#update_mulch_yield").val(vm.agricultureList[$(this).attr("id")].mulchYield);
+                            $("#update_bare_land_production").val(vm.agricultureList[$(this).attr("id")].bareLandProduction);
+                            $("#update_mulch_wue").val(vm.agricultureList[$(this).attr("id")].mulchWue);
+
+                            $("#update_average_daily_temperature").val(vm.agricultureList[$(this).attr("id")].averageDailyTemperature);
+                            $("#update_article_name").val(vm.agricultureList[$(this).attr("id")].articleName);
+                            $("#update_author").val(vm.agricultureList[$(this).attr("id")].author);
+                            $("#update_membrane_color").val(vm.agricultureList[$(this).attr("id")].membraneColor);
+
+                            $("#update_mulch_yield_wue").val(vm.agricultureList[$(this).attr("id")].mulchYieldWue);
+                            $('#myModal').modal();
+                            
+                         })
+
+                    })
+
+                    //给详情按钮添加事件
+                    this.$nextTick().then(() => {
+                          $('.detail').on('click',function(){
+                            vm.id = vm.agricultureList[$(this).attr("id")].agroId;
+                            $("#detailModalLabel").text("详情");
+                            $("#detail_agro_type").val(vm.agricultureList[$(this).attr("id")].agroType);
+                            $("#detail_year").val(vm.agricultureList[$(this).attr("id")].year);
+                            $("#detail_area").val(vm.agricultureList[$(this).attr("id")].area);
+                            $("#detail_test_location").val(vm.agricultureList[$(this).attr("id")].testLocation);
+
+                            $("#detail_longitude").val(vm.agricultureList[$(this).attr("id")].longitude);
+                            $("#detail_latitude").val(vm.agricultureList[$(this).attr("id")].latitude);
+                            $("#detail_altitude").val(vm.agricultureList[$(this).attr("id")].altitude);
+                            $("#detail_average_annual_temperature").val(vm.agricultureList[$(this).attr("id")].averageAnnualTemperature);
+
+                            $("#detail_sunshine_duration").val(vm.agricultureList[$(this).attr("id")].sunshineDuration);
+                            $("#detail_active_accumulated_temperature").val(vm.agricultureList[$(this).attr("id")].activeAccumulatedTemperature);
+                            $("#detail_annual_precipitation").val(vm.agricultureList[$(this).attr("id")].annualPrecipitation);
+                            $("#detail_frost_free_season").val(vm.agricultureList[$(this).attr("id")].frostFreeSeason);
+
+                            $("#detail_soil_texture").val(vm.agricultureList[$(this).attr("id")].soilTexture);
+                            $("#detail_soil_bulk_density").val(vm.agricultureList[$(this).attr("id")].soilBulkDensity);
+                            $("#detail_membrane_type").val(vm.agricultureList[$(this).attr("id")].membraneType);
+                            $("#detail_mulch_method").val(vm.agricultureList[$(this).attr("id")].mulchMethod);
+
+                            $("#detail_number_of_replication").val(vm.agricultureList[$(this).attr("id")].numberOfReplication);
+                            $("#detail_mulch_yield").val(vm.agricultureList[$(this).attr("id")].mulchYield);
+                            $("#detail_bare_land_production").val(vm.agricultureList[$(this).attr("id")].bareLandProduction);
+                            $("#detail_mulch_wue").val(vm.agricultureList[$(this).attr("id")].mulchWue);
+
+                            $("#detail_average_daily_temperature").val(vm.agricultureList[$(this).attr("id")].averageDailyTemperature);
+                            $("#detail_article_name").val(vm.agricultureList[$(this).attr("id")].articleName);
+                            $("#detail_author").val(vm.agricultureList[$(this).attr("id")].author);
+                            $("#detail_membrane_color").val(vm.agricultureList[$(this).attr("id")].membraneColor);
+
+                            $("#detail_mulch_yield_wue").val(vm.agricultureList[$(this).attr("id")].mulchYieldWue);
+
+
+                            $('#detailModal').modal();
+                         })
+
+                    })
+
+                    //给删除按钮添加事件
+                    this.$nextTick().then(() => {
+                          $('.delete').on('click',function(){
+                            axios
+                                .get("http://localhost:8085/biz/agriculture/delete",{
+                                    params : {
+                                        "agroId" :  vm.agricultureList[$(this).attr("id")].agroId
+                                    }
+                                })
+                                .then(response => {
+                                    if(response.data.code == '200'){
+                                        alert("删除成功");
+                                        location.reload();
+                                    }else{
+                                        alert(response.data.msg)
+                                    }
+                                })
+                         })
+
+                    })
+
+                    $('#pageLimit').bootstrapPaginator({
+                         currentPage: 1,//当前的请求页面。
+                         totalPages: window.total,//一共多少页。
+                         size:"normal",//应该是页眉的大小。
+                         bootstrapMajorVersion: 3,//bootstrap的版本要求。
+                         alignment:"right",
+                         itemTexts: function (type, page, current) {//如下的代码是将页眉显示的中文显示我们自定义的中文。
+                             switch (type) {
+                             case "first": return "首页";
+                             case "prev": return "上一页";
+                             case "next": return "下一页";
+                             case "last": return "末页";
+                             case "page": return page;
+                             }
+                         },
+                         
+                         onPageClicked: function (event, originalEvent, type, page){//给每个页眉绑定一个事件，其实就是ajax请求，其中page变量为当前点击的页上的数字。
+                                 $.ajax({
+                                     url:'http://localhost:8085/biz/agriculture/queryByPage',
+                                     type:'POST',
+                                     data:{'page':page,'count':10},
+                                     dataType:'JSON',
+                                     success:function (callback) {
+                                            $('#agricultureDetail').empty();
+                                            vm.agricultureDetail = "";
+                                            vm.agricultureList = [];
+                                            for(var i = 0;i < callback.data.records.length;i++) {
+                                                vm.agricultureList.push(callback.data.records[i]);
+                                                vm.agricultureDetail += '<tr class="gradeA" ><td>'+callback.data.records[i].agroType+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+callback.data.records[i].year+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+callback.data.records[i].area+"..."+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+callback.data.records[i].testLocation+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+callback.data.records[i].articleName+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px"><button class="btn btn-info detail" id='+i+'>详情</button>  <button class="btn btn-warning update" id='+i+'>修改</button>   <button class="btn btn-danger delete" id='+i+'>删除</button></td></tr>';
+                                            }
+
+                                            $('#agricultureDetail').html(vm.agricultureDetail)
+
+                                            //给分页返回的修改按钮添加事件
+                                            vm.$nextTick().then(() => {
+                                                  $('.update').on('click',function(){
+                                                    vm.id = vm.agricultureList[$(this).attr("id")].agroId;
+                                                    $("#myModalLabel").text("修改");
+                                                    $("#update_agro_type").val(vm.agricultureList[$(this).attr("id")].agroType);
+                                                    $("#update_year").val(vm.agricultureList[$(this).attr("id")].year);
+                                                    $("#update_area").val(vm.agricultureList[$(this).attr("id")].area);
+                                                    $("#update_test_location").val(vm.agricultureList[$(this).attr("id")].testLocation);
+
+                                                    $("#update_longitude").val(vm.agricultureList[$(this).attr("id")].longitude);
+                                                    $("#update_latitude").val(vm.agricultureList[$(this).attr("id")].latitude);
+                                                    $("#update_altitude").val(vm.agricultureList[$(this).attr("id")].altitude);
+                                                    $("#update_average_annual_temperature").val(vm.agricultureList[$(this).attr("id")].averageAnnualTemperature);
+
+                                                    $("#update_sunshine_duration").val(vm.agricultureList[$(this).attr("id")].sunshineDuration);
+                                                    $("#update_active_accumulated_temperature").val(vm.agricultureList[$(this).attr("id")].activeAccumulatedTemperature);
+                                                    $("#update_annual_precipitation").val(vm.agricultureList[$(this).attr("id")].annualPrecipitation);
+                                                    $("#update_frost_free_season").val(vm.agricultureList[$(this).attr("id")].frostFreeSeason);
+
+                                                    $("#update_soil_texture").val(vm.agricultureList[$(this).attr("id")].soilTexture);
+                                                    $("#update_soil_bulk_density").val(vm.agricultureList[$(this).attr("id")].soilBulkDensity);
+                                                    $("#update_membrane_type").val(vm.agricultureList[$(this).attr("id")].membraneType);
+                                                    $("#update_mulch_method").val(vm.agricultureList[$(this).attr("id")].mulchMethod);
+
+                                                    $("#update_number_of_replication").val(vm.agricultureList[$(this).attr("id")].numberOfReplication);
+                                                    $("#update_mulch_yield").val(vm.agricultureList[$(this).attr("id")].mulchYield);
+                                                    $("#update_bare_land_production").val(vm.agricultureList[$(this).attr("id")].bareLandProduction);
+                                                    $("#update_mulch_wue").val(vm.agricultureList[$(this).attr("id")].mulchWue);
+
+                                                    $("#update_average_daily_temperature").val(vm.agricultureList[$(this).attr("id")].averageDailyTemperature);
+                                                    $("#update_article_name").val(vm.agricultureList[$(this).attr("id")].articleName);
+                                                    $("#update_author").val(vm.agricultureList[$(this).attr("id")].author);
+                                                    $("#update_membrane_color").val(vm.agricultureList[$(this).attr("id")].membraneColor);
+
+                                                    $("#update_mulch_yield_wue").val(vm.agricultureList[$(this).attr("id")].mulchYieldWue);
+                                                    $('#myModal').modal();
+                                                                           
+                                                 })
+
+                                            })
+
+
+                                            //给分页返回的详情按钮添加事件
+                                            vm.$nextTick().then(() => {
+                                                  $('.detail').on('click',function(){
+                                                    vm.id = vm.agricultureList[$(this).attr("id")].agroId;
+                                                    $("#detailModalLabel").text("详情");
+                                                    $("#detail_agro_type").val(vm.agricultureList[$(this).attr("id")].agroType);
+                                                    $("#detail_year").val(vm.agricultureList[$(this).attr("id")].year);
+                                                    $("#detail_area").val(vm.agricultureList[$(this).attr("id")].area);
+                                                    $("#detail_test_location").val(vm.agricultureList[$(this).attr("id")].testLocation);
+
+                                                    $("#detail_longitude").val(vm.agricultureList[$(this).attr("id")].longitude);
+                                                    $("#detail_latitude").val(vm.agricultureList[$(this).attr("id")].latitude);
+                                                    $("#detail_altitude").val(vm.agricultureList[$(this).attr("id")].altitude);
+                                                    $("#detail_average_annual_temperature").val(vm.agricultureList[$(this).attr("id")].averageAnnualTemperature);
+
+                                                    $("#detail_sunshine_duration").val(vm.agricultureList[$(this).attr("id")].sunshineDuration);
+                                                    $("#detail_active_accumulated_temperature").val(vm.agricultureList[$(this).attr("id")].activeAccumulatedTemperature);
+                                                    $("#detail_annual_precipitation").val(vm.agricultureList[$(this).attr("id")].annualPrecipitation);
+                                                    $("#detail_frost_free_season").val(vm.agricultureList[$(this).attr("id")].frostFreeSeason);
+
+                                                    $("#detail_soil_texture").val(vm.agricultureList[$(this).attr("id")].soilTexture);
+                                                    $("#detail_soil_bulk_density").val(vm.agricultureList[$(this).attr("id")].soilBulkDensity);
+                                                    $("#detail_membrane_type").val(vm.agricultureList[$(this).attr("id")].membraneType);
+                                                    $("#detail_mulch_method").val(vm.agricultureList[$(this).attr("id")].mulchMethod);
+
+                                                    $("#detail_number_of_replication").val(vm.agricultureList[$(this).attr("id")].numberOfReplication);
+                                                    $("#detail_mulch_yield").val(vm.agricultureList[$(this).attr("id")].mulchYield);
+                                                    $("#detail_bare_land_production").val(vm.agricultureList[$(this).attr("id")].bareLandProduction);
+                                                    $("#detail_mulch_wue").val(vm.agricultureList[$(this).attr("id")].mulchWue);
+
+                                                    $("#detail_average_daily_temperature").val(vm.agricultureList[$(this).attr("id")].averageDailyTemperature);
+                                                    $("#detail_article_name").val(vm.agricultureList[$(this).attr("id")].articleName);
+                                                    $("#detail_author").val(vm.agricultureList[$(this).attr("id")].author);
+                                                    $("#detail_membrane_color").val(vm.agricultureList[$(this).attr("id")].membraneColor);
+
+                                                    $("#detail_mulch_yield_wue").val(vm.agricultureList[$(this).attr("id")].mulchYieldWue);
+
+
+                                                    $('#detailModal').modal();
+                                                 })
+
+                                            })
+
+                                            //给分页返回的删除按钮添加事件
+                                            vm.$nextTick().then(() => {
+                                                  $('.delete').on('click',function(){
+                                                        axios
+                                                            .get("http://localhost:8085/biz/agriculture/delete",{
+                                                                params : {
+                                                                    "agroId" :  vm.agricultureList[$(this).attr("id")].agroId
+                                                                }
+                                                            })
+                                                            .then(response => {
+                                                                if(response.data.code == '200'){
+                                                                    alert("删除成功");
+                                                                    location.reload();
+                                                                }else{
+                                                                    alert(response.data.msg)
+                                                                }
+                                                            })
+                                                     })
+
+                                            })
+                                         }
+                                 })
+
+
+                             }
+
+
+
+                     });
+
+
+
+
+                }
+                    
+                    )
+                .catch(function (error){
+                })
+               axios
+                    .get("http://127.0.0.1:8085/biz/agriculture/queryAll")
+                    .then(response => {
+                        vm.agricultureAllList = response.data.data
+                    })
+            }
+        })
+    </script>
+
+    <script type="text/javascript">
+    $('#testfile').fileinput({
+       language: 'zh',
+       uploadUrl: 'http://127.0.0.1:8085/biz/agriculture/upload',
+       showCaption: true,
+       showUpload: true,
+       showRemove: true,
+       showClose: true,
+       // layoutTemplates:{
+       //     actionDelete: ''
+       // },
+       browseClass: 'btn btn-primary'
+   });
+   
+</script>
+</html>

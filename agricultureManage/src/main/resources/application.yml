@@ -1,0 +1,24 @@
+server:
+  port: 8085
+spring:
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url : jdbc:mysql://127.0.0.1:3306/agriculturemanage?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=Asia/Shanghai
+    username: root
+    password:
+
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+#mybatis-plus
+mybatis-plus:
+  mapper-locations: classpath:mappers/*.xml
+  type-aliases-package: com.agriculture.manage.biz.entity
+  global-config:
+    id-type: 2
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+logging:
+  config: G:\IdeaWorkSpace\agricultureManage\src\main\resources\logback.xml
+  path: /workspace/news/log

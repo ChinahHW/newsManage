@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Login</title>
+        <!-- Mobile specific metas -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <!-- Force IE9 to render in normal mode -->
+        <!--[if IE]><meta http-equiv="x-ua-compatible" content="IE=9" /><![endif]-->
+        <meta name="author" content="SuggeElson" />
+        <meta name="description" content=""
+        />
+        <meta name="keywords" content=""
+        />
+        <meta name="application-name" content="sprFlat admin template" />
+        <!-- Import google fonts - Heading first/ text second -->
+        <link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Open+Sans:400,700|Droid+Sans:400,700' />
+        <!--[if lt IE 9]>
+<link href="http://fonts.googleapis.com/css?family=Open+Sans:400" rel="stylesheet" type="text/css" />
+<link href="http://fonts.googleapis.com/css?family=Open+Sans:700" rel="stylesheet" type="text/css" />
+<link href="http://fonts.googleapis.com/css?family=Droid+Sans:400" rel="stylesheet" type="text/css" />
+<link href="http://fonts.googleapis.com/css?family=Droid+Sans:700" rel="stylesheet" type="text/css" />
+<![endif]-->
+        <!-- Css files -->
+        <!-- Icons -->
+        <link href="assets/css/icons.css" rel="stylesheet" />
+        <!-- jQueryUI -->
+        <link href="assets/css/sprflat-theme/jquery.ui.all.css" rel="stylesheet" />
+        <!-- Bootstrap stylesheets (included template modifications) -->
+        <link href="assets/css/bootstrap.css" rel="stylesheet" />
+        <!-- Plugins stylesheets (all plugin custom css) -->
+        <link href="assets/css/plugins.css" rel="stylesheet" />
+        <!-- Main stylesheets (template main css file) -->
+        <link href="assets/css/main.css" rel="stylesheet" />
+        <!-- Custom stylesheets ( Put your own changes here ) -->
+        <link href="assets/css/custom.css" rel="stylesheet" />
+        <!-- Fav and touch icons -->
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/img/ico/apple-touch-icon-144-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/img/ico/apple-touch-icon-114-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/img/ico/apple-touch-icon-72-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" href="assets/img/ico/apple-touch-icon-57-precomposed.png">
+        <link rel="icon" href="assets/img/ico/favicon.ico" type="image/png">
+
+        <link rel="stylesheet" href="treeMenu/css/bootstrap-treeview.min.css" />
+        <script type="text/javascript" src="treeMenu/js/bootstrap-treeview.min.js" ></script>
+
+        <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+<script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+        <!-- Windows8 touch icon ( http://www.buildmypinnedsite.com/ )-->
+        <meta name="msapplication-TileColor" content="#3399cc" />
+    </head>
+    <body class="login-page">
+        <ul id='one'>
+    <li id='prent1'>
+        <a class='' data-toggle='collapse' data-percent='prent1' href='#prent1_child'><span class="glyphicon glyphicon-home"style="margin-right: 10px;"></span>这是一个神奇的地方</a>
+        <ul class='collapse' id='prent1_child'>
+            <li data-toggle='collapse' data-percent='prent2_1' href='#prent2_1_child'>
+                <span class="glyphicon glyphicon-user " style="margin-right: 10px;margin-left: 10px;"></span> 一号
+            </li>
+            <ul class='collapse' id='prent2_1_child'>
+                <li  data-toggle='collapse' data-percent='prent2_1_child' href='#prent2_1_1_child'><span class="glyphicon glyphicon-user "></span>一号-->1</li>
+                <ul class='collapse' id='prent2_1_1_child'>
+                    <li><span class="glyphicon glyphicon-user "></span>一号-->1_1_1</li>
+                    <li><span class="glyphicon glyphicon-user "></span>一号-->1_1_2</li>
+                </ul>
+                <li  data-toggle='collapse' data-percent='prent2_1_child' href='#prent2_1_2_child'><span class="glyphicon glyphicon-user "></span>一号-->2</li>
+                <ul class='collapse' id='prent2_1_2_child'>
+                    <li><span class="glyphicon glyphicon-user "></span>一号-->1_2_1</li>
+                    <li><span class="glyphicon glyphicon-user "></span>一号-->1_2_2</li>
+                </ul>
+
+                <li data-toggle='collapse' data-percent='prent2_1_child' href='#prent2_1_3_child'><span class="glyphicon glyphicon-user "></span>一号-->3</li>
+                <ul class='collapse' id='prent2_1_3_child'>
+                    <li><span class="glyphicon glyphicon-user "></span>一号-->1_3_1</li>
+                    <li><span class="glyphicon glyphicon-user "></span>一号-->1_3_2</li>
+                </ul>
+            </ul>
+
+            <li data-toggle='collapse' data-percent='prent2_2' href='#prent2_2_child'>
+                <span class="glyphicon glyphicon-user "></span>二号
+            </li>
+            <ul class='collapse' id='prent2_2_child'>
+                <li data-toggle='collapse' data-percent='prent2_2_child' href='#prent2_2_1_child'>二号-->1</li>
+                <ul class='collapse' id='prent2_2_1_child'>
+                    <li><span class="glyphicon glyphicon-user "></span>二号-->2_1_1</li>
+                    <li><span class="glyphicon glyphicon-user "></span>二号-->2_1_2</li>
+                </ul>
+                <li data-toggle='collapse' data-percent='prent2_2_child' href='#prent2_2_2_child'><span class="glyphicon glyphicon-user "></span>二号-->2</li>
+                <ul class='collapse' id='prent2_2_2_child'>
+                    <li><span class="glyphicon glyphicon-user "></span>二号-->2_2_1</li>
+                    <li><span class="glyphicon glyphicon-user "></span>二号-->2_2_2</li>
+                </ul>
+                <li data-toggle='collapse' data-percent='prent2_2_child' href='#prent2_2_3_child'><span class="glyphicon glyphicon-user "></span>二号-->3</li>
+                <ul class='collapse' id='prent2_2_3_child'>
+                    <li><span class="glyphicon glyphicon-user "></span>二号-->2_3_1</li>
+                    <li><span class="glyphicon glyphicon-user "></span>二号-->2_3_2</li>
+                </ul>
+            </ul>
+
+            <li data-toggle='collapse' data-percent='prent2_3' href='#prent2_3_child'>
+                <span class="glyphicon glyphicon-user "></span>三号
+            </li>
+            <ul class='collapse' id='prent2_3_child'>
+                <li data-toggle='collapse' data-percent='prent2_3_child' href='#prent2_3_1_child'><span class="glyphicon glyphicon-user "></span>三号-->1</li>
+                <ul class='collapse' id='prent2_3_1_child'>
+                    <li><span class="glyphicon glyphicon-user "></span>三号-->3_1_1</li>
+                    <li><span class="glyphicon glyphicon-user "></span>三号-->3_1_2</li>
+                </ul>
+                <li data-toggle='collapse' data-percent='prent2_3_child' href='#prent2_3_2_child'><span class="glyphicon glyphicon-user "></span>三号-->2</li>
+                <ul class='collapse' id='prent2_3_2_child'>
+                    <li><span class="glyphicon glyphicon-user "></span>三号-->3_2_1</li>
+                    <li><span class="glyphicon glyphicon-user "></span>三号-->3_2_2</li>
+                </ul>
+                <li data-toggle='collapse' data-percent='prent2_3_child' href='#prent2_3_3_child'><span class="glyphicon glyphicon-user "></span>三号-->3</li>
+                <ul class='collapse' id='prent2_3_3_child'>
+                    <li><span class="glyphicon glyphicon-user "></span>三号-->3_3_1</li>
+                    <li><span class="glyphicon glyphicon-user "></span>三号-->3_3_2</li>
+                </ul>
+            </ul>
+        </ul>
+    </li>
+</ul>
+        <!-- End #login -->
+        <!-- Javascripts -->
+        <!-- Load pace first -->
+        <script src="assets/plugins/core/pace/pace.min.js"></script>
+        <!-- Important javascript libs(put in all pages) -->
+        <script src="assets/js/jquery-1.8.3.min.js"></script>
+        <script>
+        window.jQuery || document.write('<script src="assets/js/libs/jquery-2.1.1.min.js">\x3C/script>')
+        </script>
+        <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+        <script>
+        window.jQuery || document.write('<script src="assets/js/libs/jquery-ui-1.10.4.min.js">\x3C/script>')
+        </script>
+        <!--[if lt IE 9]>
+  <script type="text/javascript" src="assets/js/libs/excanvas.min.js"></script>
+  <script type="text/javascript" src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <script type="text/javascript" src="assets/js/libs/respond.min.js"></script>
+<![endif]-->
+        <!-- Bootstrap plugins -->
+        <script src="assets/js/bootstrap/bootstrap.js"></script>
+        <!-- Form plugins -->
+        <script src="assets/plugins/forms/icheck/jquery.icheck.js"></script>
+        <script src="assets/plugins/forms/validation/jquery.validate.js"></script>
+        <script src="assets/plugins/forms/validation/additional-methods.min.js"></script>
+        <!-- Init plugins olny for this page -->
+        <script src="assets/js/pages/login.js"></script>
+
+        <script type="text/javascript">
+            
+    var newsUpload_vue = new Vue({
+        el: "#loginDiv",
+        data: {
+            permission: []
+        },
+        methods: {
+            login:function(){
+                let param = new URLSearchParams()
+            param.append('userName', this.$refs.userName.value)
+            param.append('password', this.$refs.password.value)
+                axios
+                .post('http://localhost:8085/biz/user/login',param)
+                .then(response => {
+                    if(response.data.code == '200'){
+                        sessionStorage.setItem("permission",response.data.data.permission)
+                        sessionStorage.setItem("userName",response.data.data.userName)
+                        window.location.href="index.html"
+                    }else if(response.data.code == '400'){
+                        alert(response.data.msg)
+                    }
+                    
+                })
+            }
+        }
+
+    })
+</script>
+    </body>
+</html>

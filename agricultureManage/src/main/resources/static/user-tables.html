@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Tables</title>
+        <!-- Mobile specific metas -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <!-- Force IE9 to render in normal mode -->
+        <!--[if IE]><meta http-equiv="x-ua-compatible" content="IE=9" /><![endif]-->
+        <meta name="author" content="SuggeElson" />
+        <meta name="description" content=""
+        />
+        <meta name="keywords" content=""
+        />
+        <meta name="application-name" content="sprFlat admin template" />
+        <!-- Import google fonts - Heading first/ text second -->
+        <link rel='stylesheet' type='text/css' />
+        <!--[if lt IE 9]>
+<link href="http://fonts.googleapis.com/css?family=Open+Sans:400" rel="stylesheet" type="text/css" />
+<link href="http://fonts.googleapis.com/css?family=Open+Sans:700" rel="stylesheet" type="text/css" />
+<link href="http://fonts.googleapis.com/css?family=Droid+Sans:400" rel="stylesheet" type="text/css" />
+<link href="http://fonts.googleapis.com/css?family=Droid+Sans:700" rel="stylesheet" type="text/css" />
+<![endif]-->
+        <!-- Css files -->
+        <!-- Icons -->
+        <link href="assets/css/icons.css" rel="stylesheet" />
+        <!-- jQueryUI -->
+        <link href="assets/css/sprflat-theme/jquery.ui.all.css" rel="stylesheet" />
+        <!-- Bootstrap stylesheets (included template modifications) -->
+        <!-- <link href="assets/css/bootstrap.css" rel="stylesheet" /> -->
+        <!-- Plugins stylesheets (all plugin custom css) -->
+        <link href="assets/css/plugins.css" rel="stylesheet" />
+        <!-- Main stylesheets (template main css file) -->
+        <link href="assets/css/main.css" rel="stylesheet" />
+        <!-- Custom stylesheets ( Put your own changes here ) -->
+        <link href="assets/css/custom.css" rel="stylesheet" />
+        <!-- Fav and touch icons -->
+
+
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/img/ico/apple-touch-icon-144-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/img/ico/apple-touch-icon-114-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/img/ico/apple-touch-icon-72-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" href="assets/img/ico/apple-touch-icon-57-precomposed.png">
+        <link rel="icon" href="assets/img/ico/favicon.ico" type="image/png">
+        <link href="http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+        <link href="bootstrap_select/css/bootstrap-select.min.css" rel="stylesheet" />
+        
+
+        
+
+            <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+            <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+            <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+
+            <script src="ckeditor/ckeditor.js"></script>
+
+            <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+            <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+            <script type="text/javascript" src="assets/js/bootstrap-paginator.js"></script>
+            <script src="ckeditor/ckeditor.js"></script>
+
+        <script type="text/javascript" src="bootstrap_select/js/bootstrap-select.js"></script>
+
+        <!-- Windows8 touch icon ( http://www.buildmypinnedsite.com/ )-->
+        <meta name="msapplication-TileColor" content="#3399cc" />
+        <style type="text/css">
+            .modal {padding-top: 25px}
+            .table th{
+                text-align: center;
+                font-size: 15px
+            }
+        </style>
+        
+    </head>
+    <body>
+        <!-- Start #header -->
+        <div id="header" id="showUser">
+            <div class="container-fluid">
+                <div class="navbar">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="index.html">
+                            <i class="im-windows8 text-logo-element animated bounceIn"></i><span class="text-logo">spr</span><span class="text-slogan">flat</span> 
+                        </a>
+                    </div>
+                    <nav class="top-nav" role="navigation">
+                        <ul class="nav navbar-nav pull-right">
+                           
+                            
+                            <li class="dropdown">
+                                <a href="#" data-toggle="dropdown" v-html="userName">
+                                    </a>
+                                <ul class="dropdown-menu right" role="menu">
+                                    <li><a href="profile.html"><i class="st-user"></i> Profile</a>
+                                    </li>
+                                    <li><a href="file.html"><i class="st-cloud"></i> Files</a>
+                                    </li>
+                                    <li><a href="#"><i class="st-settings"></i> Settings</a>
+                                    </li>
+                                    <li><a href="login.html"><i class="im-exit"></i> Logout</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li id="toggle-right-sidebar-li"><a href="#" id="toggle-right-sidebar"><i class="ec-cog"></i></a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <!-- Start #header-area -->
+                
+                <!-- End #header-area -->
+            </div>
+            <!-- Start .header-inner -->
+        </div>
+        <!-- End #header -->
+        
+        <!-- End #sidebar -->
+        <!-- Start #right-sidebar -->
+        <div id="right-sidebar" class="hide-sidebar">
+            <!-- Start .sidebar-inner -->
+            <div class="sidebar-inner">
+                <div class="sidebar-panel mt0">
+                    <div class="sidebar-panel-content fullwidth pt0">
+                        <div class="chat-user-list">
+                            <form class="form-horizontal chat-search" role="form">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Search for user...">
+                                    <button type="submit"><i class="ec-search s16"></i>
+                                    </button>
+                                </div>
+                                <!-- End .form-group  -->
+                            </form>
+                            
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <!-- End .sidebar-inner -->
+        </div>
+        <!-- End #right-sidebar -->
+        <!-- Start #content -->
+        <div id="content">
+            <!-- Start .content-wrapper -->
+            <div class="content-wrapper">
+                <div class="col-lg-12 heading">
+                        <h1 class="page-header"><i class="ec-users"></i> 用户管理列表</h1>
+                    <!-- End .page-header -->
+                </div>
+                <!-- End .row -->
+                <div class="outlet"  id="userTable">
+                    <!-- Start .outlet -->
+                    <!-- Page start here ( usual with .row ) -->
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <!-- col-lg-12 start here -->
+                            <div class="panel plain toggle panelClose panelRefresh">
+                                <!-- Start .panel -->
+                                <div class="panel-heading white-bg">
+                                    <button class="btn btn-primary" v-on:click="showAdd">新增用户</button>
+                                </div>
+
+
+                                <!-- 添加的遮盖层 -->
+                                <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" style="padding-top: 25px">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title" id="addModalLabel">新增</h4>
+                                        </div>
+
+                                        <div class="modal-body">
+                                            <div id="testCkeditor">
+
+                                                <div class="form-group">
+                                                    <label for="user_name">用户名称：</label>
+                                                    <input type="text" name="user_name" class="form-control" id="user_name" placeholder="用户名称" ref="user_name">
+                                                </div>
+                                                
+                                                <div class="form-group">
+                                                    <label for="password">用户密码：</label>
+                                                    <input type="password" name="password" class="form-control" id="password" placeholder="用户密码" ref="password">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="note">备注：</label>
+                                                    <input type="text" name="note" class="form-control" id="note" placeholder="备注信息" ref="note">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="update_parent_name">用户角色:</label>
+                                                    <select class="selectpicker" id="add_allNode" multiple v-html="nodeList"></select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
+                                            <button type="button" id="btn_submit" class="btn btn-primary" data-dismiss="modal" v-on:click="upload"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>保存</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>        
+
+
+
+
+
+                        <!-- 修改的遮盖层 -->
+                                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title" id="myModalLabel">修改</h4>
+                                        </div>
+                                        <div class="modal-body">
+
+                                            <div class="form-group">
+                                                    <label for="update_user_name">用户名称：</label>
+                                                    <input type="text" name="role_name" class="form-control" id="update_user_name" placeholder="用户名称" ref="update_user_name">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="update_password">用户密码：</label>
+                                                    <input type="text" name="update_password" class="form-control" id="update_password" placeholder="用户密码" ref="update_password">
+                                                </div>
+                                                
+                                                
+                                                <div class="form-group">
+                                                    <label for="update_role_name">用户角色:</label>
+                                                    <input type="text" name="news_class" class="form-control" id="user_roles"  readonly="true" v-model="selectClass" placeholder="该用户暂无角色"><br>
+                                                    <label for="update_parent_name">用户角色赋予:</label>
+                                                    <select class="selectpicker" id="update_allNode" multiple v-html="nodeList"></select>
+                                                </div>
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
+                                            <button type="button" id="btn_submit" class="btn btn-primary" data-dismiss="modal" v-on:click="change"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>保存</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+                                <!-- 详情的遮盖层 -->
+                                <div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title" id="detailModalLabel">详情</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                    <label for="detail_user_id">用户编号：</label>
+                                                    <input type="text" name="detail_user_id" class="form-control" readonly="true" id="detail_user_id" placeholder="用户名称" ref="detail_user_id">
+                                                </div>
+                                            <div class="form-group">
+                                                    <label for="detail_user_name">用户名称：</label>
+                                                    <input type="text" name="detail_user_name" class="form-control" readonly="true" id="detail_user_name" placeholder="用户名称" ref="detail_user_name">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="detail_create_time">用户创建时间：</label>
+                                                    <input type="text" name="detail_create_time" class="form-control"  readonly="true" id="detail_create_time" placeholder="用户创建时间" ref="detail_create_time">
+                                                </div>
+                                                
+
+                                                <div class="form-group">
+                                                    <label for="update_parent_name">用户对应角色:</label>
+                                                    <input type="text" name="news_class" class="form-control" id="news_class"  readonly="true" v-model="selectClass" placeholder="该用户暂无角色">
+                                                    <br/>
+                                              
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
+                                            <button type="button" id="btn_submit" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>保存</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div style="height: 500px">
+                                    <table class="table table-hover table-striped table-bordered" id="datatable"  style="table-layout:fixed;word-break:break-all;//表格固定布局">
+                                        <thead>
+                                            <tr>
+                                                <th>用户编号</th>
+                                                <th>用户名</th>
+                                                <th>创建时间</th>
+                                                <th>操作</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody v-html="userDetail" id="userDetail">
+                                            
+                                        </tbody>
+                                    </table>
+                                    
+                                </div>
+                                <div id="example" style="text-align: right;padding-right: 150px;padding-top: 100px"> <ul id="pageLimit"></ul> </div>
+                            </div>
+                            <!-- End .panel -->
+                        </div>
+                        <!-- col-lg-12 end here -->
+                    </div>
+                        <!-- col-lg-12 end here -->
+                    </div>
+                    <!-- Page End here -->
+                </div>
+                <!-- End .outlet -->
+            </div>
+            <!-- End .content-wrapper -->
+            <div class="clearfix"></div>
+        </div>
+
+        
+        <!-- End #content -->
+        <!-- Javascripts -->
+        <!-- Load pace first -->
+        
+        
+
+
+    </body>
+    <script type="text/javascript">
+
+        var vm2 = new Vue({
+            el: "#showUser",
+            data: {
+                userName: sessionStorage.getItem("userName"),
+
+            }
+        })
+
+        var vm = new Vue({
+            el: "#userTable",
+            data: {
+                userList: [],
+                userDetail: "",
+                permission: "",
+                nodeList: "",
+                id : "",
+                selectClass:""
+            },
+            methods: {
+                change : function(){
+                    let param = new URLSearchParams()
+                param.append("userId" ,this.id)
+                param.append("userName" , $("#update_user_name").val())
+                param.append("password" , $("#update_password").val())
+                if($("#update_allNode").val() != null){
+                    param.append('roles' , $("#update_allNode").val())
+                }
+                axios
+                .post("http://localhost:8085/biz/user/update",param)
+                .then(response => {
+                    if(response.data.code == '200'){
+                        alert("修改成功");
+                        location.reload();
+                    }else{
+                        alert(response.data.msg)
+                    }
+                })
+                },
+                showAdd : function(){
+                    $('#addModal').modal();
+                },
+                upload:function(){
+                let param = new URLSearchParams()
+                param.append('userName', $("#user_name").val()),
+                param.append("password" , $("#password").val()),
+                param.append("note" , $("#note").val())
+                if($("#add_allNode").val() != null){
+                    param.append('roles' , $("#add_allNode").val())
+
+                    axios
+                    .post("http://localhost:8085/biz/user/add",param
+                    )
+                    .then(response => {
+                        if(response.data.code == '200'){
+                            alert("添加成功")
+                            location.reload();
+                        }else if(response.data.code == '400'){
+                            alert(response.data.msg)
+                        }
+                    })
+                }else{
+                    alert("角色权限不能为空")
+                }
+                
+                
+            }
+            },
+            mounted(){
+                axios
+                .get('http://localhost:8085/biz/user/page',{
+                    params: {
+                        "page" : 1,
+                        "count" : 10
+                    }
+                })
+                .then(response => {
+                    window.total = response.data.data.pages
+                    for(var i = 0;i < response.data.data.records.length;i++) {
+                        
+                        vm.userList.push(response.data.data.records[i]),
+                        vm.userDetail += '<tr class="gradeA"><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+this.userList[i].userId+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+this.userList[i].userName+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+this.userList[i].createTime+'</td><td><button class="btn btn-info detail" id='+i+'>详情</button>  <button class="btn btn-warning update" id='+i+'>修改</button>   <button class="btn btn-danger delete" id='+i+'>删除</button></td></tr>';
+                    }
+
+
+
+
+                    //给修改按钮添加事件
+                    this.$nextTick().then(() => {
+                          $('.update').on('click',function(){
+                            vm.id = vm.userList[$(this).attr("id")].userId;
+                            axios
+                                .get("http://localhost:8085/biz/userRole/queryRoleByUserId",{
+                                    params : {
+                                        "userId" : vm.id
+                                    }
+                                })
+                                .then(response => {
+                                    vm.selectClass = "";
+                                    for(var i = 0;i < response.data.data.length;i++) {
+                                        vm.selectClass += " "+response.data.data[i].roleName
+                                    }
+                                })
+                           $("#myModalLabel").text("修改");
+                           $("#update_user_name").val(vm.userList[$(this).attr("id")].userName);
+                            // $("#user_content").val(vm.userList[$(this).attr("id")].userContent);
+                            $("#update_password").val(vm.userList[$(this).attr("id")].password);
+                            $('#myModal').modal();
+                            
+                         })
+
+                    })
+
+                    //给详情按钮添加事件
+                    this.$nextTick().then(() => {
+                          $('.detail').on('click',function(){
+                            vm.id = vm.userList[$(this).attr("id")].userId;
+                            axios
+                                .get("http://localhost:8085/biz/userRole/queryRoleByUserId",{
+                                    params : {
+                                        "userId" : vm.id
+                                    }
+                                })
+                                .then(response => {
+                                    vm.selectClass = "";
+                                    for(var i = 0;i < response.data.data.length;i++) {
+                                        vm.selectClass += " "+response.data.data[i].roleName
+                                    }
+                                })
+                            $("#detailModalLabel").text("详情");
+                            $("#detail_user_name").val(vm.userList[$(this).attr("id")].userName);
+                            // $("#user_content").val(vm.userList[$(this).attr("id")].userContent);
+                            $("#detail_user_id").val(vm.userList[$(this).attr("id")].userId);
+                            $("#detail_create_time").val(vm.userList[$(this).attr("id")].createTime);
+                            $('#detailModal').modal();
+                            vm.id = vm.userList[$(this).attr("id")].userId;
+                         })
+
+                    })
+
+                    //给删除按钮添加事件
+                    this.$nextTick().then(() => {
+                          $('.delete').on('click',function(){
+                            axios
+                                .get("http://localhost:8085/biz/user/delete",{
+                                    params : {
+                                        "userId" :  vm.userList[$(this).attr("id")].userId
+                                    }
+                                })
+                                .then(response => {
+                                    if(response.data.code == '200'){
+                                        alert("删除成功");
+                                        location.reload();
+                                    }else{
+                                        alert(response.data.msg)
+                                    }
+                                })
+                         })
+
+                    })
+
+                    $('#pageLimit').bootstrapPaginator({
+                         currentPage: 1,//当前的请求页面。
+                         totalPages: window.total,//一共多少页。
+                         size:"normal",//应该是页眉的大小。
+                         bootstrapMajorVersion: 3,//bootstrap的版本要求。
+                         alignment:"right",
+                         numberOfPages:5,//一页列出多少数据。
+                         itemTexts: function (type, page, current) {//如下的代码是将页眉显示的中文显示我们自定义的中文。
+                             switch (type) {
+                             case "first": return "首页";
+                             case "prev": return "上一页";
+                             case "next": return "下一页";
+                             case "last": return "末页";
+                             case "page": return page;
+                             }
+                         },
+                         
+                         onPageClicked: function (event, originalEvent, type, page){//给每个页眉绑定一个事件，其实就是ajax请求，其中page变量为当前点击的页上的数字。
+                                 $.ajax({
+                                     url:'http://localhost:8085/biz/user/page',
+                                     type:'POST',
+                                     data:{'page':page,'count':10},
+                                     dataType:'JSON',
+                                     success:function (callback) {
+                                            $('#userDetail').empty();
+                                            var userDetail = "";
+                                            var userList = [];
+                                            for(var i = 0;i < callback.data.records.length;i++) {
+                                                userList.push(callback.data.records[i]);
+                                            userDetail += '<tr class="gradeA"><td>'+callback.data.records[i].userId+'</td><td>'+callback.data.records[i].userName+'</td><td>'+callback.data.records[i].createTime+'</td><td><button class="btn btn-info detail" id='+i+'>详情</button>  <button class="btn btn-warning update" id='+i+'>修改</button>   <button class="btn btn-danger delete" id='+i+'>删除</button></td></tr>';
+                                            }
+                                            $('#userDetail').html(userDetail)
+
+
+                                            //给分页返回的修改按钮添加事件
+                                            vm.$nextTick().then(() => {
+                                                  $('.update').on('click',function(){
+                                                    vm.id = userList[$(this).attr("id")].userId;
+                                                     axios
+                                                            .get("http://localhost:8085/biz/userRole/queryRoleByUserId",{
+                                                                params : {
+                                                                    "userId" : vm.id
+                                                                }
+                                                            })
+                                                            .then(response => {
+                                                                vm.selectClass = "";
+                                                                for(var i = 0;i < response.data.data.length;i++) {
+                                                                 vm.selectClass += " "+response.data.data[i].roleName
+                                                                }
+                                                            })
+
+                                                    $("#myModalLabel").text("修改");
+                                                   $("#update_user_name").val(userList[$(this).attr("id")].userName);
+                                                    $("#update_password").val(userList[$(this).attr("id")].password);
+                                                    $('#myModal').modal();
+                                                   
+                                                 })
+
+                                            })
+
+
+                                            //给分页返回的详情按钮添加事件
+                                            vm.$nextTick().then(() => {
+                                                  $('.detail').on('click',function(){
+                                                    vm.id = userList[$(this).attr("id")].userId;
+                                                     axios
+                                                            .get("http://localhost:8085/biz/userRole/queryRoleByUserId",{
+                                                                params : {
+                                                                    "userId" : vm.id
+                                                                }
+                                                            })
+                                                            .then(response => {
+                                                                vm.selectClass = "";
+                                                                for(var i = 0;i < response.data.data.length;i++) {
+                                                                 vm.selectClass += " "+response.data.data[i].roleName
+                                                                }
+                                                            })
+
+                                                    $("#detailModalLabel").text("详情");
+                                                    $("#detail_user_name").val(userList[$(this).attr("id")].userName);
+                                                    // $("#user_content").val(vm.userList[$(this).attr("id")].userContent);
+                                                    $("#detail_user_id").val(userList[$(this).attr("id")].userId);
+                                                    $("#detail_create_time").val(userList[$(this).attr("id")].createTime);
+                                                    $('#detailModal').modal();
+                                                 })
+
+                                            })
+
+                                            //给分页返回的删除按钮添加事件
+                                            vm.$nextTick().then(() => {
+                                                  $('.delete').on('click',function(){
+                                                        axios
+                                                            .get("http://localhost:8085/biz/user/delete",{
+                                                                params : {
+                                                                    "userId" :  userList[$(this).attr("id")].userId
+                                                                }
+                                                            })
+                                                            .then(response => {
+                                                                if(response.data.code == '200'){
+                                                                    alert("删除成功");
+                                                                    location.reload();
+                                                                }else{
+                                                                    alert(response.data.msg)
+                                                                }
+                                                            })
+                                                     })
+
+                                            })
+                                         }
+                                 })
+                             }
+
+                     });
+
+                }
+                    
+                    )
+                .catch(function (error){
+                    console.log(error)
+                })
+                axios
+                                    .get("http://localhost:8085/biz/role/queryAll")
+                                    .then(response => {
+
+                                        for (var i = 0; i < response.data.data.length; i++) {
+                                            vm.nodeList += "<option value="+response.data.data[i].roleId+">"+response.data.data[i].roleName+"</option>"
+                                        }
+                                        //要以编程方式更新JavaScript的选择，首先操作选择，然后使用refresh方法更新UI以匹配新状态。 在删除或添加选项时，或通过JavaScript禁用/启用选择时，这是必需的。
+                                       $('.selectpicker').selectpicker('refresh');
+                                       //render方法强制重新渲染引导程序 - 选择ui,如果当您编程时更改任何相关值而影响元素布局，这将非常有用。
+                                       $('.selectpicker').selectpicker('render');
+                                    })
+            }
+        })
+    </script>
+    <script>
+     
+ </script>
+</html>

@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Dashboard</title>
+        <!-- Mobile specific metas -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <!-- Force IE9 to render in normal mode -->
+        <!--[if IE]><meta http-equiv="x-ua-compatible" content="IE=9" /><![endif]-->
+        <meta name="author" content="SuggeElson" />
+        <meta name="description" content=""
+        />
+        <meta name="keywords" content=""
+        />
+        <meta name="application-name" content="sprFlat admin template" />
+        <!-- Import google fonts - Heading first/ text second -->
+        <link rel='stylesheet' type='text/css' >
+        <!--[if lt IE 9]>
+
+<![endif]-->
+        <!-- Css files -->
+        <!-- Icons -->
+        <link href="assets/css/icons.css" rel="stylesheet" />
+        <!-- jQueryUI -->
+        <link href="assets/css/sprflat-theme/jquery.ui.all.css" rel="stylesheet" />
+        <!-- Bootstrap stylesheets (included template modifications) -->
+        <link href="assets/css/bootstrap.css" rel="stylesheet" />
+        <!-- Plugins stylesheets (all plugin custom css) -->
+        <link href="assets/css/plugins.css" rel="stylesheet" />
+        <!-- Main stylesheets (template main css file) -->
+        <link href="assets/css/main.css" rel="stylesheet" />
+        <!-- Custom stylesheets ( Put your own changes here ) -->
+        <link href="assets/css/custom.css" rel="stylesheet" />
+        <!-- Fav and touch icons -->
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/img/ico/apple-touch-icon-144-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/img/ico/apple-touch-icon-114-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/img/ico/apple-touch-icon-72-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" href="assets/img/ico/apple-touch-icon-57-precomposed.png">
+        <link rel="icon" href="assets/img/ico/favicon.ico" type="image/png">
+
+        <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+        <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css" rel="stylesheet">
+        <!-- Windows8 touch icon ( http://www.buildmypinnedsite.com/ )-->
+        <meta name="msapplication-TileColor" content="#3399cc" />
+    </head>
+    <body>
+        <!-- Start #content -->
+        <div id="content">
+            <!-- Start .content-wrapper -->
+            <div class="content-wrapper">
+                    <!-- Start .row -->
+                    <!-- Start .page-header -->
+                    <div class="col-lg-12 heading">
+                        <h1 class="page-header"><i class="im-screen"></i> 总览</h1>
+                        <!-- Start .bredcrumb -->
+                        <ul id="crumb" class="breadcrumb">
+                        </ul>
+                        <!-- End .breadcrumb -->
+                        <!-- Start .option-buttons -->
+                        
+                        <!-- End .option-buttons -->
+                    </div>
+                    <!-- End .page-header -->
+                </div>
+                <!-- End .row -->
+                <div class="outlet">
+                    <!-- Start .outlet -->
+                    <!-- Page start here ( usual with .row ) -->
+                    <div class="row">
+                        <!-- Start .row -->
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <div class="carousel-tile carousel vertical slide">
+                                <div class="carousel-inner">
+                                    <div class="item active">
+                                        <div class="tile red">
+                                            <div class="tile-icon">
+                                                <i class="br-cart s64"></i>
+                                            </div>
+                                            <div class="tile-content">
+                                                <div class="number">107</div>
+                                                <h3>Orders</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="tile orange">
+                                            <!-- tile start here -->
+                                            <div class="tile-icon">
+                                                <i class="ec-cog s64"></i>
+                                            </div>
+                                            <div class="tile-content">
+                                                <div class="number">5</div>
+                                                <h3>Settings changed</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Carousel -->
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <div class="carousel-tile carousel slide">
+                                <div class="carousel-inner">
+                                    <div class="item active">
+                                        <div class="tile blue">
+                                            <div class="tile-icon">
+                                                <i class="st-chat s64"></i>
+                                            </div>
+                                            <div class="tile-content">
+                                                <div class="number">24</div>
+                                                <h3>New Comments</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="tile brown">
+                                            <!-- tile start here -->
+                                            <div class="tile-icon">
+                                                <i class="ec-mail s64"></i>
+                                            </div>
+                                            <div class="tile-content">
+                                                <div class="number">17</div>
+                                                <h3>New emails</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Carousel -->
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <div class="carousel-tile carousel vertical slide">
+                                <div class="carousel-inner">
+                                    <div class="item active">
+                                        <div class="tile green">
+                                            <div class="tile-icon">
+                                                <i class="ec-users s64"></i>
+                                            </div>
+                                            <div class="tile-content">
+                                                <div class="number">325</div>
+                                                <h3>New users</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="tile purple">
+                                            <!-- tile start here -->
+                                            <div class="tile-icon">
+                                                <i class="ec-search s64"></i>
+                                            </div>
+                                            <div class="tile-content">
+                                                <div class="number">2540</div>
+                                                <h3>Searches</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Carousel -->
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <div class="carousel-tile carousel slide">
+                                <div class="carousel-inner">
+                                    <div class="item active">
+                                        <div class="tile teal">
+                                            <!-- tile start here -->
+                                            <div class="tile-icon">
+                                                <i class="ec-images s64"></i>
+                                            </div>
+                                            <div class="tile-content">
+                                                <div class="number">45</div>
+                                                <h3>New images</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="tile magenta">
+                                            <!-- tile start here -->
+                                            <div class="tile-icon">
+                                                <i class="ec-share s64"></i>
+                                            </div>
+                                            <div class="tile-content">
+                                                <div class="number">3548</div>
+                                                <h3>Posts shared</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Carousel -->
+                        </div>
+                    </div>
+                    <!-- End .row -->
+                    <div class="row">
+                        <!-- Start .row -->
+                        <div class="col-lg-6 col-md-6 sortable-layout">
+                            <!-- Start col-lg-6 -->
+                            
+                            <!-- End .panel -->
+                            <div class="panel panel-brown panelMove" id="showPage">
+                                <!-- Start .panel -->
+                                <div class="panel-heading">
+                                    <h4 class="panel-title"><i class="st-files"></i>新闻</h4>
+                                    <div class="pull-right mt10">
+                                        <input class="input-medium search-query" type="text" ref="newsKeyWord"/> <button class="btn" v-on:click="queryByKeyWord">查找</button>
+                                    </div>
+                                </div>
+                                <div class="panel-body p0">
+                                    <div class="instagram-widget">
+                                        
+                                        <div class="instagram-widget-image">
+                                            <div>
+                                               
+                                                <table class="table"  style="margin-bottom: -0.15px;table-layout:fixed;word-break:break-all;//表格固定布局">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="width: 50px">
+                                                                编号
+                                                            </th>
+                                                            <th style="width: 250px">
+                                                                新闻名称
+                                                            </th>
+                                                            <th>
+                                                                上传时间
+                                                            </th>
+                                                            <th>
+                                                                状态
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody v-html="newsDetail">
+                                                        
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <!-- End Carousel -->
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End col-lg-6 -->
+                        <div class="col-lg-6 col-md-6 sortable-layout"  id="userDetail">
+                            <!-- Start col-lg-6 -->
+                            <div class="panel panel-primary plain toggle panelMove panelClose panelRefresh">
+                                <!-- Start .panel -->
+                                <div class="panel-heading">
+                                    <div class="form-search" v-if="permission.indexOf('search') != -1">
+                                        <input class="input-medium search-query" type="text" ref="userKeyWord"/> <button class="btn" v-on:click="queryByKeyWord">查找</button>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    
+                                    <table class="table table-bordered" style="margin-bottom: -0.15px;table-layout:fixed;word-break:break-all;//表格固定布局">
+                                        <thead >
+                                            <tr>
+                                                <th>
+                                                    编号
+                                                </th>
+                                                <th>
+                                                    姓名
+                                                </th>
+                                                <th>
+                                                    创建时间
+                                                </th>
+                                                <th>
+                                                    备注信息
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody v-html="userDetail">
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- 
+                                <div class="panel-footer white-bg">
+                                    <div id="stats-category-earnings" class="col-lg-6 col-md-12" style="height:150px;">
+                                    </div>
+                                    <div id="stats-earnings-bars" class="col-lg-6 col-md-12" style="height:150px;">
+                                    </div>
+                                </div> -->
+                            </div>
+                            <!-- End .panel -->
+                            <div class="weather-widget panel panel-primary plain toggle panelMove panelClose panelRefresh">
+                                <!-- Start .panel -->
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">Weather now</h4>
+                                </div>
+                                <div class="panel-body blue-bg text-center">
+                                    <canvas id="weather-now" width="128" height="128"></canvas>
+                                    <p class="weather-location"><strong>23&deg;C</strong> Madrid</p>
+                                </div>
+                                <div class="panel-footer white-bg text-center">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                                        <!-- col-lg-3 start here -->
+                                        <p class="weather-day">MON</p>
+                                        <canvas id="forecast-now" width="64" height="64"></canvas>
+                                        <p class="weather-degree">23&deg;C</p>
+                                    </div>
+                                    <!-- col-lg-3 end here -->
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                                        <!-- col-lg-3 start here -->
+                                        <p class="weather-day">TUE</p>
+                                        <canvas id="forecast-day1" width="64" height="64"></canvas>
+                                        <p class="weather-degree">17&deg;C</p>
+                                    </div>
+                                    <!-- col-lg-3 end here -->
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                                        <!-- col-lg-3 start here -->
+                                        <p class="weather-day">WED</p>
+                                        <canvas id="forecast-day2" width="64" height="64"></canvas>
+                                        <p class="weather-degree">15&deg;C</p>
+                                    </div>
+                                    <!-- col-lg-3 end here -->
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                                        <!-- col-lg-3 start here -->
+                                        <p class="weather-day">THU</p>
+                                        <canvas id="forecast-day3" width="64" height="64"></canvas>
+                                        <p class="weather-degree">18&deg;C</p>
+                                    </div>
+                                    <!-- col-lg-3 end here -->
+                                </div>
+                            </div>
+                            <!-- End .panel -->
+                            
+                            <!-- End .panel -->
+                        </div>
+                        <!-- End col-lg-6 -->
+                    </div>
+                    <!-- End .row -->
+                    <!-- Page End here -->
+                </div>
+                <!-- End .outlet -->
+            </div>
+            <!-- End .content-wrapper -->
+            <div class="clearfix"></div>
+        </div>
+        
+
+        <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+        <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+        <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+    </body>
+    <script type="text/javascript">
+      var my_vue = new Vue({
+        el: "#showPage",
+        data:{
+            newsList: [],
+            newsDetail: "",
+            iframeSrc: "http://www.baidu.com"
+        },
+        methods:{
+            queryByKeyWord:function(){
+                axios
+                    .get('http://localhost:8085/biz/news/queryByKeyWord',{params:{
+                        newsKeyWord: this.$refs.newsKeyWord.value
+                    }})
+                    .then(response => {
+                        my_vue.newsList = [];
+                        my_vue.newsDetail = '';
+                        for(var i = 0;i < response.data.data.length;i++) {
+                        my_vue.newsList.push(response.data.data[i]),
+                        my_vue.newsDetail += '<tr class="warning"><td>'+this.newsList[i].newsId+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+this.newsList[i].newsTitle+'</td><td>'+this.newsList[i].gmtCreate+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+this.newsList[i].newsContent.substring(0,15)+'...'+'</td></tr>';
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error)
+                    })
+            }
+        },
+        mounted(){
+            axios
+                .get('http://localhost:8085/biz/news/page',{
+                    params : {
+                        "page" : 1,
+                        "count" : 12
+                    }
+                })
+                .then(response => {
+                    for(var i = 0;i < response.data.data.records.length;i++) {
+                        my_vue.newsList.push(response.data.data.records[i]),
+                        my_vue.newsDetail += '<tr class="warning"><td>'+this.newsList[i].newsId+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+this.newsList[i].newsTitle+'</td><td>'+this.newsList[i].gmtCreate+'</td><td>'+this.newsList[i].newsContent.substring(0,15)+'...'+'</td></tr>';
+                    }
+                }
+                    
+                    )
+                .catch(function (error){
+                    console.log(error)
+                })
+        }
+      })
+  </script>
+  <script type="text/javascript">
+      var my_vue2 = new Vue({
+        el: "#userDetail",
+        data:{
+            userList: [],
+            userDetail: "",
+            permission: "admin,newsManage,newsAdd,search"
+        },
+        methods:{
+            queryByKeyWord:function(){
+                axios
+                    .get('http://localhost:8085/biz/user/queryByKeyWord',{params:{
+                        userKeyWord: this.$refs.userKeyWord.value
+                    }})
+                    .then(response => {
+                        my_vue2.userList = [];
+                        my_vue2.userDetail = '';
+                        for(var i = 0;i < response.data.data.length;i++) {
+                        if (response.data.data[i].permission != null) {
+                            response.data.data[i].permission = response.data.data[i].permission.substring(0,10)
+                        }
+                        my_vue2.userList.push(response.data.data[i]),
+                        my_vue2.userDetail += '<tr class="info"><td>'+this.userList[i].userId+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+this.userList[i].userName+'</td><td >'+this.userList[i].createTime+'</td><td>'+this.userList[i].note+'</td></tr>';
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error)
+                    })
+            }
+        },
+        mounted(){
+            axios
+                .get('http://localhost:8085/biz/user/page',{
+                    params:{
+                        "page" : 1,
+                        "count" : 10
+                    }
+                })
+                .then(response => {
+                    for(var i = 0;i < response.data.data.records.length;i++) {
+                        if (response.data.data.records[i].permission != null) {
+                            response.data.data.records[i].permission = response.data.data.records[i].permission.substring(0,10)
+                        }
+                        my_vue2.userList.push(response.data.data.records[i]),
+                        my_vue2.userDetail += '<tr class="info"><td>'+this.userList[i].userId+'</td><td>'+this.userList[i].userName+'</td><td>'+this.userList[i].createTime+'</td><td>'+this.userList[i].note+'</td></tr>';
+                    }
+                }
+                    
+                    )
+                .catch(function (error){
+                    console.log(error)
+                })
+        }
+      })
+  </script>
+
+</html>
