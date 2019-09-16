@@ -70,6 +70,24 @@
                 text-align: center;
                 font-size: 15px
             }
+            .form-control1{
+                margin-left: 75%;
+                width: 15%;
+                height: 34px;
+                padding: 6px 12px;
+                font-size: 14px;
+                line-height: 1.42857143;
+                color: #555;
+                background-color: #fff;
+                background-image: none;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+                box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+                -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+                -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+                transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+            }
         </style>
         
     </head>
@@ -158,6 +176,9 @@
                                 <!-- Start .panel -->
                                 <div class="panel-heading white-bg">
                                     <button class="btn btn-primary" v-on:click="showAdd">新增用户</button>
+
+                                    <input type="text" name="search" class="form-control1" id="search" placeholder="请输入查询条件">
+                                    <button class="btn" v-on:click="queryUserByKeyWord"><i class="ec-search"></i>查询</button>
                                 </div>
 
 
@@ -329,7 +350,7 @@
 
     </body>
     <script type="text/javascript">
-
+        var projectPath = window.document.location.href.substr(0,window.document.location.href.lastIndexOf("/"));
         var vm2 = new Vue({
             el: "#showUser",
             data: {
@@ -358,7 +379,7 @@
                     param.append('roles' , $("#update_allNode").val())
                 }
                 axios
-                .post("http://localhost:8085/biz/user/update",param)
+                .post(projectPath+"/biz/user/update",param)
                 .then(response => {
                     if(response.data.code == '200'){
                         alert("修改成功");
@@ -367,6 +388,235 @@
                         alert(response.data.msg)
                     }
                 })
+                },
+                null2str:function(data){
+                    for (let x in data) {
+                        if (data[x] === null) { // 如果是null 把直接内容转为 ''
+                          data[x] = '';
+                        } else {
+                          if (Array.isArray(data[x])) { // 是数组遍历数组 递归继续处理
+                            data[x] = data[x].map(z => {
+                              return null2str(z);
+                            });
+                          }
+                          if(typeof(data[x]) === 'object'){ // 是json 递归继续处理
+                            data[x] = null2str(data[x])
+                          }
+                        }
+                      }
+                      return data;  
+                },
+                queryUserByKeyWord:function(){
+                    axios
+                    .get(projectPath+'/biz/user/queryByKeyWord',{params:{
+                        userKeyWord: $("#search").val(),
+                        "page": 1,
+                        "count" : 10
+                    }})
+                    .then(response => {
+                        vm.userList = [];
+                        vm.userDetail = '';
+                        window.total = response.data.data.pages
+                        for(var i = 0;i < response.data.data.records.length;i++) {
+                        vm.userList.push(vm.null2str(response.data.data.records[i])),
+                        vm.userDetail += '<tr class="gradeA"><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+this.userList[i].userId+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+this.userList[i].userName+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+this.userList[i].createTime+'</td><td><button class="btn btn-info detail" id='+i+'>详情</button>  <button class="btn btn-warning update" id='+i+'>修改</button>   <button class="btn btn-danger delete" id='+i+'>删除</button></td></tr>';
+                        }
+
+                    //给修改按钮添加事件
+                    this.$nextTick().then(() => {
+                          $('.update').on('click',function(){
+                            vm.id = vm.userList[$(this).attr("id")].userId;
+                            axios
+                                .get(projectPath+"/biz/userRole/queryRoleByUserId",{
+                                    params : {
+                                        "userId" : vm.id
+                                    }
+                                })
+                                .then(response => {
+                                    vm.selectClass = "";
+                                    for(var i = 0;i < response.data.data.length;i++) {
+                                        vm.selectClass += " "+response.data.data[i].roleName
+                                    }
+                                })
+                           $("#myModalLabel").text("修改");
+                           $("#update_user_name").val(vm.userList[$(this).attr("id")].userName);
+                            // $("#user_content").val(vm.userList[$(this).attr("id")].userContent);
+                            $("#update_password").val(vm.userList[$(this).attr("id")].password);
+                            $('#myModal').modal();
+                            
+                         })
+
+                    })
+
+                            //给详情按钮添加事件
+                            this.$nextTick().then(() => {
+                                  $('.detail').on('click',function(){
+                                    vm.id = vm.userList[$(this).attr("id")].userId;
+                                    axios
+                                        .get(projectPath+"/biz/userRole/queryRoleByUserId",{
+                                            params : {
+                                                "userId" : vm.id
+                                            }
+                                        })
+                                        .then(response => {
+                                            vm.selectClass = "";
+                                            for(var i = 0;i < response.data.data.length;i++) {
+                                                vm.selectClass += " "+response.data.data[i].roleName
+                                            }
+                                        })
+                                    $("#detailModalLabel").text("详情");
+                                    $("#detail_user_name").val(vm.userList[$(this).attr("id")].userName);
+                                    // $("#user_content").val(vm.userList[$(this).attr("id")].userContent);
+                                    $("#detail_user_id").val(vm.userList[$(this).attr("id")].userId);
+                                    $("#detail_create_time").val(vm.userList[$(this).attr("id")].createTime);
+                                    $('#detailModal').modal();
+                                    vm.id = vm.userList[$(this).attr("id")].userId;
+                                 })
+
+                            })
+
+                            //给删除按钮添加事件
+                            this.$nextTick().then(() => {
+                                  $('.delete').on('click',function(){
+                                    axios
+                                        .get(projectPath+"/biz/user/delete",{
+                                            params : {
+                                                "userId" :  vm.userList[$(this).attr("id")].userId
+                                            }
+                                        })
+                                        .then(response => {
+                                            if(response.data.code == '200'){
+                                                alert("删除成功");
+                                                location.reload();
+                                            }else{
+                                                alert(response.data.msg)
+                                            }
+                                        })
+                                 })
+
+
+                                  $('#pageLimit').bootstrapPaginator({
+                                     currentPage: 1,//当前的请求页面。
+                                     totalPages: window.total,//一共多少页。
+                                     size:"normal",//应该是页眉的大小。
+                                     bootstrapMajorVersion: 3,//bootstrap的版本要求。
+                                     alignment:"right",
+                                     numberOfPages:5,//一页列出多少数据。
+                                     itemTexts: function (type, page, current) {//如下的代码是将页眉显示的中文显示我们自定义的中文。
+                                         switch (type) {
+                                         case "first": return "首页";
+                                         case "prev": return "上一页";
+                                         case "next": return "下一页";
+                                         case "last": return "末页";
+                                         case "page": return page;
+                                         }
+                                     },
+
+                                     onPageClicked: function (event, originalEvent, type, page){//给每个页眉绑定一个事件，其实就是ajax请求，其中page变量为当前点击的页上的数字。
+                                 $.ajax({
+                                     url:projectPath+'/biz/user/queryByKeyWord',
+                                     type:'POST',
+                                     data:{'page':page,'count':10,userKeyWord: $("#search").val()},
+                                     dataType:'JSON',
+                                     success:function (callback) {
+                                            vm.userDetail = "";
+                                            vm.userList = [];
+                                            for(var i = 0;i < callback.data.records.length;i++) {
+                                                vm.userList.push(vm.null2str(callback.data.records[i]));
+                                            vm.userDetail += '<tr class="gradeA"><td>'+callback.data.records[i].userId+'</td><td>'+callback.data.records[i].userName+'</td><td>'+callback.data.records[i].createTime+'</td><td><button class="btn btn-info detail" id='+i+'>详情</button>  <button class="btn btn-warning update" id='+i+'>修改</button>   <button class="btn btn-danger delete" id='+i+'>删除</button></td></tr>';
+                                            }
+
+
+                                            //给分页返回的修改按钮添加事件
+                                            vm.$nextTick().then(() => {
+                                                  $('.update').on('click',function(){
+                                                    vm.id = vm.userList[$(this).attr("id")].userId;
+                                                     axios
+                                                            .get(projectPath+"/biz/userRole/queryRoleByUserId",{
+                                                                params : {
+                                                                    "userId" : vm.id
+                                                                }
+                                                            })
+                                                            .then(response => {
+                                                                vm.selectClass = "";
+                                                                for(var i = 0;i < response.data.data.length;i++) {
+                                                                 vm.selectClass += " "+response.data.data[i].roleName
+                                                                }
+                                                            })
+
+                                                    $("#myModalLabel").text("修改");
+                                                   $("#update_user_name").val(vm.userList[$(this).attr("id")].userName);
+                                                    $("#update_password").val(vm.userList[$(this).attr("id")].password);
+                                                    $('#myModal').modal();
+                                                   
+                                                 })
+
+                                            })
+
+
+                                            //给分页返回的详情按钮添加事件
+                                            vm.$nextTick().then(() => {
+                                                  $('.detail').on('click',function(){
+                                                    vm.id = vm.userList[$(this).attr("id")].userId;
+                                                     axios
+                                                            .get(projectPath+"/biz/userRole/queryRoleByUserId",{
+                                                                params : {
+                                                                    "userId" : vm.id
+                                                                }
+                                                            })
+                                                            .then(response => {
+                                                                vm.selectClass = "";
+                                                                for(var i = 0;i < response.data.data.length;i++) {
+                                                                 vm.selectClass += " "+response.data.data[i].roleName
+                                                                }
+                                                            })
+
+                                                    $("#detailModalLabel").text("详情");
+                                                    $("#detail_user_name").val(vm.userList[$(this).attr("id")].userName);
+                                                    // $("#user_content").val(vm.userList[$(this).attr("id")].userContent);
+                                                    $("#detail_user_id").val(vm.userList[$(this).attr("id")].userId);
+                                                    $("#detail_create_time").val(vm.userList[$(this).attr("id")].createTime);
+                                                    $('#detailModal').modal();
+                                                 })
+
+                                            })
+
+                                            //给分页返回的删除按钮添加事件
+                                            vm.$nextTick().then(() => {
+                                                  $('.delete').on('click',function(){
+                                                        axios
+                                                            .get(projectPath+"/biz/user/delete",{
+                                                                params : {
+                                                                    "userId" :  vm.userList[$(this).attr("id")].userId
+                                                                }
+                                                            })
+                                                            .then(response => {
+                                                                if(response.data.code == '200'){
+                                                                    alert("删除成功");
+                                                                    location.reload();
+                                                                }else{
+                                                                    alert(response.data.msg)
+                                                                }
+                                                            })
+                                                     })
+
+                                            })
+                                         }
+                                 })
+                             }
+
+                         
+                        
+                                 })
+
+                            })
+
+
+
+                    })
+                    .catch(function (error) {
+                        console.log(error)
+                    })
                 },
                 showAdd : function(){
                     $('#addModal').modal();
@@ -380,7 +630,7 @@
                     param.append('roles' , $("#add_allNode").val())
 
                     axios
-                    .post("http://localhost:8085/biz/user/add",param
+                    .post(projectPath+"/biz/user/add",param
                     )
                     .then(response => {
                         if(response.data.code == '200'){
@@ -399,7 +649,7 @@
             },
             mounted(){
                 axios
-                .get('http://localhost:8085/biz/user/page',{
+                .get(projectPath+'/biz/user/page',{
                     params: {
                         "page" : 1,
                         "count" : 10
@@ -409,7 +659,7 @@
                     window.total = response.data.data.pages
                     for(var i = 0;i < response.data.data.records.length;i++) {
                         
-                        vm.userList.push(response.data.data.records[i]),
+                        vm.userList.push(vm.null2str(response.data.data.records[i])),
                         vm.userDetail += '<tr class="gradeA"><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+this.userList[i].userId+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+this.userList[i].userName+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+this.userList[i].createTime+'</td><td><button class="btn btn-info detail" id='+i+'>详情</button>  <button class="btn btn-warning update" id='+i+'>修改</button>   <button class="btn btn-danger delete" id='+i+'>删除</button></td></tr>';
                     }
 
@@ -421,7 +671,7 @@
                           $('.update').on('click',function(){
                             vm.id = vm.userList[$(this).attr("id")].userId;
                             axios
-                                .get("http://localhost:8085/biz/userRole/queryRoleByUserId",{
+                                .get(projectPath+"/biz/userRole/queryRoleByUserId",{
                                     params : {
                                         "userId" : vm.id
                                     }
@@ -447,7 +697,7 @@
                           $('.detail').on('click',function(){
                             vm.id = vm.userList[$(this).attr("id")].userId;
                             axios
-                                .get("http://localhost:8085/biz/userRole/queryRoleByUserId",{
+                                .get(projectPath+"/biz/userRole/queryRoleByUserId",{
                                     params : {
                                         "userId" : vm.id
                                     }
@@ -473,7 +723,7 @@
                     this.$nextTick().then(() => {
                           $('.delete').on('click',function(){
                             axios
-                                .get("http://localhost:8085/biz/user/delete",{
+                                .get(projectPath+"/biz/user/delete",{
                                     params : {
                                         "userId" :  vm.userList[$(this).attr("id")].userId
                                     }
@@ -509,27 +759,25 @@
                          
                          onPageClicked: function (event, originalEvent, type, page){//给每个页眉绑定一个事件，其实就是ajax请求，其中page变量为当前点击的页上的数字。
                                  $.ajax({
-                                     url:'http://localhost:8085/biz/user/page',
+                                     url:projectPath+'/biz/user/page',
                                      type:'POST',
                                      data:{'page':page,'count':10},
                                      dataType:'JSON',
                                      success:function (callback) {
-                                            $('#userDetail').empty();
-                                            var userDetail = "";
-                                            var userList = [];
+                                            vm.userDetail = "";
+                                            vm.userList = [];
                                             for(var i = 0;i < callback.data.records.length;i++) {
-                                                userList.push(callback.data.records[i]);
-                                            userDetail += '<tr class="gradeA"><td>'+callback.data.records[i].userId+'</td><td>'+callback.data.records[i].userName+'</td><td>'+callback.data.records[i].createTime+'</td><td><button class="btn btn-info detail" id='+i+'>详情</button>  <button class="btn btn-warning update" id='+i+'>修改</button>   <button class="btn btn-danger delete" id='+i+'>删除</button></td></tr>';
+                                                vm.userList.push(vm.null2str(callback.data.records[i]));
+                                            vm.userDetail += '<tr class="gradeA"><td>'+callback.data.records[i].userId+'</td><td>'+callback.data.records[i].userName+'</td><td>'+callback.data.records[i].createTime+'</td><td><button class="btn btn-info detail" id='+i+'>详情</button>  <button class="btn btn-warning update" id='+i+'>修改</button>   <button class="btn btn-danger delete" id='+i+'>删除</button></td></tr>';
                                             }
-                                            $('#userDetail').html(userDetail)
 
 
                                             //给分页返回的修改按钮添加事件
                                             vm.$nextTick().then(() => {
                                                   $('.update').on('click',function(){
-                                                    vm.id = userList[$(this).attr("id")].userId;
+                                                    vm.id = vm.userList[$(this).attr("id")].userId;
                                                      axios
-                                                            .get("http://localhost:8085/biz/userRole/queryRoleByUserId",{
+                                                            .get(projectPath+"/biz/userRole/queryRoleByUserId",{
                                                                 params : {
                                                                     "userId" : vm.id
                                                                 }
@@ -542,8 +790,8 @@
                                                             })
 
                                                     $("#myModalLabel").text("修改");
-                                                   $("#update_user_name").val(userList[$(this).attr("id")].userName);
-                                                    $("#update_password").val(userList[$(this).attr("id")].password);
+                                                   $("#update_user_name").val(vm.userList[$(this).attr("id")].userName);
+                                                    $("#update_password").val(vm.userList[$(this).attr("id")].password);
                                                     $('#myModal').modal();
                                                    
                                                  })
@@ -554,9 +802,9 @@
                                             //给分页返回的详情按钮添加事件
                                             vm.$nextTick().then(() => {
                                                   $('.detail').on('click',function(){
-                                                    vm.id = userList[$(this).attr("id")].userId;
+                                                    vm.id = vm.userList[$(this).attr("id")].userId;
                                                      axios
-                                                            .get("http://localhost:8085/biz/userRole/queryRoleByUserId",{
+                                                            .get(projectPath+"/biz/userRole/queryRoleByUserId",{
                                                                 params : {
                                                                     "userId" : vm.id
                                                                 }
@@ -569,10 +817,10 @@
                                                             })
 
                                                     $("#detailModalLabel").text("详情");
-                                                    $("#detail_user_name").val(userList[$(this).attr("id")].userName);
+                                                    $("#detail_user_name").val(vm.userList[$(this).attr("id")].userName);
                                                     // $("#user_content").val(vm.userList[$(this).attr("id")].userContent);
-                                                    $("#detail_user_id").val(userList[$(this).attr("id")].userId);
-                                                    $("#detail_create_time").val(userList[$(this).attr("id")].createTime);
+                                                    $("#detail_user_id").val(vm.userList[$(this).attr("id")].userId);
+                                                    $("#detail_create_time").val(vm.userList[$(this).attr("id")].createTime);
                                                     $('#detailModal').modal();
                                                  })
 
@@ -582,9 +830,9 @@
                                             vm.$nextTick().then(() => {
                                                   $('.delete').on('click',function(){
                                                         axios
-                                                            .get("http://localhost:8085/biz/user/delete",{
+                                                            .get(projectPath+"/biz/user/delete",{
                                                                 params : {
-                                                                    "userId" :  userList[$(this).attr("id")].userId
+                                                                    "userId" :  vm.userList[$(this).attr("id")].userId
                                                                 }
                                                             })
                                                             .then(response => {
@@ -611,17 +859,26 @@
                     console.log(error)
                 })
                 axios
-                                    .get("http://localhost:8085/biz/role/queryAll")
-                                    .then(response => {
+                    .get(projectPath+"/biz/role/queryAll")
+                    .then(response => {
 
-                                        for (var i = 0; i < response.data.data.length; i++) {
-                                            vm.nodeList += "<option value="+response.data.data[i].roleId+">"+response.data.data[i].roleName+"</option>"
-                                        }
-                                        //要以编程方式更新JavaScript的选择，首先操作选择，然后使用refresh方法更新UI以匹配新状态。 在删除或添加选项时，或通过JavaScript禁用/启用选择时，这是必需的。
-                                       $('.selectpicker').selectpicker('refresh');
-                                       //render方法强制重新渲染引导程序 - 选择ui,如果当您编程时更改任何相关值而影响元素布局，这将非常有用。
-                                       $('.selectpicker').selectpicker('render');
-                                    })
+                        for (var i = 0; i < response.data.data.length; i++) {
+                            vm.nodeList += "<option value="+response.data.data[i].roleId+">"+response.data.data[i].roleName+"</option>"
+                        }
+                        //要以编程方式更新JavaScript的选择，首先操作选择，然后使用refresh方法更新UI以匹配新状态。 在删除或添加选项时，或通过JavaScript禁用/启用选择时，这是必需的。
+                        $('.selectpicker').selectpicker('refresh');
+                        //render方法强制重新渲染引导程序 - 选择ui,如果当您编程时更改任何相关值而影响元素布局，这将非常有用。
+                        $('.selectpicker').selectpicker('render');
+                    })
+                
+                document.addEventListener('keydown', (e) => {
+                      // console.log(e.keyCode)
+                      // 下面可以通过keyCode来添加键盘事件
+                      if(e.keyCode == 13){
+                        vm.queryUserByKeyWord()
+                      }
+                   }
+                )
             }
         })
     </script>

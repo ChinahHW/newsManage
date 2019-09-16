@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="treeMenu/css/bootstrap-treeview.css" rel="stylesheet" />
+</head>
+<body>
+	<div id="addNode">
+        <div style="padding-left: 50px;width: 20%">
+            <select class="form-control" id="allNode" v-html="nodeList">
+                
+            </select>
+            <input id="name" type="text" class="form-control" placeholder="新增类别名称" autofocus="autofocus">
+
+            <button class="btn btn-primary" v-on:click="uploadNode">提交</button>
+        </div>
+        
+
+    </div>
+</body>
+<script src="assets/js/jquery-1.8.3.min.js"></script>
+<script src="assets/js/bootstrap/bootstrap.js"></script>
+<script src="treeMenu/js/bootstrap-treeview.js"></script>
+<script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+<script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+<script type="text/javascript">
+    var addNode_vue = new Vue({
+        el: "#addNode",
+        data: {
+            nodeList: "<option value='0'>请选择父级类别</option>"
+        },
+        methods: {
+            uploadNode:function(){
+                axios
+                .get("http://localhost:8085/biz/newsClass/add",{
+                    params:{
+                        "name" : $("#name").val(),
+                        "parentId" : $("#allNode").val()   
+                            }
+                })
+                .then(response => {
+                    alert("新增成功")
+                })
+            }
+        },
+        mounted(){
+            axios
+                .get("http://localhost:8085/biz/newsClass/queryAll")
+                .then(response => {
+
+                    for (var i = 0; i < response.data.data.length; i++) {
+                        // alert(response.data.data[0].name)
+                        this.nodeList += "<option value="+response.data.data[i].id+">"+response.data.data[i].name+"</option>"
+                    }
+                })
+        }
+    })
+</script>
+</html>

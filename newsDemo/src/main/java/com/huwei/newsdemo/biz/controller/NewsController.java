@@ -49,10 +49,10 @@ public class NewsController extends BaseController{
     }
 
     @RequestMapping("/queryAll")
-    public BaseResponse queryAll(){
+    public BaseResponse queryAll(int userId){
         BaseResponse baseResponse = new BaseResponse();
         try {
-            List<News> newsList = newsService.queryAll();
+            List<News> newsList = newsService.queryAllByUserId(userId);
             if(newsList != null){
                 baseResponse.success(newsList);
             }
@@ -64,12 +64,12 @@ public class NewsController extends BaseController{
     }
 
     @RequestMapping("queryByKeyWord")
-    public BaseResponse queryByName(String newsKeyWord){
+    public BaseResponse queryByName(String newsKeyWord, int userId, int page, int count){
         BaseResponse baseResponse = new BaseResponse();
         try {
-            List<News> newsList = newsService.queryByName(newsKeyWord);
-            if(newsList != null){
-                baseResponse.success(newsList);
+            Page<News> newsPage = newsService.queryByName(newsKeyWord, userId, page, count);
+            if(newsPage != null){
+                baseResponse.success(newsPage);
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -79,10 +79,10 @@ public class NewsController extends BaseController{
     }
 
     @RequestMapping("/page")
-    public BaseResponse getPage(int page, int count){
+    public BaseResponse getPage(int page, int count, int userId){
         BaseResponse baseResponse = new BaseResponse();
         try {
-            Page<News> newsPage = newsService.queryByPage(page,count);
+            Page<News> newsPage = newsService.queryByPage(page,count,userId);
             if(newsPage != null){
                 baseResponse.success(newsPage);
             }

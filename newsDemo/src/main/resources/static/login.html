@@ -154,33 +154,43 @@
         <script src="assets/js/pages/login.js"></script>
 
         <script type="text/javascript">
-            
-    var newsUpload_vue = new Vue({
-        el: "#loginDiv",
-        data: {
-            permission: []
-        },
-        methods: {
-            login:function(){
-                let param = new URLSearchParams()
-            param.append('userName', this.$refs.userName.value)
-            param.append('password', this.$refs.password.value)
-                axios
-                .post('http://localhost:8085/biz/user/login',param)
-                .then(response => {
-                    if(response.data.code == '200'){
-                        sessionStorage.setItem("userName",response.data.data.userName)
-                        sessionStorage.setItem("userId",response.data.data.userId)
-                        window.location.href="index.html"
-                    }else if(response.data.code == '400'){
-                        alert(response.data.msg)
+            var projectPath = window.document.location.href.substr(0,window.document.location.href.lastIndexOf("/"));
+            // var projectPath = "http://localhost:8085";
+            var my_vue = new Vue({
+                el: "#loginDiv",
+                data: {
+                    permission: []
+                },
+                methods: {
+                    login:function(){
+                        let param = new URLSearchParams()
+                        param.append('userName', this.$refs.userName.value)
+                        param.append('password', this.$refs.password.value)
+                        axios
+                        .post(projectPath+'/biz/user/login',param)
+                        .then(response => {
+                            if(response.data.code == '200'){
+                                sessionStorage.setItem("userName",response.data.data.userName)
+                                sessionStorage.setItem("userId",response.data.data.userId)
+                                window.location.href="index.html"
+                            }else if(response.data.code == '400'){
+                                alert(response.data.msg)
+                            }
+                            
+                        })
                     }
-                    
-                })
-            }
-        }
+                },
+                mounted(){
+                    document.addEventListener('keydown', (e) => {
+                      // console.log(e.keyCode)
+                      // 下面可以通过keyCode来添加键盘事件
+                      if(e.keyCode == 13){
+                        my_vue.login();
+                      }
+                   }
+                )}
 
-    })
-</script>
+            })
+        </script>
     </body>
 </html>

@@ -4,6 +4,7 @@ package com.huwei.newsdemo.biz.controller;
 import com.huwei.newsdemo.biz.entity.Class;
 import com.huwei.newsdemo.biz.service.IClassService;
 import com.huwei.newsdemo.response.BaseResponse;
+import com.huwei.newsdemo.response.treeMenu;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,10 +28,23 @@ public class ClassController extends BaseController{
     private IClassService classService;
 
     @RequestMapping("/queryTreeMenu")
-    public BaseResponse queryTreeMenu(){
+    public BaseResponse queryTreeMenu(int userId){
         BaseResponse baseResponse = new BaseResponse();
         try {
-            String treeMenus = classService.queryTreeMenu();
+            String treeMenus = classService.queryTreeMenu(userId);
+            baseResponse.success(treeMenus);
+        }catch (Exception e){
+            e.printStackTrace();
+            logger.error(ExceptionUtils.getFullStackTrace(e));
+        }
+        return baseResponse;
+    }
+
+    @RequestMapping("/queryTreeForList")
+    public BaseResponse queryTreeForList(int userId){
+        BaseResponse baseResponse = new BaseResponse();
+        try {
+            List<treeMenu> treeMenus = classService.queryTreeForList(userId);
             baseResponse.success(treeMenus);
         }catch (Exception e){
             e.printStackTrace();
@@ -86,10 +100,10 @@ public class ClassController extends BaseController{
     }
 
     @RequestMapping("/queryAll")
-    public BaseResponse queryAll(){
+    public BaseResponse queryAll(int userId){
         BaseResponse baseResponse = new BaseResponse();
         try {
-            List<Class> treeMenus = classService.queryAll();
+            List<Class> treeMenus = classService.queryAll(userId);
             baseResponse.success(treeMenus);
         }catch (Exception e){
             e.printStackTrace();

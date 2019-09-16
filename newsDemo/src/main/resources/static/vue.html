@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue test</title>
+    <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+    <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+</head>
+<body>
+    <div id="firstVue">
+        <button @click="clickButton">
+            Click Me!
+        </button>
+        <input type="text" v-model="my_data">
+        {{my_data}}
+        <p>Computed reversed my_data: {{reversedMyData}}</p>
+        <textarea v-model="my_data" placeholder="add multiple lines"></textarea>
+        <blog-post
+          v-for="post in posts"
+          v-bind:key="post.id"
+          v-bind:post="post"
+        >{{post.title}}</blog-post>
+    </div>
+</body>
+<script type="text/javascript">
+    Vue.component('blog-post', {
+        props: ['post'],
+        template: '<div class="blog-post"><h3>{{ post.id }}</h3><div><slot></slot></div></div>'
+    })
+    var myVue = new Vue({
+        el:"#firstVue",
+        data:{
+            my_data: "test2",
+            my_hidden: "hidden",
+            posts: [
+                      { id: 1, title: 'My journey with Vue' },
+                      { id: 2, title: 'Blogging with Vue' },
+                      { id: 3, title: 'Why Vue is so fun' }
+                    ]
+        },
+        methods:{
+            clickButton:function(){
+                // axios
+                //     .get('http://localhost:8085/biz/news/queryAll')
+                //     .then(response => (this.my_data = response.data[0].newsTitle))
+                //     .catch(function (error) {
+                //         console.log(error)
+                //     })
+
+                this.my_data = 'huwei'
+
+            }
+        },
+        // mounted(){
+        //     axios
+        //         .get('http://localhost:8085/biz/news/queryAll')
+        //         .then(response => (this.my_data = response.data[0].newsContent))
+        //         .catch(function (error) {
+        //             console.log(error)
+        //         })
+        // },
+        computed:{
+            //计算属性的getter
+            reversedMyData: function(){
+                return this.my_data.split('').reverse().join('')
+            }
+        }
+
+    })
+
+    
+</script>
+</html>

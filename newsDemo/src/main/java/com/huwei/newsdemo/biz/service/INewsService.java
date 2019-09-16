@@ -18,10 +18,10 @@ import java.util.List;
  */
 public interface INewsService extends IService<News> {
     String addNews(News news,int[] classId);
-    List<News> queryByName(String newsKeyWord);
-    public List<News> queryAll();
+    Page<News> queryByName(String newsKeyWord, int userId, int page, int count);
+    List<News> queryAllByUserId(int userId);
 
-    public Page<News> queryByPage(int page, int count);
+    Page<News> queryByPage(int page, int count, int userId);
 
 
     /**
@@ -29,7 +29,7 @@ public interface INewsService extends IService<News> {
      * @param file
      * @return
      */
-    public String ckeditorUpload(@RequestParam("upload") MultipartFile file, String CKEditorFuncNum) throws Exception;
+    String ckeditorUpload(@RequestParam("upload") MultipartFile file, String CKEditorFuncNum) throws Exception;
 
     boolean update(News news,int[] classId);
 

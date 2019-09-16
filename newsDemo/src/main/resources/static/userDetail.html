@@ -60,6 +60,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
   </body>
   <script type="text/javascript">
+    var projectPath = window.document.location.href.substr(0,window.document.location.href.lastIndexOf("/"));
       var my_vue = new Vue({
         el: "#userDetail",
         data:{
@@ -70,7 +71,7 @@
         methods:{
             queryByKeyWord:function(){
                 axios
-                    .get('http://localhost:8085/biz/user/queryByKeyWord',{params:{
+                    .get(projectPath+'/biz/user/queryByKeyWord',{params:{
                         userKeyWord: this.$refs.userKeyWord.value
                     }})
                     .then(response => {
@@ -88,7 +89,7 @@
         },
         mounted(){
             axios
-                .get('http://localhost:8085/biz/user/queryAll')
+                .get(projectPath+'/biz/user/queryAll')
                 .then(response => {
                     for(var i = 0;i < response.data.length;i++) {
                         my_vue.userList.push(response.data[i]),

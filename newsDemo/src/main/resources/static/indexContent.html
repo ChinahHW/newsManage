@@ -348,6 +348,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
     </body>
     <script type="text/javascript">
+    var projectPath = window.document.location.href.substr(0,window.document.location.href.lastIndexOf("/"));
       var my_vue = new Vue({
         el: "#showPage",
         data:{
@@ -358,15 +359,16 @@
         methods:{
             queryByKeyWord:function(){
                 axios
-                    .get('http://localhost:8085/biz/news/queryByKeyWord',{params:{
-                        newsKeyWord: this.$refs.newsKeyWord.value
+                    .get(projectPath+'/biz/news/queryByKeyWord',{params:{
+                        newsKeyWord: this.$refs.newsKeyWord.value,
+                        "userId" : sessionStorage.getItem("userId")
                     }})
                     .then(response => {
                         my_vue.newsList = [];
                         my_vue.newsDetail = '';
                         for(var i = 0;i < response.data.data.length;i++) {
                         my_vue.newsList.push(response.data.data[i]),
-                        my_vue.newsDetail += '<tr class="warning"><td>'+this.newsList[i].newsId+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+this.newsList[i].newsTitle+'</td><td>'+this.newsList[i].gmtCreate+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+this.newsList[i].newsContent.substring(0,15)+'...'+'</td></tr>';
+                        my_vue.newsDetail += '<tr class="warning"><td>'+this.newsList[i].newsId+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+this.newsList[i].newsTitle+'</td><td>'+this.newsList[i].createTime+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+this.newsList[i].newsContent.substring(0,15)+'...'+'</td></tr>';
                         }
                     })
                     .catch(function (error) {
@@ -376,16 +378,17 @@
         },
         mounted(){
             axios
-                .get('http://localhost:8085/biz/news/page',{
+                .get(projectPath+'/biz/news/page',{
                     params : {
                         "page" : 1,
-                        "count" : 12
+                        "count" : 12,
+                        "userId" : sessionStorage.getItem("userId")
                     }
                 })
                 .then(response => {
                     for(var i = 0;i < response.data.data.records.length;i++) {
                         my_vue.newsList.push(response.data.data.records[i]),
-                        my_vue.newsDetail += '<tr class="warning"><td>'+this.newsList[i].newsId+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+this.newsList[i].newsTitle+'</td><td>'+this.newsList[i].gmtCreate+'</td><td>'+this.newsList[i].newsContent.substring(0,15)+'...'+'</td></tr>';
+                        my_vue.newsDetail += '<tr class="warning"><td>'+this.newsList[i].newsId+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+this.newsList[i].newsTitle+'</td><td>'+this.newsList[i].createTime+'</td><td>'+this.newsList[i].newsContent.substring(0,15)+'...'+'</td></tr>';
                     }
                 }
                     
@@ -407,7 +410,7 @@
         methods:{
             queryByKeyWord:function(){
                 axios
-                    .get('http://localhost:8085/biz/user/queryByKeyWord',{params:{
+                    .get(projectPath+'/biz/user/queryByKeyWord',{params:{
                         userKeyWord: this.$refs.userKeyWord.value
                     }})
                     .then(response => {
@@ -428,7 +431,7 @@
         },
         mounted(){
             axios
-                .get('http://localhost:8085/biz/user/page',{
+                .get(projectPath+'/biz/user/page',{
                     params:{
                         "page" : 1,
                         "count" : 10

@@ -70,6 +70,42 @@
                 text-align: center;
                 font-size: 15px
             }
+            .form-control1{
+                margin-left: 65%;
+                width: 15%;
+                height: 34px;
+                padding: 6px 12px;
+                font-size: 14px;
+                line-height: 1.42857143;
+                color: #555;
+                background-color: #fff;
+                background-image: none;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+                box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+                -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+                -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+                transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+            }
+            .form-control2{
+                margin-left: 10%
+                width: 15%;
+                height: 34px;
+                padding: 6px 12px;
+                font-size: 14px;
+                line-height: 1.42857143;
+                color: #555;
+                background-color: #fff;
+                background-image: none;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+                box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+                -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+                -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+                transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+            }
         </style>
         
     </head>
@@ -341,6 +377,11 @@
                                 <div class="panel-heading white-bg">
                                     <!-- <h4 class="panel-title">Data table</h4> -->
                                     <button class="btn btn-primary" v-on:click="showAdd">添加新闻</button>
+
+                                    <select class="form-control2" id="chooseClass" v-html="nodeList" onchange="selectClassChange()"></select>
+
+                                    <input type="text" name="search" class="form-control1" id="search" placeholder="请输入查询条件">
+                                    <button class="btn" v-on:click="queryNewsByKeyWord"><i class="ec-search"></i>查询</button>
                                 </div>
 
 
@@ -374,6 +415,11 @@
                                                 <!--在需要使用编辑器的地方插入textarea标签 -->
                                                 <label for="class_name">描述：</label>
                                                 <textarea name="description" id="description" ></textarea>
+
+                                                <div class="form-group">
+                                                    <label for="sort">排序规则(输入一个数字，0-30之间，数字越大，显示出来的位置越靠前)</label>
+                                                    <input type="text" name="sort" class="form-control" id="add_sort" placeholder="排序规则">
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="modal-footer">
@@ -407,14 +453,15 @@
                                                 <textarea type="text" name="news_content" class="form-control" id="news_content" placeholder="新闻内容" style="height: 100px"></textarea>
                                             </div>
                                             <div class="form-group">
-                                                <label for="creator">创建人</label>
-                                                <input type="text" name="creator" class="form-control" id="creator" placeholder="0">
-                                            </div>
-                                            <div class="form-group">
                                                 <label for="update_parent_name">新闻分类</label>
                                                 <input type="text" name="news_class" class="form-control" id="news_class" v-model="selectClass" placeholder="0">
                                                 <br/>
                                                 <select class="selectpicker" multiple id="allNode" v-html="nodeList"></select>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="sort">排序规则(输入一个数字，0-30之间，数字越大，显示出来的位置越靠前)</label>
+                                                <input type="text" name="sort" class="form-control" id="update_sort" placeholder="排序规则">
                                             </div>
                                         </div>
                                         <div class="modal-footer">
@@ -447,12 +494,12 @@
                                                 <textarea type="text" name="news_content" class="form-control" readonly="true" id="detail_news_content" placeholder="新闻内容" style="height: 100px"></textarea>
                                             </div>
                                             <div class="form-group">
-                                                <label for="creator">创建人</label>
-                                                <input type="text" name="creator" class="form-control" readonly="true" id="detail_creator" placeholder="0">
-                                            </div>
-                                            <div class="form-group">
                                                 <label for="update_parent_name">新闻分类</label>
                                                 <input type="text" name="detail_news_class" class="form-control" readonly="true" id="detail_news_class" v-model="selectClass" placeholder="0">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="sort">排序规则(输入一个数字，0-30之间，数字越大，显示出来的位置越靠前)</label>
+                                                <input type="text" name="sort" class="form-control" id="detail_sort" placeholder="排序规则">
                                             </div>
                                         </div>
                                         <div class="modal-footer">
@@ -474,8 +521,8 @@
                                                 <th style="width: 100px">新闻编号</th>
                                                 <th style="width: 180px">标题</th>
                                                 <th>内容</th>
+                                                <th>修改时间</th>
                                                 <th>创建时间</th>
-                                                <th>创建人</th>
                                                 <th>操作</th>
                                             </tr>
                                         </thead>
@@ -485,7 +532,7 @@
                                      
                                 </div>
 
-                                <div id="example" style="text-align: right;padding-right: 150px;padding-top: 100px"> <ul id="pageLimit"></ul> </div>
+                                <div id="example" style="text-align: right;padding-right: 150px;padding-top: 160px"> <ul id="pageLimit"></ul> </div>
                             </div>
                             <!-- End .panel -->
                         </div>
@@ -510,6 +557,13 @@
 
     </body>
     <script type="text/javascript">
+
+        var projectPath = window.document.location.href.substr(0,window.document.location.href.lastIndexOf("/"));
+        function selectClassChange(){
+            alert($("#chooseClass").val())
+            // axios
+            //     .get()
+        };
         var myeditor ;
         window.onload = function()
             {
@@ -529,20 +583,30 @@
                 selectClass : ""
             },
             methods: {
-                ceshi:function(){
-                    alert(vm.newsDetail)
+                nodeListAdd:function(queryArray,j){
+                    var titleAdd = ""
+                    for(var k = 0; k < j; k++){
+                        titleAdd += "--"
+                    }
+                    for(var i = 0; i < queryArray.length; i++){
+                        vm.nodeList += "<option value="+queryArray[i].groupId+">"+titleAdd+queryArray[i].groupName+"</option>"
+                        if(queryArray[i].subGroup.length != 0){
+                            vm.nodeListAdd(queryArray[i].subGroup,j+1,vm.nodeList)
+                        }
+                    }
+
                 },
                 change : function(){
                     let param = new URLSearchParams()
                 param.append("newsId" ,this.id)
                 param.append("newsTitle" , $("#news_title").val())
+                param.append("sort" , $("#update_sort").val())
                 param.append("newsContent" , myeditor.document.getBody().getHtml())
-                param.append("gmtModify" , $("#creator").val())
                 if($("#allNode").val() != null){
                     param.append('classId' , $("#allNode").val())
                 }
                 axios
-                .post("http://localhost:8085/biz/news/update",param)
+                .post(projectPath+"/biz/news/update",param)
                 .then(response => {
                     alert("修改成功");
                     location.reload();
@@ -551,56 +615,29 @@
                 showAdd : function(){
                     $('#addModal').modal();
                 },
-                upload:function(){
-                let param = new URLSearchParams()
-                param.append('newsContent', CKEDITOR.instances.description.getData()),
-                param.append("newsTitle" , this.$refs.newsTitle.value),
-                param.append("newsTag" , this.$refs.newsTag.value),
-                param.append("gmtModify" , $("#creator").val())
-                if($("#add_allNode").val() != null){
-                    param.append('classId' , $("#add_allNode").val())
-
+                queryNewsByKeyWord:function(){
                     axios
-                    .post("http://localhost:8085/biz/news/add",param
-                    )
-                    .then(response => {
-                        if(response.data.code == '200'){
-                            alert("上传成功")
-                        }else if(response.data.code == '400'){
-                            alert(response.data.msg)
-                        }
-                    })
-                }else{
-                    alert("新闻分类不能为空")
-                }
-                
-                
-            }
-            },
-            mounted(){
-                axios
-                .get('http://localhost:8085/biz/news/page',{
-                    params: {
+                    .get(projectPath+'/biz/news/queryByKeyWord',{params:{
+                        "userId" : sessionStorage.getItem("userId"),
+                        newsKeyWord: $("#search").val(),
                         "page" : 1,
                         "count" : 10
-                    }
-                })
-                .then(response => {
-                    window.total = response.data.data.pages
-                    for(var i = 0;i < response.data.data.records.length;i++) {
-                        vm.newsList.push(response.data.data.records[i]),
-                        vm.newsDetail += '<tr class="gradeA" ><td>'+this.newsList[i].newsId+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+this.newsList[i].newsTitle+'</td><td>'+this.newsList[i].newsContent.substring(0,15)+"..."+'</td><td>'+this.newsList[i].gmtModify+'</td><td>'+this.newsList[i].gmtCreate+'</td><td><button class="btn btn-info detail" id='+i+'>详情</button>  <button class="btn btn-warning update" id='+i+'>修改</button>   <button class="btn btn-danger delete" id='+i+'>删除</button></td></tr>';
-                    }
+                    }})
+                    .then(response => {
+                        vm.newsList = [];
+                        vm.newsDetail = '';
+                        window.total = response.data.data.pages;
+                        for(var i = 0;i < response.data.data.records.length;i++) {
+                        vm.newsList.push(vm.null2str(response.data.data.records[i])),
+                        vm.newsDetail += '<tr class="gradeA" ><td>'+this.newsList[i].newsId+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+this.newsList[i].newsTitle+'</td><td>'+this.newsList[i].newsContent.substring(0,15)+"..."+'</td><td>'+this.newsList[i].updateTime+'</td><td>'+this.newsList[i].createTime+'</td><td><button class="btn btn-info detail" id='+i+'>详情</button>  <button class="btn btn-warning update" id='+i+'>修改</button>   <button class="btn btn-danger delete" id='+i+'>删除</button></td></tr>';
+                        }
 
-
-
-
-                    //给修改按钮添加事件
-                    this.$nextTick().then(() => {
+                        //给修改按钮添加事件
+                        this.$nextTick().then(() => {
                           $('.update').on('click',function(){
                             vm.id = vm.newsList[$(this).attr("id")].newsId;
                             axios
-                                .get("http://localhost:8085/biz/newsClass/queryClassByNewsId",{
+                                .get(projectPath+"/biz/newsClass/queryClassByNewsId",{
                                     params : {
                                         "newsId" : vm.id
                                     }
@@ -613,9 +650,10 @@
                                 })
                             $("#myModalLabel").text("修改");
                             $("#news_title").val(vm.newsList[$(this).attr("id")].newsTitle);
+                            $("#update_sort").val(vm.newsList[$(this).attr("id")].sort);
                             // $("#news_content").val(vm.newsList[$(this).attr("id")].newsContent);
                             myeditor.setData(vm.newsList[$(this).attr("id")].newsContent);
-                            $("#creator").val(vm.newsList[$(this).attr("id")].gmtModify);
+                            $("#creator").val(vm.newsList[$(this).attr("id")].updateTime);
                             $('#myModal').modal();
                             
                          })
@@ -627,7 +665,7 @@
                           $('.detail').on('click',function(){
                             vm.id = vm.newsList[$(this).attr("id")].newsId;
                             axios
-                                .get("http://localhost:8085/biz/newsClass/queryClassByNewsId",{
+                                .get(projectPath+"/biz/newsClass/queryClassByNewsId",{
                                     params : {
                                         "newsId" : vm.id
                                     }
@@ -640,9 +678,10 @@
                                 })
                             $("#detailModalLabel").text("详情");
                             $("#detail_news_title").val(vm.newsList[$(this).attr("id")].newsTitle);
+                            $("#detail_sort").val(vm.newsList[$(this).attr("id")].sort);
                             // $("#news_content").val(vm.newsList[$(this).attr("id")].newsContent);
                             detail_editor.setData(vm.newsList[$(this).attr("id")].newsContent);
-                            $("#detail_creator").val(vm.newsList[$(this).attr("id")].gmtModify);
+                            $("#detail_creator").val(vm.newsList[$(this).attr("id")].updateTime);
                             $('#detailModal').modal();
                             vm.id = vm.newsList[$(this).attr("id")].newsId;
                          })
@@ -653,7 +692,261 @@
                     this.$nextTick().then(() => {
                           $('.delete').on('click',function(){
                             axios
-                                .get("http://localhost:8085/biz/news/delete",{
+                                .get(projectPath+"/biz/news/delete",{
+                                    params : {
+                                        "newsId" :  vm.newsList[$(this).attr("id")].newsId
+                                    }
+                                })
+                                .then(response => {
+                                    alert("success")
+                                    location.reload();
+                                })
+                         })
+
+                    })
+
+                    $('#pageLimit').bootstrapPaginator({
+                         currentPage: 1,//当前的请求页面。
+                         totalPages: window.total,//一共多少页。
+                         size:"normal",//应该是页眉的大小。
+                         bootstrapMajorVersion: 3,//bootstrap的版本要求。
+                         alignment:"right",
+                         numberOfPages:5,//一页列出多少数据。
+                         itemTexts: function (type, page, current) {//如下的代码是将页眉显示的中文显示我们自定义的中文。
+                             switch (type) {
+                             case "first": return "首页";
+                             case "prev": return "上一页";
+                             case "next": return "下一页";
+                             case "last": return "末页";
+                             case "page": return page;
+                             }
+                         },
+                         
+                         onPageClicked: function (event, originalEvent, type, page){//给每个页眉绑定一个事件，其实就是ajax请求，其中page变量为当前点击的页上的数字。
+                                 $.ajax({
+                                     url:projectPath+'/biz/news/queryByKeyWord',
+                                     type:'POST',
+                                     data:{'page':page,'count':10,"userId" : sessionStorage.getItem("userId"),newsKeyWord: $("#search").val()},
+                                     dataType:'JSON',
+                                     success:function (callback) {
+                                            
+                                            vm.newsDetail = "";
+                                            vm.newsList = [];
+                                            for(var i = 0;i < callback.data.records.length;i++) {
+                                                vm.newsList.push(vm.null2str(response.data.data.records[i])),
+                                                vm.newsDetail += '<tr class="gradeA"><td>'+callback.data.records[i].newsId+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+callback.data.records[i].newsTitle+'</td><td>'+callback.data.records[i].newsContent.substring(0,15)+"..."+'</td><td>'+callback.data.records[i].updateTime+'</td><td>'+callback.data.records[i].createTime+'</td><td><button class="btn btn-info detail" id='+i+'>详情</button>  <button class="btn btn-warning update" id='+i+'>修改</button>  <button class="btn btn-danger delete" id='+i+'>删除</button></td></tr>';
+                                            }
+
+                                            //给分页返回的修改按钮添加事件
+                                            vm.$nextTick().then(() => {
+                                                  $('.update').on('click',function(){
+                                                    vm.id = vm.newsList[$(this).attr("id")].newsId;
+                                                     axios
+                                                            .get(projectPath+"/biz/newsClass/queryClassByNewsId",{
+                                                                params : {
+                                                                    "newsId" : vm.id
+                                                                }
+                                                            })
+                                                            .then(response => {
+                                                                vm.selectClass = "";
+                                                                for(var i = 0;i < response.data.data.length;i++) {
+                                                                 vm.selectClass += " "+response.data.data[i].name
+                                                                }
+                                                            })
+                                                    $("#myModalLabel").text("修改");
+                                                    $("#news_title").val(vm.newsList[$(this).attr("id")].newsTitle);
+                                                    $("#update_sort").val(vm.newsList[$(this).attr("id")].sort);
+                                                    // $("#news_content").val(newsList[$(this).attr("id")].newsContent);
+                                                    myeditor.setData(vm.newsList[$(this).attr("id")].newsContent);
+                                                    $("#creator").val(vm.newsList[$(this).attr("id")].updateTime);
+                                                    $('#myModal').modal();
+                                                   
+                                                 })
+
+                                            })
+
+
+                                            //给分页返回的详情按钮添加事件
+                                            vm.$nextTick().then(() => {
+                                                  $('.detail').on('click',function(){
+                                                    vm.id = vm.newsList[$(this).attr("id")].newsId;
+                                                     axios
+                                                            .get(projectPath+"/biz/newsClass/queryClassByNewsId",{
+                                                                params : {
+                                                                    "newsId" : vm.id
+                                                                }
+                                                            })
+                                                            .then(response => {
+                                                                vm.selectClass = "";
+                                                                for(var i = 0;i < response.data.data.length;i++) {
+                                                                 vm.selectClass += " "+response.data.data[i].name
+                                                                }
+                                                            })
+                                                    $("#detailModalLabel").text("详情");
+                                                    $("#detail_news_title").val(vm.newsList[$(this).attr("id")].newsTitle);
+                                                    $("#detail_sort").val(vm.newsList[$(this).attr("id")].sort);
+                                                    // $("#news_content").val(newsList[$(this).attr("id")].newsContent);
+                                                    detail_editor.setData(vm.newsList[$(this).attr("id")].newsContent);
+                                                    $("#detail_creator").val(vm.newsList[$(this).attr("id")].updateTime);
+                                                    $('#detailModal').modal();
+                                                 })
+
+                                            })
+
+                                            //给分页返回的删除按钮添加事件
+                                            vm.$nextTick().then(() => {
+                                                  $('.delete').on('click',function(){
+                                                        axios
+                                                            .get(projectPath+"/biz/news/delete",{
+                                                                params : {
+                                                                    "newsId" :  vm.newsList[$(this).attr("id")].newsId
+                                                                }
+                                                            })
+                                                            .then(response => {
+                                                                alert("success")
+                                                                location.reload();
+                                                            })
+                                                     })
+
+                                            })
+                                         }
+                                 })
+
+
+                             }
+
+
+
+                     });
+
+                    })
+                    .catch(function (error) {
+                        console.log(error)
+                    })
+                },
+                null2str:function(data){
+                    for (let x in data) {
+                        if (data[x] === null) { // 如果是null 把直接内容转为 ''
+                          data[x] = '';
+                        } else {
+                          if (Array.isArray(data[x])) { // 是数组遍历数组 递归继续处理
+                            data[x] = data[x].map(z => {
+                              return null2str(z);
+                            });
+                          }
+                          if(typeof(data[x]) === 'object'){ // 是json 递归继续处理
+                            data[x] = null2str(data[x])
+                          }
+                        }
+                      }
+                      return data;  
+                },
+                upload:function(){
+                let param = new URLSearchParams()
+                param.append('newsContent', CKEDITOR.instances.description.getData()),
+                param.append("newsTitle" , this.$refs.newsTitle.value),
+                param.append("newsTag" , this.$refs.newsTag.value),
+                param.append("sort" , $("#add_sort").val())
+                if($("#add_allNode").val() != null){
+                    param.append('classId' , $("#add_allNode").val())
+
+                    axios
+                    .post(projectPath+"/biz/news/add",param
+                    )
+                    .then(response => {
+                        if(response.data.code == '200'){
+                            alert("上传成功")
+                            location.reload();
+                        }else if(response.data.code == '400'){
+                            alert(response.data.msg)
+                        }
+                    })
+                }else{
+                    alert("新闻分类不能为空")
+                }
+            }
+                
+            },
+            mounted(){
+                axios
+                .get(projectPath+'/biz/news/page',{
+                    params: {
+                        "page" : 1,
+                        "count" : 10,
+                        "userId" : sessionStorage.getItem("userId")
+                    }
+                })
+                .then(response => {
+                    window.total = response.data.data.pages
+                    for(var i = 0;i < response.data.data.records.length;i++) {
+                        vm.newsList.push(vm.null2str(response.data.data.records[i])),
+                        vm.newsDetail += '<tr class="gradeA" ><td>'+this.newsList[i].newsId+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+this.newsList[i].newsTitle+'</td><td>'+this.newsList[i].newsContent.substring(0,15)+"..."+'</td><td>'+this.newsList[i].updateTime+'</td><td>'+this.newsList[i].createTime+'</td><td><button class="btn btn-info detail" id='+i+'>详情</button>  <button class="btn btn-warning update" id='+i+'>修改</button>   <button class="btn btn-danger delete" id='+i+'>删除</button></td></tr>';
+                    }
+
+
+
+
+                    //给修改按钮添加事件
+                    this.$nextTick().then(() => {
+                          $('.update').on('click',function(){
+                            vm.id = vm.newsList[$(this).attr("id")].newsId;
+                            axios
+                                .get(projectPath+"/biz/newsClass/queryClassByNewsId",{
+                                    params : {
+                                        "newsId" : vm.id
+                                    }
+                                })
+                                .then(response => {
+                                    vm.selectClass = "";
+                                    for(var i = 0;i < response.data.data.length;i++) {
+                                        vm.selectClass += " "+response.data.data[i].name
+                                    }
+                                })
+                            $("#myModalLabel").text("修改");
+                            $("#news_title").val(vm.newsList[$(this).attr("id")].newsTitle);
+                            $("#update_sort").val(vm.newsList[$(this).attr("id")].sort);
+                            // $("#news_content").val(vm.newsList[$(this).attr("id")].newsContent);
+                            myeditor.setData(vm.newsList[$(this).attr("id")].newsContent);
+                            $("#creator").val(vm.newsList[$(this).attr("id")].updateTime);
+                            $('#myModal').modal();
+                            
+                         })
+
+                    })
+
+                    //给详情按钮添加事件
+                    this.$nextTick().then(() => {
+                          $('.detail').on('click',function(){
+                            vm.id = vm.newsList[$(this).attr("id")].newsId;
+                            axios
+                                .get(projectPath+"/biz/newsClass/queryClassByNewsId",{
+                                    params : {
+                                        "newsId" : vm.id
+                                    }
+                                })
+                                .then(response => {
+                                    vm.selectClass = "";
+                                    for(var i = 0;i < response.data.data.length;i++) {
+                                        vm.selectClass += " "+response.data.data[i].name
+                                    }
+                                })
+                            $("#detailModalLabel").text("详情");
+                            $("#detail_news_title").val(vm.newsList[$(this).attr("id")].newsTitle);
+                            $("#detail_sort").val(vm.newsList[$(this).attr("id")].sort);
+                            // $("#news_content").val(vm.newsList[$(this).attr("id")].newsContent);
+                            detail_editor.setData(vm.newsList[$(this).attr("id")].newsContent);
+                            $("#detail_creator").val(vm.newsList[$(this).attr("id")].updateTime);
+                            $('#detailModal').modal();
+                            vm.id = vm.newsList[$(this).attr("id")].newsId;
+                         })
+
+                    })
+
+                    //给删除按钮添加事件
+                    this.$nextTick().then(() => {
+                          $('.delete').on('click',function(){
+                            axios
+                                .get(projectPath+"/biz/news/delete",{
                                     params : {
                                         "newsId" :  vm.newsList[$(this).attr("id")].newsId
                                     }
@@ -687,27 +980,24 @@
                          
                          onPageClicked: function (event, originalEvent, type, page){//给每个页眉绑定一个事件，其实就是ajax请求，其中page变量为当前点击的页上的数字。
                                  $.ajax({
-                                     url:'http://localhost:8085/biz/news/page',
+                                     url:projectPath+'/biz/news/page',
                                      type:'POST',
-                                     data:{'page':page,'count':10},
+                                     data:{'page':page,'count':10,"userId" : sessionStorage.getItem("userId")},
                                      dataType:'JSON',
                                      success:function (callback) {
-                                            $('#newsDetail').empty();
-                                            var newsDetail = "";
-                                            var newsList = [];
+                                            vm.newsDetail = "";
+                                            vm.newsList = [];
                                             for(var i = 0;i < callback.data.records.length;i++) {
-                                                newsList.push(callback.data.records[i]);
-                                                newsDetail += '<tr class="gradeA"><td>'+callback.data.records[i].newsId+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+callback.data.records[i].newsTitle+'</td><td>'+callback.data.records[i].newsContent.substring(0,15)+"..."+'</td><td>'+callback.data.records[i].gmtModify+'</td><td>'+callback.data.records[i].gmtCreate+'</td><td><button class="btn btn-info detail" id='+i+'>详情</button>  <button class="btn btn-warning update" id='+i+'>修改</button>  <button class="btn btn-danger delete" id='+i+'>删除</button></td></tr>';
+                                                vm.newsList.push(vm.null2str(callback.data.records[i])),
+                                                vm.newsDetail += '<tr class="gradeA"><td>'+callback.data.records[i].newsId+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+callback.data.records[i].newsTitle+'</td><td>'+callback.data.records[i].newsContent.substring(0,15)+"..."+'</td><td>'+callback.data.records[i].updateTime+'</td><td>'+callback.data.records[i].createTime+'</td><td><button class="btn btn-info detail" id='+i+'>详情</button>  <button class="btn btn-warning update" id='+i+'>修改</button>  <button class="btn btn-danger delete" id='+i+'>删除</button></td></tr>';
                                             }
-
-                                            $('#newsDetail').html(newsDetail)
 
                                             //给分页返回的修改按钮添加事件
                                             vm.$nextTick().then(() => {
                                                   $('.update').on('click',function(){
-                                                    vm.id = newsList[$(this).attr("id")].newsId;
+                                                    vm.id = vm.newsList[$(this).attr("id")].newsId;
                                                      axios
-                                                            .get("http://localhost:8085/biz/newsClass/queryClassByNewsId",{
+                                                            .get(projectPath+"/biz/newsClass/queryClassByNewsId",{
                                                                 params : {
                                                                     "newsId" : vm.id
                                                                 }
@@ -719,10 +1009,11 @@
                                                                 }
                                                             })
                                                     $("#myModalLabel").text("修改");
-                                                    $("#news_title").val(newsList[$(this).attr("id")].newsTitle);
+                                                    $("#news_title").val(vm.newsList[$(this).attr("id")].newsTitle);
+                                                    $("#update_sort").val(vm.newsList[$(this).attr("id")].sort);
                                                     // $("#news_content").val(newsList[$(this).attr("id")].newsContent);
-                                                    myeditor.setData(newsList[$(this).attr("id")].newsContent);
-                                                    $("#creator").val(newsList[$(this).attr("id")].gmtModify);
+                                                    myeditor.setData(vm.newsList[$(this).attr("id")].newsContent);
+                                                    $("#creator").val(vm.newsList[$(this).attr("id")].updateTime);
                                                     $('#myModal').modal();
                                                    
                                                  })
@@ -733,9 +1024,9 @@
                                             //给分页返回的详情按钮添加事件
                                             vm.$nextTick().then(() => {
                                                   $('.detail').on('click',function(){
-                                                    vm.id = newsList[$(this).attr("id")].newsId;
+                                                    vm.id = vm.newsList[$(this).attr("id")].newsId;
                                                      axios
-                                                            .get("http://localhost:8085/biz/newsClass/queryClassByNewsId",{
+                                                            .get(projectPath+"/biz/newsClass/queryClassByNewsId",{
                                                                 params : {
                                                                     "newsId" : vm.id
                                                                 }
@@ -747,10 +1038,11 @@
                                                                 }
                                                             })
                                                     $("#detailModalLabel").text("详情");
-                                                    $("#detail_news_title").val(newsList[$(this).attr("id")].newsTitle);
+                                                    $("#detail_news_title").val(vm.newsList[$(this).attr("id")].newsTitle);
+                                                    $("#detail_sort").val(vm.newsList[$(this).attr("id")].sort);
                                                     // $("#news_content").val(newsList[$(this).attr("id")].newsContent);
-                                                    detail_editor.setData(newsList[$(this).attr("id")].newsContent);
-                                                    $("#detail_creator").val(newsList[$(this).attr("id")].gmtModify);
+                                                    detail_editor.setData(vm.newsList[$(this).attr("id")].newsContent);
+                                                    $("#detail_creator").val(vm.newsList[$(this).attr("id")].updateTime);
                                                     $('#detailModal').modal();
                                                  })
 
@@ -758,13 +1050,11 @@
 
                                             //给分页返回的删除按钮添加事件
                                             vm.$nextTick().then(() => {
-                                                console.log(newsList[0])
-                                                console.log($(this).attr("id"))
                                                   $('.delete').on('click',function(){
                                                         axios
-                                                            .get("http://localhost:8085/biz/news/delete",{
+                                                            .get(projectPath+"/biz/news/delete",{
                                                                 params : {
-                                                                    "newsId" :  newsList[$(this).attr("id")].newsId
+                                                                    "newsId" :  vm.newsList[$(this).attr("id")].newsId
                                                                 }
                                                             })
                                                             .then(response => {
@@ -793,14 +1083,24 @@
                 .catch(function (error){
                 })
                // 下拉框添加剩余数据
-                                    axios
-                                    .get("http://localhost:8085/biz/class/queryAll")
-                                    .then(response => {
+                axios
+                    .get(projectPath+"/biz/class/queryTreeForList",{
+                        params:{
+                            "userId" : sessionStorage.getItem("userId")
+                        }
+                    })
+                    .then(response => {
+                        vm.nodeListAdd(response.data.data,0);
+                    })
 
-                                        for (var i = 0; i < response.data.data.length; i++) {
-                                            vm.nodeList += "<option value="+response.data.data[i].id+">"+response.data.data[i].name+"</option>"
-                                        }
-                                    })
+                document.addEventListener('keydown', (e) => {
+                      // console.log(e.keyCode)
+                      // 下面可以通过keyCode来添加键盘事件
+                      if(e.keyCode == 13){
+                        vm.queryNewsByKeyWord()
+                      }
+                   }
+                )
             }
         })
     </script>

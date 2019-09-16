@@ -38,6 +38,28 @@ public class GroupTreeUtils {
         return list;
     }
 
+
+    public List<treeMenu> buildGroupTreeByUserId(List<treeMenu> treeMenuList) {
+        this.treeMenuList = treeMenuList;
+        for (treeMenu gr : treeMenuList){
+            //无论是否为父级目录，都得查询
+            treeMenu group = new treeMenu();
+            group.setGroupId(gr.getGroupId());
+            group.setParentSeq(gr.getParentSeq());
+            group.setGroupName(gr.getGroupName());
+            group.setGroupDesc(gr.getGroupDesc());
+            group.setGroupType(gr.getGroupType());
+            group.setHref("#");
+            group.setOrder(gr.getOrder());
+            group.setOpenFlag(gr.isOpenFlag());
+            group.setSubGroup(treeChild(gr.getGroupId()+""));
+            group.setPath(gr.getPath());
+            group.setIcon(gr.getIcon());
+            list.add(group);
+        }
+        return list;
+    }
+
     /**
      *  treeChild:(递归遍历子级分组)
      * @author nicky

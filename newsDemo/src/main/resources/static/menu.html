@@ -74,7 +74,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="update_sort">排序规则(输入一个数字，0-30之间，数字越大，显示出来的位置越靠前)</label>
+                        <label for="update_sort">排序规则(输入一个数字，数字越大，显示出来的位置越靠前)</label>
                         <input type="text" name="update_sort" class="form-control" id="update_sort" placeholder="0" v-model="sort">
                     </div>
                     <div class="form-group">
@@ -131,6 +131,7 @@
 <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
 <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
 <script type="text/javascript">
+    var projectPath = window.document.location.href.substr(0,window.document.location.href.lastIndexOf("/"));
     var tree_vue = new Vue({
         el: "#treeMenu",
         data: {
@@ -175,7 +176,7 @@
 
                     // 默认的父类选中
                     axios
-                    .get("http://localhost:8085/biz/menu/queryById",{
+                    .get(projectPath+"/biz/menu/queryById",{
                         params:{
                             "menuId" : this.updateParentId
                         }
@@ -190,7 +191,7 @@
 
                     // 父类下拉框添加数据
                     axios
-                    .get("http://localhost:8085/biz/menu/queryAll")
+                    .get(projectPath+"/biz/menu/queryAll")
                     .then(response => {
 
                         for (var i = 0; i < response.data.data.length; i++) {
@@ -222,7 +223,7 @@
             },
             add : function(){
                 axios
-                .get("http://localhost:8085/biz/menu/add",{
+                .get(projectPath+"/biz/menu/add",{
                     params:{
                         "name" : $("#menu_name").val(),
                         "parentId" : this.addParentId,
@@ -238,7 +239,7 @@
             update : function(){
                 console.log("allNode is" + $("#allNode").val())
                 axios
-                .get("http://localhost:8085/biz/menu/update",{
+                .get(projectPath+"/biz/menu/update",{
                     params:{
                         "menuId" : this.id,
                         "name" : $("#new_name").val(),
@@ -255,7 +256,7 @@
             },
             del:function(){
                 axios
-                .get("http://localhost:8085/biz/menu/delete",{
+                .get(projectPath+"/biz/menu/delete",{
                     params:{
                         "menuId" : this.id
                             }
@@ -268,7 +269,7 @@
         },
         mounted(){
             axios
-                .get('http://localhost:8085/biz/menu/queryTreeMenu',{
+                .get(projectPath+'/biz/menu/queryTreeMenu',{
                     params : {
                         "userId" : sessionStorage.getItem("userId")
                     }

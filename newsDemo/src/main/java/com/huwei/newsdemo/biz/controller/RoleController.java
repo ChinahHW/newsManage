@@ -1,6 +1,7 @@
 package com.huwei.newsdemo.biz.controller;
 
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.huwei.newsdemo.biz.entity.Role;
 import com.huwei.newsdemo.biz.service.IRoleService;
 import com.huwei.newsdemo.response.BaseResponse;
@@ -38,6 +39,22 @@ public class RoleController extends BaseController{
             e.printStackTrace();
             logger.error(ExceptionUtils.getFullStackTrace(e));
         }
+        return baseResponse;
+    }
+
+    @RequestMapping("queryByKeyWord")
+    public BaseResponse queryByName(String roleKeyWord, int page, int count){
+        BaseResponse baseResponse = new BaseResponse();
+        try {
+            Page<Role> rolePage = roleService.queryByKeyWord(roleKeyWord,page,count);
+            if(rolePage != null){
+                baseResponse.success(rolePage);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            logger.error(ExceptionUtils.getFullStackTrace(e));
+        }
+
         return baseResponse;
     }
 

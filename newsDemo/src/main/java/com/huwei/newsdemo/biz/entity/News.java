@@ -17,44 +17,33 @@ import java.util.Date;
  * </p>
  *
  * @author huwei
- * @since 2019-08-26
+ * @since 2019-09-12
  */
 @Data
 @Accessors(chain = true)
-public class News extends Model<News> {
+public class News extends Model<News>  implements Comparable<News>{
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 新闻唯一标识
-     */
-    @TableId(value = "newsId", type = IdType.AUTO)
+    @TableId(value = "news_id", type = IdType.AUTO)
     private Integer newsId;
-    /**
-     * 新闻标题
-     */
     @TableField("news_title")
     private String newsTitle;
-    /**
-     * 新闻标签
-     */
     @TableField("news_tag")
     private String newsTag;
-    /**
-     * 新闻内容
-     */
     @TableField("news_content")
     private String newsContent;
+    @TableField(value = "create_time", fill = FieldFill.INSERT)
+    private Date createTime;
+    @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
+    private Date updateTime;
     /**
-     * 创建时间
+     * 0为未删除，1为已删除
      */
-    @TableField(value = "gmt_create", fill = FieldFill.INSERT)
-    private Date gmtCreate;
-    /**
-     * 修改人信息
-     */
-    @TableField(value = "gmt_modify", fill = FieldFill.INSERT_UPDATE)
-    private String gmtModify;
+    @TableField("del_flag")
+    private Integer delFlag;
+    @TableField("sort")
+    private Integer sort;
 
 
     public static final String NEWSID = "newsId";
@@ -65,13 +54,21 @@ public class News extends Model<News> {
 
     public static final String NEWS_CONTENT = "news_content";
 
-    public static final String GMT_CREATE = "gmt_create";
+    public static final String CREATE_TIME = "create_time";
 
-    public static final String GMT_MODIFY = "gmt_modify";
+    public static final String UPDATE_TIME = "update_time";
+
+    public static final String DEL_FLAG = "del_flag";
+
+    public static final String SORT = "sort";
 
     @Override
     protected Serializable pkVal() {
         return this.newsId;
     }
 
+    @Override
+    public int compareTo(News o) {
+        return o.getSort() - this.sort;
+    }
 }

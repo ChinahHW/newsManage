@@ -1,15 +1,20 @@
 package com.huwei.newsdemo.biz.entity;
 
-import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.enums.IdType;
+import java.util.Date;
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.enums.FieldFill;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.enums.FieldFill;
-import com.baomidou.mybatisplus.enums.IdType;
-import lombok.Data;
-import lombok.experimental.Accessors;
-
+import com.baomidou.mybatisplus.activerecord.Model;
 import java.io.Serializable;
-import java.util.Date;
+
+import com.baomidou.mybatisplus.annotations.Version;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
 
 /**
  * <p>
@@ -17,7 +22,7 @@ import java.util.Date;
  * </p>
  *
  * @author huwei
- * @since 2019-09-09
+ * @since 2019-09-12
  */
 @Data
 @Accessors(chain = true)

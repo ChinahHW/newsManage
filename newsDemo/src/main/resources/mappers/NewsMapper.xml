@@ -4,7 +4,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        newsId AS newsId, news_title, news_tag, news_content, gmt_create, gmt_modify
+        newsId AS newsId, news_title AS newsTitle, news_tag AS newsTag, news_content AS newsContent, create_time AS createTime, update_time AS updateTime, del_flag AS delFlag, sort AS sort
     </sql>
 
 </mapper>

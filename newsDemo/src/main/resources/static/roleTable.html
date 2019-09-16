@@ -70,6 +70,24 @@
                 text-align: center;
                 font-size: 15px
             }
+            .form-control1{
+                margin-left: 75%;
+                width: 15%;
+                height: 34px;
+                padding: 6px 12px;
+                font-size: 14px;
+                line-height: 1.42857143;
+                color: #555;
+                background-color: #fff;
+                background-image: none;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+                box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+                -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+                -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+                transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+            }
         </style>
         
     </head>
@@ -202,6 +220,10 @@
                                 <div class="panel-heading white-bg">
                                     <!-- <h4 class="panel-title">Data table</h4> -->
                                     <button class="btn btn-primary" v-on:click="showAdd">新增角色</button>
+
+
+                                    <input type="text" name="search" class="form-control1" id="search" placeholder="请输入查询条件">
+                                    <button class="btn" v-on:click="queryRoleByKeyWord"><i class="ec-search"></i>查询</button>
                                 </div>
 
 
@@ -410,6 +432,7 @@
 
     </body>
     <script type="text/javascript">
+        var projectPath = window.document.location.href.substr(0,window.document.location.href.lastIndexOf("/"));
         var vm = new Vue({
             el: "#roleTable",
             data: {
@@ -423,88 +446,53 @@
                 selectDept : ""
             },
             methods: {
-                ceshi:function(){
-                    alert(vm.roleDetail)
-                },
-                change : function(){
-                    let param = new URLSearchParams()
-                param.append("roleId" ,this.id)
-                param.append("roleName" , $("#update_role_name").val())
-                param.append("roleDesc" , $("#update_description").val())
-                param.append("roleCode" , $("#update_role_code").val())
-                if($("#update_allNode").val() != null){
-                    param.append('permission' , $("#update_allNode").val())
-                }
-                if($("#update_allDept").val() != null){
-                    param.append('depts', $("#update_allDept").val())
-                }
-                axios
-                .post("http://localhost:8085/biz/role/update",param)
-                .then(response => {
-                    if(response.data.code == '200'){
-                        alert("修改成功");
-                        location.reload();
-                    }else{
-                        alert(response.data.msg)
+                nodeListAdd:function(queryArray,j){
+                    var titleAdd = ""
+                    for(var k = 0; k < j; k++){
+                        titleAdd += "--"
                     }
-                })
-                },
-                showAdd : function(){
-                    $('#addModal').modal();
-                },
-                upload:function(){
-                let param = new URLSearchParams()
-                param.append('roleDesc', $("#description").val()),
-                param.append("roleName" , $("#role_name").val()),
-                param.append("roleCode" , $("#role_code").val())
-                if($("#add_allNode").val() != null){
-                    param.append('permission' , $("#add_allNode").val())
-                    if($("#add_allDept").val() != null){
-                        param.append('depts' , $("#add_allDept").val())
+                    for(var i = 0; i < queryArray.length; i++){
+                        vm.nodeList += "<option value="+queryArray[i].groupId+">"+titleAdd+queryArray[i].groupName+"</option>"
+                        if(queryArray[i].subGroup.length != 0){
+                            vm.nodeListAdd(queryArray[i].subGroup,j+1,vm.nodeList)
+                        }
                     }
 
-                    axios
-                    .post("http://localhost:8085/biz/role/add",param
-                    )
-                    .then(response => {
-                        if(response.data.code == '200'){
-                            alert("添加成功")
-                            location.reload();
-                        }else if(response.data.code == '400'){
-                            alert(response.data.msg)
+                },
+                deptListAdd:function(queryArray,j){
+                    var titleAdd = ""
+                    for(var k = 0; k < j; k++){
+                        titleAdd += "--"
+                    }
+                    for(var i = 0; i < queryArray.length; i++){
+                        vm.deptList += "<option value="+queryArray[i].groupId+">"+titleAdd+queryArray[i].groupName+"</option>"
+                        if(queryArray[i].subGroup.length != 0){
+                            vm.deptListAdd(queryArray[i].subGroup,j+1,vm.deptList)
                         }
-                    })
-                }else{
-                    alert("角色权限不能为空")
-                }
-                
-                
-            }
-            },
-            mounted(){
-                axios
-                .get('http://localhost:8085/biz/role/page',{
-                    params: {
+                    }
+
+                },
+                queryRoleByKeyWord: function(){
+                    axios
+                    .get(projectPath+'/biz/role/queryByKeyWord',{params:{
+                        roleKeyWord: $("#search").val(),
                         "page" : 1,
                         "count" : 10
-                    }
-                })
-                .then(response => {
-                    window.total = response.data.data.pages
-                    for(var i = 0;i < response.data.data.records.length;i++) {
-                        vm.roleList.push(response.data.data.records[i]),
+                    }})
+                    .then(response => {
+                        vm.roleList = [];
+                        vm.roleDetail = '';
+                        window.total = response.data.data.pages;
+                        for(var i = 0;i < response.data.data.records.length;i++) {
+                        vm.roleList.push(vm.null2str(response.data.data.records[i])),
                         vm.roleDetail += '<tr class="gradeA" ><td>'+this.roleList[i].roleId+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+this.roleList[i].roleName+'</td><td>'+this.roleList[i].roleCode+"..."+'</td><td>'+this.roleList[i].roleDesc+'</td><td>'+this.roleList[i].createTime+'</td><td><button class="btn btn-info detail" id='+i+'>详情</button>  <button class="btn btn-warning update" id='+i+'>修改</button>   <button class="btn btn-danger delete" id='+i+'>删除</button></td></tr>';
-                    }
-
-
-
-
-                    //给修改按钮添加事件
-                    this.$nextTick().then(() => {
+                        }
+                        //给修改按钮添加事件
+                        this.$nextTick().then(() => {
                           $('.update').on('click',function(){
                             vm.id = vm.roleList[$(this).attr("id")].roleId;
                             axios
-                                .get("http://localhost:8085/biz/roleMenu/queryMenuByRoleId",{
+                                .get(projectPath+"/biz/roleMenu/queryMenuByRoleId",{
                                     params : {
                                         "roleId" : vm.id
                                     }
@@ -518,7 +506,7 @@
                                 })
 
                             axios
-                                .get("http://localhost:8085/biz/roleDept/queryDeptByRoleId",{
+                                .get(projectPath+"/biz/roleDept/queryDeptByRoleId",{
                                     params : {
                                         "roleId" : vm.id
                                     }
@@ -547,7 +535,7 @@
                           $('.detail').on('click',function(){
                             vm.id = vm.roleList[$(this).attr("id")].roleId;
                             axios
-                                .get("http://localhost:8085/biz/roleMenu/queryMenuByRoleId",{
+                                .get(projectPath+"/biz/roleMenu/queryMenuByRoleId",{
                                     params : {
                                         "roleId" : vm.id
                                     }
@@ -560,7 +548,7 @@
                                 })
 
                             axios
-                                .get("http://localhost:8085/biz/roleDept/queryDeptByRoleId",{
+                                .get(projectPath+"/biz/roleDept/queryDeptByRoleId",{
                                     params : {
                                         "roleId" : vm.id
                                     }
@@ -587,7 +575,351 @@
                     this.$nextTick().then(() => {
                           $('.delete').on('click',function(){
                             axios
-                                .get("http://localhost:8085/biz/role/delete",{
+                                .get(projectPath+"/biz/role/delete",{
+                                    params : {
+                                        "roleId" :  vm.roleList[$(this).attr("id")].roleId
+                                    }
+                                })
+                                .then(response => {
+                                    if(response.data.code == '200'){
+                                        alert("删除成功");
+                                        location.reload();
+                                    }else{
+                                        alert(response.data.msg)
+                                    }
+                                })
+                         })
+
+                    })
+
+                    $('#pageLimit').bootstrapPaginator({
+                         currentPage: 1,//当前的请求页面。
+                         totalPages: window.total,//一共多少页。
+                         size:"normal",//应该是页眉的大小。
+                         bootstrapMajorVersion: 3,//bootstrap的版本要求。
+                         alignment:"right",
+                         numberOfPages:5,//一页列出多少数据。
+                         itemTexts: function (type, page, current) {//如下的代码是将页眉显示的中文显示我们自定义的中文。
+                             switch (type) {
+                             case "first": return "首页";
+                             case "prev": return "上一页";
+                             case "next": return "下一页";
+                             case "last": return "末页";
+                             case "page": return page;
+                             }
+                         },
+                         
+                         onPageClicked: function (event, originalEvent, type, page){//给每个页眉绑定一个事件，其实就是ajax请求，其中page变量为当前点击的页上的数字。
+                                 $.ajax({
+                                     url:projectPath+'/biz/role/queryByKeyWord',
+                                     type:'POST',
+                                     data:{'page':page,'count':10,roleKeyWord: $("#search").val()},
+                                     dataType:'JSON',
+                                     success:function (callback) {
+                                            vm.roleDetail = "";
+                                            vm.roleList = [];
+                                            for(var i = 0;i < callback.data.records.length;i++) {
+                                                vm.roleList.push(vm.null2str(callback.data.records[i]));
+                                                vm.roleDetail += '<tr class="gradeA"><td>'+callback.data.records[i].roleId+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+callback.data.records[i].roleName+'</td><td>'+callback.data.records[i].roleCode+"..."+'</td><td>'+callback.data.records[i].roleDesc+'</td><td>'+callback.data.records[i].createTime+'</td><td><button class="btn btn-info detail" id='+i+'>详情</button>  <button class="btn btn-warning update" id='+i+'>修改</button>  <button class="btn btn-danger delete" id='+i+'>删除</button></td></tr>';
+                                            }
+
+                                            //给分页返回的修改按钮添加事件
+                                            vm.$nextTick().then(() => {
+                                                  $('.update').on('click',function(){
+                                                    vm.id = vm.roleList[$(this).attr("id")].roleId;
+                                                     axios
+                                                            .get(projectPath+"/biz/roleMenu/queryMenuByRoleId",{
+                                                                params : {
+                                                                    "roleId" : vm.id
+                                                                }
+                                                            })
+                                                            .then(response => {
+                                                                vm.selectClass = "";
+                                                                for(var i = 0;i < response.data.data.length;i++) {
+                                                                 vm.selectClass += " "+response.data.data[i].name
+                                                                }
+                                                            })
+
+                                                    axios
+                                                        .get(projectPath+"/biz/roleDept/queryDeptByRoleId",{
+                                                            params : {
+                                                                "roleId" : vm.id
+                                                            }
+                                                        })
+                                                        .then(response => {
+                                                            vm.selectDept = "";
+                                                            for(var j = 0;j < response.data.data.length;j++){
+                                                                vm.selectDept += " "+ response.data.data[j].deptName
+                                                            }
+                                                        })
+
+                                                    $("#myModalLabel").text("修改");
+                                                    $("#update_role_name").val(vm.roleList[$(this).attr("id")].roleName);
+                                                    // $("#role_content").val(vm.roleList[$(this).attr("id")].roleContent);
+                                                    $("#update_role_code").val(vm.roleList[$(this).attr("id")].roleCode);
+                                                    $("#update_description").val(vm.roleList[$(this).attr("id")].roleDesc);
+                                                    $('#myModal').modal();
+                                                   
+                                                 })
+
+                                            })
+
+
+                                            //给分页返回的详情按钮添加事件
+                                            vm.$nextTick().then(() => {
+                                                  $('.detail').on('click',function(){
+                                                    vm.id = vm.roleList[$(this).attr("id")].roleId;
+                                                     axios
+                                                            .get(projectPath+"/biz/roleMenu/queryMenuByRoleId",{
+                                                                params : {
+                                                                    "roleId" : vm.id
+                                                                }
+                                                            })
+                                                            .then(response => {
+                                                                vm.selectClass = "";
+                                                                for(var i = 0;i < response.data.data.length;i++) {
+                                                                 vm.selectClass += " "+response.data.data[i].name
+                                                                }
+                                                            })
+
+                                                    axios
+                                                        .get(projectPath+"/biz/roleDept/queryDeptByRoleId",{
+                                                            params : {
+                                                                "roleId" : vm.id
+                                                            }
+                                                        })
+                                                        .then(response => {
+                                                            vm.selectDept = "";
+                                                            for(var j = 0;j < response.data.data.length;j++){
+                                                                vm.selectDept += " "+ response.data.data[j].deptName
+                                                            }
+                                                        })
+
+                                                    $("#detailModalLabel").text("详情");
+                                                    $("#detail_role_name").val(vm.roleList[$(this).attr("id")].roleName);
+                                                    // $("#role_content").val(vm.roleList[$(this).attr("id")].roleContent);
+                                                    $("#detail_create_time").val(vm.roleList[$(this).attr("id")].createTime);
+                                                    $("#detail_role_code").val(vm.roleList[$(this).attr("id")].roleCode);
+                                                    $("#detail_description").val(vm.roleList[$(this).attr("id")].roleDesc);
+                                                    $('#detailModal').modal();
+                                                 })
+
+                                            })
+
+                                            //给分页返回的删除按钮添加事件
+                                            vm.$nextTick().then(() => {
+                                                  $('.delete').on('click',function(){
+                                                        axios
+                                                            .get(projectPath+"/biz/role/delete",{
+                                                                params : {
+                                                                    "roleId" :  vm.roleList[$(this).attr("id")].roleId
+                                                                }
+                                                            })
+                                                            .then(response => {
+                                                                if(response.data.code == '200'){
+                                                                    alert("删除成功");
+                                                                    location.reload();
+                                                                }else{
+                                                                    alert(response.data.msg)
+                                                                }
+                                                            })
+                                                     })
+
+                                            })
+                                         }
+                                 })
+
+
+                             }
+
+
+
+                     });
+
+                    })
+                    .catch(function (error) {
+                        console.log(error)
+                    })
+                },
+                change : function(){
+                    let param = new URLSearchParams()
+                param.append("roleId" ,this.id)
+                param.append("roleName" , $("#update_role_name").val())
+                param.append("roleDesc" , $("#update_description").val())
+                param.append("roleCode" , $("#update_role_code").val())
+                if($("#update_allNode").val() != null){
+                    param.append('permission' , $("#update_allNode").val())
+                }
+                if($("#update_allDept").val() != null){
+                    param.append('depts', $("#update_allDept").val())
+                }
+                axios
+                .post(projectPath+"/biz/role/update",param)
+                .then(response => {
+                    if(response.data.code == '200'){
+                        alert("修改成功");
+                        location.reload();
+                    }else{
+                        alert(response.data.msg)
+                    }
+                })
+                },
+                showAdd : function(){
+                    $('#addModal').modal();
+                },
+                null2str:function(data){
+                    for (let x in data) {
+                        if (data[x] === null) { // 如果是null 把直接内容转为 ''
+                          data[x] = '';
+                        } else {
+                          if (Array.isArray(data[x])) { // 是数组遍历数组 递归继续处理
+                            data[x] = data[x].map(z => {
+                              return null2str(z);
+                            });
+                          }
+                          if(typeof(data[x]) === 'object'){ // 是json 递归继续处理
+                            data[x] = null2str(data[x])
+                          }
+                        }
+                      }
+                      return data;  
+                },
+                upload:function(){
+                let param = new URLSearchParams()
+                param.append('roleDesc', $("#description").val()),
+                param.append("roleName" , $("#role_name").val()),
+                param.append("roleCode" , $("#role_code").val())
+                if($("#add_allNode").val() != null){
+                    param.append('permission' , $("#add_allNode").val())
+                    if($("#add_allDept").val() != null){
+                        param.append('depts' , $("#add_allDept").val())
+                    }
+
+                    axios
+                    .post(projectPath+"/biz/role/add",param
+                    )
+                    .then(response => {
+                        if(response.data.code == '200'){
+                            alert("添加成功")
+                            location.reload();
+                        }else if(response.data.code == '400'){
+                            alert(response.data.msg)
+                        }
+                    })
+                }else{
+                    alert("角色权限不能为空")
+                }
+                
+                
+            }
+            },
+            mounted(){
+                axios
+                .get(projectPath+'/biz/role/page',{
+                    params: {
+                        "page" : 1,
+                        "count" : 10
+                    }
+                })
+                .then(response => {
+                    window.total = response.data.data.pages
+                    for(var i = 0;i < response.data.data.records.length;i++) {
+                        vm.roleList.push(vm.null2str(response.data.data.records[i])),
+                        vm.roleDetail += '<tr class="gradeA" ><td>'+this.roleList[i].roleId+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+this.roleList[i].roleName+'</td><td>'+this.roleList[i].roleCode+"..."+'</td><td>'+this.roleList[i].roleDesc+'</td><td>'+this.roleList[i].createTime+'</td><td><button class="btn btn-info detail" id='+i+'>详情</button>  <button class="btn btn-warning update" id='+i+'>修改</button>   <button class="btn btn-danger delete" id='+i+'>删除</button></td></tr>';
+                    }
+
+
+
+
+                    //给修改按钮添加事件
+                    this.$nextTick().then(() => {
+                          $('.update').on('click',function(){
+                            vm.id = vm.roleList[$(this).attr("id")].roleId;
+                            axios
+                                .get(projectPath+"/biz/roleMenu/queryMenuByRoleId",{
+                                    params : {
+                                        "roleId" : vm.id
+                                    }
+                                })
+                                .then(response => {
+                                    vm.selectClass = "";
+                                    for(var i = 0;i < response.data.data.length;i++) {
+                                        console.log(response.data.data[i]);
+                                        vm.selectClass += " "+response.data.data[i].name
+                                    }
+                                })
+
+                            axios
+                                .get(projectPath+"/biz/roleDept/queryDeptByRoleId",{
+                                    params : {
+                                        "roleId" : vm.id
+                                    }
+                                })
+                                .then(response => {
+                                    vm.selectDept = "";
+                                    for(var j = 0;j < response.data.data.length;j++){
+                                        vm.selectDept += " "+ response.data.data[j].deptName
+                                    }
+                                })
+
+
+                           $("#myModalLabel").text("修改");
+                            $("#update_role_name").val(vm.roleList[$(this).attr("id")].roleName);
+                            // $("#role_content").val(vm.roleList[$(this).attr("id")].roleContent);
+                            $("#update_role_code").val(vm.roleList[$(this).attr("id")].roleCode);
+                            $("#update_description").val(vm.roleList[$(this).attr("id")].roleDesc);
+                            $('#myModal').modal();
+                            
+                         })
+
+                    })
+
+                    //给详情按钮添加事件
+                    this.$nextTick().then(() => {
+                          $('.detail').on('click',function(){
+                            vm.id = vm.roleList[$(this).attr("id")].roleId;
+                            axios
+                                .get(projectPath+"/biz/roleMenu/queryMenuByRoleId",{
+                                    params : {
+                                        "roleId" : vm.id
+                                    }
+                                })
+                                .then(response => {
+                                    vm.selectClass = "";
+                                    for(var i = 0;i < response.data.data.length;i++) {
+                                        vm.selectClass += " "+response.data.data[i].name
+                                    }
+                                })
+
+                            axios
+                                .get(projectPath+"/biz/roleDept/queryDeptByRoleId",{
+                                    params : {
+                                        "roleId" : vm.id
+                                    }
+                                })
+                                .then(response => {
+                                    vm.selectDept = "";
+                                    for(var j = 0;j < response.data.data.length;j++){
+                                        vm.selectDept += " "+ response.data.data[j].deptName
+                                    }
+                                })
+                            $("#detailModalLabel").text("详情");
+                            $("#detail_role_name").val(vm.roleList[$(this).attr("id")].roleName);
+                            // $("#role_content").val(vm.roleList[$(this).attr("id")].roleContent);
+                            $("#detail_create_time").val(vm.roleList[$(this).attr("id")].createTime);
+                            $("#detail_role_code").val(vm.roleList[$(this).attr("id")].roleCode);
+                            $("#detail_description").val(vm.roleList[$(this).attr("id")].roleDesc);
+                            $('#detailModal').modal();
+                            vm.id = vm.roleList[$(this).attr("id")].roleId;
+                         })
+
+                    })
+
+                    //给删除按钮添加事件
+                    this.$nextTick().then(() => {
+                          $('.delete').on('click',function(){
+                            axios
+                                .get(projectPath+"/biz/role/delete",{
                                     params : {
                                         "roleId" :  vm.roleList[$(this).attr("id")].roleId
                                     }
@@ -625,27 +957,24 @@
                          
                          onPageClicked: function (event, originalEvent, type, page){//给每个页眉绑定一个事件，其实就是ajax请求，其中page变量为当前点击的页上的数字。
                                  $.ajax({
-                                     url:'http://localhost:8085/biz/role/page',
+                                     url:projectPath+'/biz/role/page',
                                      type:'POST',
-                                     data:{'page':page,'count':7},
+                                     data:{'page':page,'count':10},
                                      dataType:'JSON',
                                      success:function (callback) {
-                                            $('#roleDetail').empty();
-                                            var roleDetail = "";
-                                            var roleList = [];
+                                            vm.roleDetail = "";
+                                            vm.roleList = [];
                                             for(var i = 0;i < callback.data.records.length;i++) {
-                                                roleList.push(callback.data.records[i]);
-                                                roleDetail += '<tr class="gradeA"><td>'+callback.data.records[i].roleId+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+callback.data.records[i].roleName+'</td><td>'+callback.data.records[i].roleCode+"..."+'</td><td>'+callback.data.records[i].roleDesc+'</td><td>'+callback.data.records[i].createTime+'</td><td><button class="btn btn-info detail" id='+i+'>详情</button>  <button class="btn btn-warning update" id='+i+'>修改</button>  <button class="btn btn-danger delete" id='+i+'>删除</button></td></tr>';
+                                                vm.roleList.push(vm.null2str(callback.data.records[i]));
+                                                vm.roleDetail += '<tr class="gradeA"><td>'+callback.data.records[i].roleId+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+callback.data.records[i].roleName+'</td><td>'+callback.data.records[i].roleCode+"..."+'</td><td>'+callback.data.records[i].roleDesc+'</td><td>'+callback.data.records[i].createTime+'</td><td><button class="btn btn-info detail" id='+i+'>详情</button>  <button class="btn btn-warning update" id='+i+'>修改</button>  <button class="btn btn-danger delete" id='+i+'>删除</button></td></tr>';
                                             }
-
-                                            $('#roleDetail').html(roleDetail)
 
                                             //给分页返回的修改按钮添加事件
                                             vm.$nextTick().then(() => {
                                                   $('.update').on('click',function(){
-                                                    vm.id = roleList[$(this).attr("id")].roleId;
+                                                    vm.id = vm.roleList[$(this).attr("id")].roleId;
                                                      axios
-                                                            .get("http://localhost:8085/biz/roleMenu/queryMenuByRoleId",{
+                                                            .get(projectPath+"/biz/roleMenu/queryMenuByRoleId",{
                                                                 params : {
                                                                     "roleId" : vm.id
                                                                 }
@@ -658,7 +987,7 @@
                                                             })
 
                                                     axios
-                                                        .get("http://localhost:8085/biz/roleDept/queryDeptByRoleId",{
+                                                        .get(projectPath+"/biz/roleDept/queryDeptByRoleId",{
                                                             params : {
                                                                 "roleId" : vm.id
                                                             }
@@ -671,10 +1000,10 @@
                                                         })
 
                                                     $("#myModalLabel").text("修改");
-                                                    $("#update_role_name").val(roleList[$(this).attr("id")].roleName);
+                                                    $("#update_role_name").val(vm.roleList[$(this).attr("id")].roleName);
                                                     // $("#role_content").val(vm.roleList[$(this).attr("id")].roleContent);
-                                                    $("#update_role_code").val(roleList[$(this).attr("id")].roleCode);
-                                                    $("#update_description").val(roleList[$(this).attr("id")].roleDesc);
+                                                    $("#update_role_code").val(vm.roleList[$(this).attr("id")].roleCode);
+                                                    $("#update_description").val(vm.roleList[$(this).attr("id")].roleDesc);
                                                     $('#myModal').modal();
                                                    
                                                  })
@@ -685,9 +1014,9 @@
                                             //给分页返回的详情按钮添加事件
                                             vm.$nextTick().then(() => {
                                                   $('.detail').on('click',function(){
-                                                    vm.id = roleList[$(this).attr("id")].roleId;
+                                                    vm.id = vm.roleList[$(this).attr("id")].roleId;
                                                      axios
-                                                            .get("http://localhost:8085/biz/roleMenu/queryMenuByRoleId",{
+                                                            .get(projectPath+"/biz/roleMenu/queryMenuByRoleId",{
                                                                 params : {
                                                                     "roleId" : vm.id
                                                                 }
@@ -700,7 +1029,7 @@
                                                             })
 
                                                     axios
-                                                        .get("http://localhost:8085/biz/roleDept/queryDeptByRoleId",{
+                                                        .get(projectPath+"/biz/roleDept/queryDeptByRoleId",{
                                                             params : {
                                                                 "roleId" : vm.id
                                                             }
@@ -713,11 +1042,11 @@
                                                         })
 
                                                     $("#detailModalLabel").text("详情");
-                                                    $("#detail_role_name").val(roleList[$(this).attr("id")].roleName);
+                                                    $("#detail_role_name").val(vm.roleList[$(this).attr("id")].roleName);
                                                     // $("#role_content").val(vm.roleList[$(this).attr("id")].roleContent);
-                                                    $("#detail_create_time").val(roleList[$(this).attr("id")].createTime);
-                                                    $("#detail_role_code").val(roleList[$(this).attr("id")].roleCode);
-                                                    $("#detail_description").val(roleList[$(this).attr("id")].roleDesc);
+                                                    $("#detail_create_time").val(vm.roleList[$(this).attr("id")].createTime);
+                                                    $("#detail_role_code").val(vm.roleList[$(this).attr("id")].roleCode);
+                                                    $("#detail_description").val(vm.roleList[$(this).attr("id")].roleDesc);
                                                     $('#detailModal').modal();
                                                  })
 
@@ -727,9 +1056,9 @@
                                             vm.$nextTick().then(() => {
                                                   $('.delete').on('click',function(){
                                                         axios
-                                                            .get("http://localhost:8085/biz/role/delete",{
+                                                            .get(projectPath+"/biz/role/delete",{
                                                                 params : {
-                                                                    "roleId" :  roleList[$(this).attr("id")].roleId
+                                                                    "roleId" :  vm.roleList[$(this).attr("id")].roleId
                                                                 }
                                                             })
                                                             .then(response => {
@@ -763,12 +1092,13 @@
                 })
                // 下拉框添加剩余数据
                 axios
-                .get("http://localhost:8085/biz/menu/queryAll")
-                .then(response => {
-
-                    for (var i = 0; i < response.data.data.length; i++) {
-                        vm.nodeList += "<option value="+response.data.data[i].menuId+">"+response.data.data[i].name+"</option>"
+                .get(projectPath+"/biz/menu/queryTreeForList",{
+                    params:{
+                        "userId" : sessionStorage.getItem("userId")
                     }
+                })
+                .then(response => {
+                    vm.nodeListAdd(response.data.data,0);
                     //要以编程方式更新JavaScript的选择，首先操作选择，然后使用refresh方法更新UI以匹配新状态。 在删除或添加选项时，或通过JavaScript禁用/启用选择时，这是必需的。
                     $('.selectpicker').selectpicker('refresh');
                     //render方法强制重新渲染引导程序 - 选择ui,如果当您编程时更改任何相关值而影响元素布局，这将非常有用。
@@ -776,12 +1106,23 @@
                 })
 
                 axios
-                    .get("http://localhost:8085/biz/dept/queryAll")
+                    .get(projectPath+"/biz/dept/queryTreeForList")
                     .then(response => {
-                        for(var j = 0; j < response.data.data.length; j++){
-                            vm.deptList += "<option value="+response.data.data[j].deptId+">"+response.data.data[j].deptName+"</option>"
-                        }
+                        vm.deptListAdd(response.data.data,0)
+                        //要以编程方式更新JavaScript的选择，首先操作选择，然后使用refresh方法更新UI以匹配新状态。 在删除或添加选项时，或通过JavaScript禁用/启用选择时，这是必需的。
+                        $('.selectpicker').selectpicker('refresh');
+                        //render方法强制重新渲染引导程序 - 选择ui,如果当您编程时更改任何相关值而影响元素布局，这将非常有用。
+                        $('.selectpicker').selectpicker('render');
                     })
+
+                document.addEventListener('keydown', (e) => {
+                      // console.log(e.keyCode)
+                      // 下面可以通过keyCode来添加键盘事件
+                      if(e.keyCode == 13){
+                        vm.queryRoleByKeyWord()
+                      }
+                   }
+                )
             }
         })
     </script>

@@ -54,7 +54,7 @@
                                     <h4 class="panel-title"><i class="im-wand"></i>新增权限角色</h4>
                                 </div>
                                 <div class="panel-body">
-                                    <form id="wizard" class="form-horizontal form-wizard" role="form" action="http://localhost:8085/biz/role/add">
+                                    <form id="wizard" class="form-horizontal form-wizard" role="form" action=projectPath+"/biz/role/add">
                                         <div class="msg"></div>
                                         <div class="wizard-steps"></div>
                                         <div class="step" id="first">
@@ -179,6 +179,7 @@
         <script type="text/javascript" src="bootstrap_select/js/bootstrap-select.js"></script>
 
         <script type="text/javascript">
+            var projectPath = window.document.location.href.substr(0,window.document.location.href.lastIndexOf("/"));
             var permission_vue = new Vue({
                 el: "#permission",
                 data: {
@@ -187,7 +188,7 @@
                 },
                 mounted(){
                     axios
-                        .get("http://localhost:8085/biz/menu/queryAll")
+                        .get(projectPath+"/biz/menu/queryAll")
                         .then(response => {
 
                             for(var i = 0; i < response.data.data.length; i++){

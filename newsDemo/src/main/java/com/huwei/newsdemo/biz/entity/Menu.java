@@ -1,20 +1,15 @@
 package com.huwei.newsdemo.biz.entity;
 
-import com.baomidou.mybatisplus.enums.IdType;
-import java.util.Date;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.enums.FieldFill;
-import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.activerecord.Model;
-import java.io.Serializable;
-
-import com.baomidou.mybatisplus.annotations.Version;
-
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.enums.FieldFill;
+import com.baomidou.mybatisplus.enums.IdType;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -26,7 +21,7 @@ import lombok.experimental.Accessors;
  */
 @Data
 @Accessors(chain = true)
-public class Menu extends Model<Menu> {
+public class Menu extends Model<Menu> implements Comparable<Menu>{
 
     private static final long serialVersionUID = 1L;
 
@@ -103,6 +98,11 @@ public class Menu extends Model<Menu> {
     @Override
     protected Serializable pkVal() {
         return this.menuId;
+    }
+
+    @Override
+    public int compareTo(Menu o) {
+        return  o.getSort() - this.sort;
     }
 
 }

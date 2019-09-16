@@ -3,6 +3,7 @@ package com.huwei.newsdemo.biz.service;
 import com.baomidou.mybatisplus.service.IService;
 import com.huwei.newsdemo.biz.entity.Menu;
 import com.huwei.newsdemo.biz.entity.User;
+import com.huwei.newsdemo.response.treeMenu;
 
 import java.util.List;
 
@@ -23,4 +24,6 @@ public interface IMenuService extends IService<Menu> {
     boolean delNode(Menu menu);
 
     Menu queryById(Menu menu);
+
+    List<treeMenu> queryTreeForList(User user);
 }

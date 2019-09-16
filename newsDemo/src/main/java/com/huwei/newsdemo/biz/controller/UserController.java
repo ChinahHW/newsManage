@@ -44,12 +44,12 @@ public class UserController extends BaseController{
     }
 
     @RequestMapping("queryByKeyWord")
-    public BaseResponse queryByName(String userKeyWord){
+    public BaseResponse queryByName(String userKeyWord, int page, int count){
         BaseResponse baseResponse = new BaseResponse();
         try {
-            List<User> userList = userService.queryByKeyWord(userKeyWord);
-            if(userList != null){
-                baseResponse.success(userList);
+            Page<User> userPage = userService.queryByKeyWord(userKeyWord,page,count);
+            if(userPage != null){
+                baseResponse.success(userPage);
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -81,6 +81,8 @@ public class UserController extends BaseController{
             User user = userService.toLogin(userName,password);
             if(user != null){
                 baseResponse.success(user);
+            }else{
+                baseResponse.setMsg("账号或密码输入错误！！");
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -95,6 +97,8 @@ public class UserController extends BaseController{
         try {
             if(userService.add(user,roles)){
                 baseResponse.success();
+            }else{
+                baseResponse.setMsg("用户已存在，请勿重复添加！");
             }
         }catch (Exception e){
             e.printStackTrace();

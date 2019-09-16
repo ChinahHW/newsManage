@@ -2,6 +2,7 @@ package com.huwei.newsdemo.biz.service;
 
 import com.baomidou.mybatisplus.service.IService;
 import com.huwei.newsdemo.biz.entity.Class;
+import com.huwei.newsdemo.response.treeMenu;
 
 import java.util.List;
 
@@ -15,13 +16,15 @@ import java.util.List;
  */
 public interface IClassService extends IService<Class> {
 
-    List<Class> queryAll();
+    List<Class> queryAll(int userId);
 
     List<Class> queryByKeyWord();
 
-    String queryTreeMenu();
+    String queryTreeMenu(int userId);
 
     boolean delNode(Class newsClass);
 
     Class queryById(Class clazz);
+
+    List<treeMenu> queryTreeForList(int userId);
 }

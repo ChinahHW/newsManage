@@ -47,37 +47,16 @@ public class MenuServiceImpl extends ServiceImpl<MenuDao, Menu> implements IMenu
 
     @Override
     public String queryTreeMenu(User user) {
-        List<Menu> menuList = new ArrayList<>();
-        List<Role> roleList = userRoleService.queryRoleByUserId(user.getUserId());
-        if(roleList != null){
-            if(roleList.size() != 0){
-                for (Role role : roleList) {
-                    List<Menu> menus = roleMenuService.queryMenuByRoleId(role.getRoleId());
-                    menuList.addAll(menus);
-                }
-            }
-        }
-        user = user.selectById();
         List<treeMenu> treeMenus = new ArrayList<>();
-        for (Menu menu : menuList) {
-            treeMenu treeMenu = new treeMenu();
-            treeMenu.setGroupId(menu.getMenuId());
-            treeMenu.setGroupName(menu.getName());
-            treeMenu.setHref("#");
-            treeMenu.setParentSeq(menu.getParentId()+"");
-            treeMenu.setSubFlag(menu.getParentId() == null ? "1" : "0");
-            treeMenu.setOrder(menu.getSort());
-            treeMenu.setPath(menu.getPath());
-            treeMenu.setIcon(menu.getIcon());
-            treeMenus.add(treeMenu);
-        }
         GroupTreeUtils treeUtil = new GroupTreeUtils();
-        treeMenus = treeUtil.buildGroupTree(treeMenus);
+        treeMenus = queryTreeForList(user);
         String groupTreeJson = JSON.toJSONString(treeMenus);
         groupTreeJson = groupTreeJson.replace("groupName", "text");
         groupTreeJson = groupTreeJson.replace("subGroup", "nodes");
         return groupTreeJson;
     }
+
+
 
     @Override
     public boolean delNode(Menu menu) {
@@ -110,5 +89,36 @@ public class MenuServiceImpl extends ServiceImpl<MenuDao, Menu> implements IMenu
         EntityWrapper<Menu> wrapper = new EntityWrapper<>();
         wrapper.where("menu_id = {0}",menu.getMenuId()).and().where("del_flag != {0}",1);
         return this.selectOne(wrapper);
+    }
+
+    @Override
+    public List<treeMenu> queryTreeForList(User user) {
+        List<Menu> menuList = new ArrayList<>();
+        List<Role> roleList = userRoleService.queryRoleByUserId(user.getUserId());
+        if(roleList != null){
+            if(roleList.size() != 0){
+                for (Role role : roleList) {
+                    List<Menu> menus = roleMenuService.queryMenuByRoleId(role.getRoleId());
+                    menuList.addAll(menus);
+                }
+            }
+        }
+        user = user.selectById();
+        List<treeMenu> treeMenus = new ArrayList<>();
+        for (Menu menu : menuList) {
+            treeMenu treeMenu = new treeMenu();
+            treeMenu.setGroupId(menu.getMenuId());
+            treeMenu.setGroupName(menu.getName());
+            treeMenu.setHref("#");
+            treeMenu.setParentSeq(menu.getParentId()+"");
+            treeMenu.setSubFlag(menu.getParentId() == null ? "1" : "0");
+            treeMenu.setOrder(menu.getSort());
+            treeMenu.setPath(menu.getPath());
+            treeMenu.setIcon(menu.getIcon());
+            treeMenus.add(treeMenu);
+        }
+        GroupTreeUtils treeUtil = new GroupTreeUtils();
+        treeMenus = treeUtil.buildGroupTree(treeMenus);
+        return treeMenus;
     }
 }

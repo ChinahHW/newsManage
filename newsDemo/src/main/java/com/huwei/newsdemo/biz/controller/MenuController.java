@@ -39,6 +39,18 @@ public class MenuController extends BaseController{
         return baseResponse;
     }
 
+    @RequestMapping("/queryTreeForList")
+    public BaseResponse queryTreeForList(User user){
+        BaseResponse baseResponse = new BaseResponse();
+        try {
+            baseResponse.success(menuService.queryTreeForList(user));
+        }catch (Exception e){
+            e.printStackTrace();
+            logger.error(ExceptionUtils.getFullStackTrace(e));
+        }
+        return baseResponse;
+    }
+
     @RequestMapping("/add")
     public BaseResponse add(Menu menu){
         BaseResponse baseResponse = new BaseResponse();

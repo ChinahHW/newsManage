@@ -2,6 +2,7 @@ package com.huwei.newsdemo.biz.service;
 
 import com.baomidou.mybatisplus.service.IService;
 import com.huwei.newsdemo.biz.entity.Dept;
+import com.huwei.newsdemo.response.treeMenu;
 
 import java.util.List;
 
@@ -22,4 +23,10 @@ public interface IDeptService extends IService<Dept> {
     boolean delNode(Dept dept);
 
     Dept queryById(Dept dept);
+
+    List<treeMenu> queryTreeForList();
+
+    boolean add(Dept dept,int[] classId);
+
+    boolean update(Dept dept,int[] classId);
 }

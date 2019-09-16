@@ -30,12 +30,13 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements IUser
     }
 
     @Override
-    public List<User> queryByKeyWord(String newsKeyWord) {
+    public Page<User> queryByKeyWord(String newsKeyWord, int page, int count) {
         EntityWrapper<User> qryWrapper = new EntityWrapper<>();
-        qryWrapper.like("user_name",newsKeyWord).last("LIMIT 12").and().where("del_flag != {0}",1);
+        qryWrapper.like("user_name",newsKeyWord).and().where("del_flag != {0}",1);
         System.out.println(qryWrapper);
-        List<User> userList = this.selectList(qryWrapper);
-        return userList;
+        Page<User> userPage = new Page<>(page,count);
+        userPage = this.selectPage(userPage,qryWrapper);
+        return userPage;
     }
 
     @Override
@@ -84,7 +85,7 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements IUser
             user.updateById();
             UserRole userRole = new UserRole();
             EntityWrapper<UserRole> wrapper = new EntityWrapper<>();
-            wrapper.where("user_id = {0}",user.getUserId());
+            wrapper.where("user_id = {0}",user.getUserId()).and().where("del_flag != {0}",1);
             List<UserRole> userRoleList = userRole.selectList(wrapper);
             if(userRoleList != null){
                 //删除user-role表中的旧记录，将新的记录插入

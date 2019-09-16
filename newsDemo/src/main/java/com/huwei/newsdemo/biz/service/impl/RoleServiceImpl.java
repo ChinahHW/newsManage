@@ -47,11 +47,16 @@ public class RoleServiceImpl extends ServiceImpl<RoleDao, Role> implements IRole
     }
 
     @Override
-    public Page<Role> queryByKeyWord(String keyWord) {
-        EntityWrapper<Role> wrapper = new EntityWrapper<>();
-        wrapper.where("del_flag != {0}",1).and().like("role_name",keyWord).or().like("role_code",keyWord).or().like("role_desc",keyWord);
-        Page<Role> rolePage = new Page<>(1,7);
-        rolePage = this.selectPage(rolePage,wrapper);
+    public Page<Role> queryByKeyWord(String keyWord, int page, int count) {
+        Page<Role> rolePage = new Page<>();
+        if (keyWord != null && !("").equals(keyWord)) {
+            EntityWrapper<Role> wrapper = new EntityWrapper<>();
+            wrapper.where("del_flag != {0}",1).and().like("role_name",keyWord).or().like("role_code",keyWord).or().like("role_desc",keyWord);
+            rolePage = this.selectPage(rolePage,wrapper);
+        }else{
+            rolePage = this.selectPage(rolePage);
+        }
+
         return rolePage;
     }
 

@@ -94,38 +94,6 @@
                 <!-- Start #sideNav -->
                 <!-- <ul id="sideNav"> -->
                     <div id="tree"></div>
-                    <!-- 点击事件无效是因为在不同的vue实例中，无法访问showPage的vue实例 -->
-                    <!-- <li><a href="index.html">新闻管理平台总览 <i class="im-screen"></i></a>
-                    </li>
-                    
-                    <li><a class="accordion-toggle collapsed" data-parent="#accordion-705974" data-toggle="collapse" href="#accordion-element-145847" v-if="permission.indexOf('userManage') != -1">用户管理 <i class="ec-users"></i></a>
-                       <div class="accordion-body collapse" id="accordion-element-145847">
-                        <div class="accordion-inner">
-                            <a class="accordion-toggle collapsed" style="padding-left: 45px" v-on:click="iframeSrc = 'permission.html'" v-if="permission.indexOf('permissionManage') != -1">权限管理</a>
-                        </div>
-                        <div class="accordion-inner">
-                            <a class="accordion-toggle collapsed" style="padding-left: 45px" v-on:click="iframeSrc = 'user-tables.html'" v-if="permission.indexOf('userManage') != -1">用户管理</a>
-                        </div>
-                    </div>
-                    </li>
-                   
-                    
-                   
-                    <li><a class="accordion-toggle collapsed" data-parent="#accordion-705974" data-toggle="collapse" href="#accordion-element-863092" v-if="permission.indexOf('newsManage') != -1">新闻管理 <i class="st-files"></i></a>
-                        <div class="accordion-body collapse" id="accordion-element-863092">
-                        
-                        
-                        <div class="accordion-inner">
-                            <a class="accordion-toggle collapsed" style="padding-left: 45px" v-on:click="iframeSrc = 'news-tables.html'" >新闻管理</a>
-                        </div>
-
-                        <div class="accordion-inner">
-                            <a class="accordion-toggle collapsed" style="padding-left: 45px" v-on:click="iframeSrc = 'newsClass.html'" >新闻分类管理</a>
-                        </div>
-
-                    </div>
-                    </li> -->
-                <!-- </ul> -->
                 <!-- End #sideNav -->
             </div>
             <!-- End .sidebar-inner -->
@@ -173,6 +141,7 @@
 
     </body>
     <script type="text/javascript">
+        var projectPath = window.document.location.href.substr(0,window.document.location.href.lastIndexOf("/"));
             var my_vue = new Vue({
                 el: "#showPage",
                 data:{
@@ -184,7 +153,7 @@
                 },
                 mounted(){
                     axios
-                        .get('http://localhost:8085/biz/menu/queryTreeMenu',{
+                        .get(projectPath+'/biz/menu/queryTreeMenu',{
                             params : {
                                 "userId" : sessionStorage.getItem("userId")
                             }

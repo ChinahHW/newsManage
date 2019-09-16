@@ -4,12 +4,12 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.huwei.newsdemo.biz.dao.NewsDao;
+import com.huwei.newsdemo.biz.entity.*;
 import com.huwei.newsdemo.biz.entity.Class;
-import com.huwei.newsdemo.biz.entity.News;
-import com.huwei.newsdemo.biz.entity.NewsClass;
-import com.huwei.newsdemo.biz.service.INewsService;
+import com.huwei.newsdemo.biz.service.*;
 import com.huwei.newsdemo.util.CreateHtmlUtils;
 import org.apache.commons.io.FileUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.stereotype.Service;
@@ -17,10 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * <p>
@@ -35,6 +32,18 @@ public class NewsServiceImpl extends ServiceImpl<NewsDao, News> implements INews
 
     @Value("${filePath}")
     String path;
+
+    @Autowired
+    private IUserRoleService userRoleService;
+
+    @Autowired
+    private IRoleDeptService roleDeptService;
+
+    @Autowired
+    private IDeptClassService deptClassService;
+
+    @Autowired
+    private INewsClassService newsClassService;
 
 
 
@@ -100,7 +109,8 @@ public class NewsServiceImpl extends ServiceImpl<NewsDao, News> implements INews
     }
 
     public String addNews(News news,int[] classId) {
-
+        EntityWrapper<News> wrapper = new EntityWrapper<>();
+        wrapper.where("del_flag != {0}",1).and().where("news_title = {0}",news.getNewsTitle());
         boolean result = news.insert();
         //同时静态化网页,分类多选，即有多个分类，则生成多个静态化网页
         for (int id : classId) {
@@ -124,25 +134,92 @@ public class NewsServiceImpl extends ServiceImpl<NewsDao, News> implements INews
         return result && result2 ? "add success" : "add fail";
     }
 
-    public List<News> queryByName(String newsKeyWord){
-        EntityWrapper<News> qryWrapper = new EntityWrapper<>();
-        News news = new News();
-        qryWrapper.like("news_title",newsKeyWord).or().like("news_content",newsKeyWord).or().like("news_tag",newsKeyWord).last("LIMIT 12").and().where("del_flag != {0}",1);
-        System.out.println(qryWrapper);
-        List<News> newsList = news.selectList(qryWrapper);
+    public Page<News> queryByName(String newsKeyWord, int userId, int page, int count){
 
-        return newsList;
-    }
-
-    public List<News> queryAll(){
-        News news = new News();
-        List<News> newsList = news.selectAll();
-        return newsList;
-    }
-
-    public Page<News> queryByPage(int page,int count){
+        List<News> newsList = queryAllByUserId(userId);
+        List<News> keyWordNewsList = new ArrayList<>();
+        if (newsList != null) {
+            for (News news : newsList) {
+                if(news.getNewsTitle().contains(newsKeyWord) || news.getNewsContent().contains(newsKeyWord)) {
+                    keyWordNewsList.add(news);
+                }
+            }
+        }
+        Collections.sort(keyWordNewsList);
         Page<News> newsPage = new Page<>(page,count);
-        return this.selectPage(newsPage);
+        List<News> newsList2 = new ArrayList<>();
+        if (page * count > keyWordNewsList.size()) {
+            newsList2 = keyWordNewsList.subList((page - 1) * count,keyWordNewsList.size());
+        }else{
+            newsList2 = keyWordNewsList.subList((page - 1) * count,(page - 1) * count + count);
+        }
+
+        newsPage.setRecords(newsList2);
+        newsPage.setTotal(keyWordNewsList.size());
+        return newsPage;
+    }
+
+    public List<News> queryAllByUserId(int userId){
+        List<News> newsList = new ArrayList<>();
+        //通过userId查询出角色，通过角色获得所属部门，通过部门获取新闻分类，通过分类获取新闻
+        EntityWrapper<UserRole> userRoleWrapper = new EntityWrapper<>();
+        userRoleWrapper.where("user_id = {0}",userId);
+        List<UserRole> userRoleList = userRoleService.selectList(userRoleWrapper);
+        if(userRoleList != null){
+            for (UserRole userRole : userRoleList) {
+                int roleId = userRole.getRoleId();
+                EntityWrapper<RoleDept> roleDeptEntityWrapper = new EntityWrapper<>();
+                roleDeptEntityWrapper.where("role_id = {0}",roleId);
+                List<RoleDept> roleDeptList = roleDeptService.selectList(roleDeptEntityWrapper);
+                if (roleDeptList != null) {
+                    for (RoleDept roleDept : roleDeptList) {
+                        int deptId = roleDept.getDeptId();
+                        EntityWrapper<DeptClass> deptClassEntityWrapper = new EntityWrapper<>();
+                        deptClassEntityWrapper.where("dept_id = {0}",deptId);
+                        List<DeptClass> deptClassList = deptClassService.selectList(deptClassEntityWrapper);
+                        if (deptClassList != null) {
+                            for (DeptClass deptClass : deptClassList) {
+                                int classId = deptClass.getClassId();
+                                EntityWrapper<NewsClass> newsClassEntityWrapper = new EntityWrapper<>();
+                                newsClassEntityWrapper.where("news_class_id = {0}",classId);
+                                List<NewsClass> newsClassList = newsClassService.selectList(newsClassEntityWrapper);
+                                if (newsClassList != null) {
+                                    for (NewsClass newsClass : newsClassList) {
+                                        int newsId = newsClass.getNewsId();
+                                        EntityWrapper<News> wrapper = new EntityWrapper<>();
+                                        wrapper.where("news_id = {0}",newsId).and().where("del_flag != {0}",1);
+                                        List<News> newsList1 = this.selectList(wrapper);
+                                        if(this.selectList(wrapper) != null){
+                                            News news = newsList1.get(0);
+                                            if(!newsList.contains(news)){
+                                                newsList.add(news);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        Collections.sort(newsList);
+        return newsList;
+    }
+
+    public Page<News> queryByPage(int page,int count, int userId){
+        Page<News> newsPage = new Page<>(page,count);
+        List<News> newsList = queryAllByUserId(userId);
+        List<News> newsList2 = new ArrayList<>();
+        if (page * count > newsList.size()) {
+            newsList2 = newsList.subList((page - 1) * count,newsList.size());
+        }else{
+            newsList2 = newsList.subList((page - 1) * count,(page - 1) * count + count);
+        }
+
+        newsPage.setRecords(newsList2);
+        newsPage.setTotal(newsList.size());
+        return newsPage;
     }
 
 
@@ -242,6 +319,14 @@ public class NewsServiceImpl extends ServiceImpl<NewsDao, News> implements INews
                 file.delete();
             }
         }
-        return deleteById(newsId);
+        EntityWrapper<News> newsWrapper = new EntityWrapper<>();
+        newsWrapper.where("news_id = {0}",newsId).and().where("del_flag != {0}",1);
+        List<News> newsList = selectList(newsWrapper);
+        if (newsList != null) {
+            News news = newsList.get(0);
+            news.setDelFlag(1);
+            news.updateById();
+        }
+        return true;
     }
 }

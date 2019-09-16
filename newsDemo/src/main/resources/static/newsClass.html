@@ -130,6 +130,7 @@
 <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
 <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
 <script type="text/javascript">
+    var projectPath = window.document.location.href.substr(0,window.document.location.href.lastIndexOf("/"));
     var tree_vue = new Vue({
         el: "#treeMenu",
         data: {
@@ -168,7 +169,7 @@
 
                     // 默认的父类选中
                     axios
-                    .get("http://localhost:8085/biz/class/queryById",{
+                    .get(projectPath+"/biz/class/queryById",{
                         params:{
                             "id" : this.updateParentId
                         }
@@ -183,7 +184,11 @@
 
                     // 父类下拉框添加数据
                     axios
-                    .get("http://localhost:8085/biz/class/queryAll")
+                    .get(projectPath+"/biz/class/queryAll",{
+                        params:{
+                            "userId" : sessionStorage.getItem("userId")
+                        }
+                    })
                     .then(response => {
 
                         for (var i = 0; i < response.data.data.length; i++) {
@@ -215,7 +220,7 @@
             },
             add : function(){
                 axios
-                .get("http://localhost:8085/biz/class/add",{
+                .get(projectPath+"/biz/class/add",{
                     params:{
                         "name" : $("#class_name").val(),
                         "parentId" : this.addParentId,
@@ -230,7 +235,7 @@
             },
             update : function(){
                 axios
-                .get("http://localhost:8085/biz/class/update",{
+                .get(projectPath+"/biz/class/update",{
                     params:{
                         "id" : this.id,
                         "name" : $("#new_name").val(),
@@ -246,7 +251,7 @@
             },
             del:function(){
                 axios
-                .get("http://localhost:8085/biz/class/delete",{
+                .get(projectPath+"/biz/class/delete",{
                     params:{
                         "id" : this.id
                             }
@@ -259,7 +264,11 @@
         },
         mounted(){
             axios
-                .get('http://localhost:8085/biz/class/queryTreeMenu')
+                .get(projectPath+'/biz/class/queryTreeMenu',{
+                    params:{
+                        "userId" : sessionStorage.getItem("userId")
+                    }
+                })
                 .then(response =>{
                     $('#tree').treeview({
                         color : "#428bca",

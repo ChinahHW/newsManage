@@ -38,11 +38,23 @@ public class DeptController extends BaseController{
         return baseResponse;
     }
 
-    @RequestMapping("/add")
-    public BaseResponse add(Dept dept){
+    @RequestMapping("/queryTreeForList")
+    public BaseResponse queryTreeForList(){
         BaseResponse baseResponse = new BaseResponse();
         try {
-            boolean result = deptService.insert(dept);
+            baseResponse.success(deptService.queryTreeForList());
+        }catch (Exception e){
+            e.printStackTrace();
+            logger.error(ExceptionUtils.getFullStackTrace(e));
+        }
+        return baseResponse;
+    }
+
+    @RequestMapping("/add")
+    public BaseResponse add(Dept dept,int[] classId){
+        BaseResponse baseResponse = new BaseResponse();
+        try {
+            boolean result = deptService.add(dept,classId);
             if(result){
                 baseResponse.success();
             }
@@ -69,10 +81,10 @@ public class DeptController extends BaseController{
     }
 
     @RequestMapping("/update")
-    public BaseResponse update(Dept dept){
+    public BaseResponse update(Dept dept,int[] classId){
         BaseResponse baseResponse = new BaseResponse();
         try {
-            boolean result = deptService.updateById(dept);
+            boolean result = deptService.update(dept,classId);
             if(result){
                 baseResponse.success();
             }

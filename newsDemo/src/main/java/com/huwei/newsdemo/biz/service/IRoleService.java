@@ -18,7 +18,7 @@ public interface IRoleService extends IService<Role> {
 
     List<Role> queryAll();
 
-    Page<Role> queryByKeyWord(String keyWord);
+    Page<Role> queryByKeyWord(String keyWord, int page, int count);
 
     String add(Role role, int[] permission, int[] depts);
 
