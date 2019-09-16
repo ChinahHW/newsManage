@@ -1,0 +1,10 @@
+2019-09-15 15:38:29.360 [main] ERROR c.b.m.g.e.AbstractTemplateEngine -无法创建文件，请检查配置信息！
+java.io.FileNotFoundException: G:\IdeaWorkSpace\agricultureManage\mappers\AgricultureMapper.xml (系统找不到指定的路径。)
+	at java.io.FileOutputStream.open0(Native Method)
+	at java.io.FileOutputStream.open(FileOutputStream.java:270)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:213)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:101)
+	at com.baomidou.mybatisplus.generator.engine.VelocityTemplateEngine.writer(VelocityTemplateEngine.java:68)
+	at com.baomidou.mybatisplus.generator.engine.AbstractTemplateEngine.batchOutput(AbstractTemplateEngine.java:128)
+	at com.baomidou.mybatisplus.generator.AutoGenerator.execute(AutoGenerator.java:99)
+	at com.agriculture.manage.MybatisPlusGenerater.main(MybatisPlusGenerater.java:164)

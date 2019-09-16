@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="treeMenu/css/bootstrap-treeview.css" rel="stylesheet" />
+
+    <style type="text/css">
+            .modal {padding-top: 25px}
+        </style>
+</head>
+<body>
+    <div style="padding-left: 220px;padding-top: 60px" id="treeMenu">
+        <button class="btn btn-primary" v-on:click="showAdd">新增</button>
+        <button class="btn btn-warning" v-on:click="showUpdate">修改</button>
+        <button class="btn btn-danger" v-on:click="showDel">删除</button>
+        <div id="tree" style="padding-top: 10px"></div>
+
+        <!-- 新增的遮盖层 -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">新增</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label for="class_name">分类名称</label>
+                        <input type="text" name="class_name" class="form-control" id="class_name" placeholder="分类名称">
+                    </div>
+                    <div class="form-group">
+                        <label for="parent_name">父级分类</label>
+                        <input type="text" name="parent_name" class="form-control" readonly="true"  v-bind:addParentId="addParentId" id="parent_name" placeholder="父级分类" v-model="addParentName">
+                    </div>
+                    <div class="form-group">
+                        <label for="order">排序规则(输入一个数字，0-30之间，数字越大，显示出来的位置越靠前)</label>
+                        <input type="text" name="order" class="form-control" id="order" placeholder="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="open_flag">是否可见</label>
+                        <select class="form-control" id="open_flag">
+                            <option value="1">是</option>
+                            <option value="0">否</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
+                    <button type="button" id="btn_submit" class="btn btn-primary" data-dismiss="modal" v-on:click="add"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 修改的遮盖层 -->
+        <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="updateModalLabel">修改</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label for="new_name">新的名称</label>
+                        <input type="text" name="new_name" class="form-control" id="new_name" placeholder="分类名称" v-model="name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="update_parent_name">父级分类</label>
+                        <select class="form-control" id="allNode" v-html="nodeList"></select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="update_order">排序规则(输入一个数字，0-30之间，数字越大，显示出来的位置越靠前)</label>
+                        <input type="text" name="update_order" class="form-control" id="update_order" placeholder="0" v-model="order">
+                    </div>
+                    <!-- <div class="form-group">
+                        <label for="update_open_flag">是否可见</label>
+                        <select class="form-control" id="update_open_flag">
+                            <option value="1">是</option>
+                            <option value="0">否</option>
+                        </select>
+                    </div> -->
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
+                    <button type="button" id="btn_submit" class="btn btn-primary" data-dismiss="modal" v-on:click="update"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>修改</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 删除的遮盖层 -->
+        <div class="modal fade" id="delModal" tabindex="-1" role="dialog" aria-labelledby="delModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="delModalLabel">删除</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label for="class_name">想要删除的分类</label>
+                        <select class="form-control" id="delNode" v-html="nodeList"></select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
+                    <button type="button" id="btn_submit" class="btn btn-primary" data-dismiss="modal" v-on:click="del"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    
+    
+</body>
+<script src="assets/js/jquery-1.8.3.min.js"></script>
+<script src="assets/js/bootstrap/bootstrap.js"></script>
+<script src="treeMenu/js/bootstrap-treeview.js"></script>
+<script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+<script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+<script type="text/javascript">
+    var tree_vue = new Vue({
+        el: "#treeMenu",
+        data: {
+            // 增加和修改的父分类处理方式不一致，增加是当前选中即为父类，而修改的父类是当前选中的父类
+            addParentName : "",
+            addParentId : "",
+            updateParentName : "",
+            updateParentId : "",
+            id : "",
+            name : "",
+            // 可能修改父类
+            nodeList: ""
+        },
+        methods: {
+            showAdd:function(){
+                if($('#tree').treeview('getSelected').length == 0){
+                    this.addParentName = "当前为顶级父类"
+                    this.addParentId = 0;
+                }else{
+                    this.addParentName = $('#tree').treeview('getSelected')[0].text;
+                    this.addParentId = $('#tree').treeview('getSelected')[0].groupId;
+                }
+                
+                $("#myModalLabel").text("新增");
+                $('#myModal').modal();
+            },
+            showUpdate:function(){
+                if($('#tree').treeview('getSelected').length == 0){
+                    alert("请选择分类")
+                }else{
+                    this.updateParentId = $('#tree').treeview('getSelected')[0].parentSeq;
+                    this.id = $('#tree').treeview('getSelected')[0].groupId;
+                    this.name = $('#tree').treeview('getSelected')[0].text;
+                    this.order = $('#tree').treeview('getSelected')[0].order;
+                    console.log($('#tree').treeview('getSelected')[0])
+
+                    // 默认的父类选中
+                    axios
+                    .get("http://localhost:8085/biz/class/queryById",{
+                        params:{
+                            "id" : this.updateParentId
+                        }
+                    })
+                    .then(response => {
+                        if(response.data.data != null){
+                            this.nodeList = "<option value="+response.data.data.id+">"+response.data.data.name+"</option>"
+                        }else{
+                            this.nodeList = "<option value=0>已为顶级父类</option>"
+                        }
+                    })
+
+                    // 父类下拉框添加数据
+                    axios
+                    .get("http://localhost:8085/biz/class/queryAll")
+                    .then(response => {
+
+                        for (var i = 0; i < response.data.data.length; i++) {
+                            // alert(response.data.data[0].name)
+                            if(response.data.data[i].id != this.updateParentId){
+                                this.nodeList += "<option value="+response.data.data[i].id+">"+response.data.data[i].name+"</option>"
+                            }
+                            
+                        }
+                    })
+
+
+                    $("#updateModalLabel").text("修改");
+                    $('#updateModal').modal();
+                    }
+                
+                
+            },
+            showDel: function(){
+                if($('#tree').treeview('getSelected').length == 0){
+                    alert("请选择分类")
+                }else{
+                    this.id = $('#tree').treeview('getSelected')[0].groupId;
+                    this.name = $('#tree').treeview('getSelected')[0].text;
+                    this.nodeList = "<option value="+this.id+">"+this.name+"</option>";
+                    $("#delModalLabel").text("删除");
+                    $('#delModal').modal();
+                }
+            },
+            add : function(){
+                axios
+                .get("http://localhost:8085/biz/class/add",{
+                    params:{
+                        "name" : $("#class_name").val(),
+                        "parentId" : this.addParentId,
+                        "openFlag" : $("#open_flag").val(),
+                        "order" : $("#order").val()
+                            }
+                })
+                .then(response => {
+                    alert("新增成功");
+                    location.reload();
+                })
+            },
+            update : function(){
+                axios
+                .get("http://localhost:8085/biz/class/update",{
+                    params:{
+                        "id" : this.id,
+                        "name" : $("#new_name").val(),
+                        "parentId" : $("#allNode").val(),
+                        "openFlag" : $("#update_open_flag").val(),
+                        "order" : $("#update_order").val()
+                            }
+                })
+                .then(response => {
+                    alert("修改成功");
+                    location.reload();
+                })
+            },
+            del:function(){
+                axios
+                .get("http://localhost:8085/biz/class/delete",{
+                    params:{
+                        "id" : this.id
+                            }
+                })
+                .then(response => {
+                    alert("删除成功");
+                    location.reload();
+                })
+            }
+        },
+        mounted(){
+            axios
+                .get('http://localhost:8085/biz/class/queryTreeMenu')
+                .then(response =>{
+                    $('#tree').treeview({
+                        color : "#428bca",
+                        enableLinks: true,
+                        data : response.data.data,
+                        onNodeSelected : function(event, node) {
+
+                        },
+                        onNodeUnselected:function (event, node) {
+                            // var anh = $('#top').offset().top;
+                            // debugger
+                            // $("#content").stop().animate({scrollTop:anh},400);
+                        }
+                    })
+                })
+        }
+    })
+</script>
+</html>
