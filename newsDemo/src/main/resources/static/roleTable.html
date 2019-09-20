@@ -259,7 +259,7 @@
 
                                                 <div class="form-group">
                                                     <label for="update_parent_name">角色权限:</label>
-                                                    <select class="selectpicker" id="add_allNode" multiple v-html="nodeList"></select>
+                                                    <select class="selectpicker nodeList" id="add_allNode" multiple></select>
                                                 </div>
 
                                                 <div class="form-group">
@@ -309,7 +309,7 @@
                                                     <label for="update_parent_name">角色权限:</label>
                                                     <input type="text" name="news_class" class="form-control" id="news_class"  readonly="true" v-model="selectClass" placeholder="该用户暂无权限"><br>
                                                     <label for="update_parent_name">角色权限赋予:</label>
-                                                    <select class="selectpicker" id="update_allNode" multiple v-html="nodeList"></select>
+                                                    <select class="selectpicker nodeList" id="update_allNode" multiple></select>
                                                 </div>
 
                                                 <div class="form-group">
@@ -317,7 +317,7 @@
                                                     <input type="text" name="detail_dept_name" class="form-control" id="detail_dept_name"  readonly="true" v-model="selectDept" placeholder="该用户暂无部门信息">
                                                     <br/>
                                                     <label for="update_parent_name">角色部门选择:</label>
-                                                    <select class="selectpicker" id="update_allDept" multiple v-html="deptList"></select>
+                                                    <select class="selectpicker" id="update_allDept" multiple  v-html="deptList"></select>
                                                 </div>
                                         </div>
                                         <div class="modal-footer">
@@ -476,6 +476,8 @@
                     axios
                     .get(projectPath+'/biz/role/queryByKeyWord',{params:{
                         roleKeyWord: $("#search").val(),
+                        "userId" : sessionStorage.getItem("userId"),
+
                         "page" : 1,
                         "count" : 10
                     }})
@@ -613,7 +615,7 @@
                                  $.ajax({
                                      url:projectPath+'/biz/role/queryByKeyWord',
                                      type:'POST',
-                                     data:{'page':page,'count':10,roleKeyWord: $("#search").val()},
+                                     data:{'page':page,'count':10,roleKeyWord: $("#search").val(),"userId" : sessionStorage.getItem("userId")},
                                      dataType:'JSON',
                                      success:function (callback) {
                                             vm.roleDetail = "";
@@ -758,7 +760,12 @@
                 .then(response => {
                     if(response.data.code == '200'){
                         alert("修改成功");
-                        location.reload();
+                        if($("#update_allNode").val() != null){
+                            top.location='index.html';
+                        }else{
+                            location.reload();
+                        }
+                        
                     }else{
                         alert(response.data.msg)
                     }
@@ -818,7 +825,8 @@
                 .get(projectPath+'/biz/role/page',{
                     params: {
                         "page" : 1,
-                        "count" : 10
+                        "count" : 10,
+                        "userId" : sessionStorage.getItem("userId")
                     }
                 })
                 .then(response => {
@@ -959,7 +967,7 @@
                                  $.ajax({
                                      url:projectPath+'/biz/role/page',
                                      type:'POST',
-                                     data:{'page':page,'count':10},
+                                     data:{'page':page,'count':10,"userId" : sessionStorage.getItem("userId")},
                                      dataType:'JSON',
                                      success:function (callback) {
                                             vm.roleDetail = "";
@@ -1092,13 +1100,10 @@
                 })
                // 下拉框添加剩余数据
                 axios
-                .get(projectPath+"/biz/menu/queryTreeForList",{
-                    params:{
-                        "userId" : sessionStorage.getItem("userId")
-                    }
-                })
+                .get(projectPath+"/biz/menu/queryTreeForList")
                 .then(response => {
                     vm.nodeListAdd(response.data.data,0);
+                    $('.nodeList').append(vm.nodeList)
                     //要以编程方式更新JavaScript的选择，首先操作选择，然后使用refresh方法更新UI以匹配新状态。 在删除或添加选项时，或通过JavaScript禁用/启用选择时，这是必需的。
                     $('.selectpicker').selectpicker('refresh');
                     //render方法强制重新渲染引导程序 - 选择ui,如果当您编程时更改任何相关值而影响元素布局，这将非常有用。
@@ -1106,13 +1111,19 @@
                 })
 
                 axios
-                    .get(projectPath+"/biz/dept/queryTreeForList")
+                    .get(projectPath+"/biz/dept/queryTreeForList",{
+                        params:{
+                            "userId" : sessionStorage.getItem("userId")
+                        }
+                    })
                     .then(response => {
                         vm.deptListAdd(response.data.data,0)
-                        //要以编程方式更新JavaScript的选择，首先操作选择，然后使用refresh方法更新UI以匹配新状态。 在删除或添加选项时，或通过JavaScript禁用/启用选择时，这是必需的。
-                        $('.selectpicker').selectpicker('refresh');
-                        //render方法强制重新渲染引导程序 - 选择ui,如果当您编程时更改任何相关值而影响元素布局，这将非常有用。
-                        $('.selectpicker').selectpicker('render');
+
+                        // $('.deptList').append(vm.deptList)
+                        // //要以编程方式更新JavaScript的选择，首先操作选择，然后使用refresh方法更新UI以匹配新状态。 在删除或添加选项时，或通过JavaScript禁用/启用选择时，这是必需的。
+                        // $('.selectpicker').selectpicker('refresh');
+                        // //render方法强制重新渲染引导程序 - 选择ui,如果当您编程时更改任何相关值而影响元素布局，这将非常有用。
+                        // $('.selectpicker').selectpicker('render');
                     })
 
                 document.addEventListener('keydown', (e) => {

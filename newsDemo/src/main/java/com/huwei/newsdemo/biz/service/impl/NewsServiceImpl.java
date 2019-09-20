@@ -4,13 +4,12 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.huwei.newsdemo.biz.dao.NewsDao;
-import com.huwei.newsdemo.biz.entity.*;
 import com.huwei.newsdemo.biz.entity.Class;
+import com.huwei.newsdemo.biz.entity.*;
 import com.huwei.newsdemo.biz.service.*;
 import com.huwei.newsdemo.util.CreateHtmlUtils;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,9 +29,6 @@ import java.util.*;
 @Service
 public class NewsServiceImpl extends ServiceImpl<NewsDao, News> implements INewsService {
 
-    @Value("${filePath}")
-    String path;
-
     @Autowired
     private IUserRoleService userRoleService;
 
@@ -45,14 +41,11 @@ public class NewsServiceImpl extends ServiceImpl<NewsDao, News> implements INews
     @Autowired
     private INewsClassService newsClassService;
 
+    //图片路径
+    String imageFilePath = this.getClass().getClassLoader().getResource(".").getPath().replace("/target/classes/","/uploadImage/");
 
-
-    private File upload; // 文件
-    private String uploadContentType; // 文件类型
-    private String uploadFileName; // 文件名
-
-    // 注意路径格式，一般为项目路径下的一个文件夹里边，项目发布到linux服务器上又得改了
-    String imageFilePath = "F:\\IdeaWorkSpace\\newsDemo\\src\\main\\resources\\static\\file\\uploadImage\\";
+    //静态化文件路径
+    String staticFilePath = this.getClass().getClassLoader().getResource(".").getPath().replace("/target/classes/","/staticHtmlPath");
     String classPath = "";
     List<String> str = new ArrayList<>();
     //获取分类信息的全路径
@@ -102,7 +95,7 @@ public class NewsServiceImpl extends ServiceImpl<NewsDao, News> implements INews
         map.put("path",allPath);
         map.put("pageTitle","news"+ pageTitle);
         try {
-            CreateHtmlUtils.createHtml("news.ftl",path+"/"+"news"+newsId+"_"+endName+".html", map);
+            CreateHtmlUtils.createHtml("news.ftl",staticFilePath+"/"+"news"+newsId+"_"+endName+".html", map);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -134,14 +127,16 @@ public class NewsServiceImpl extends ServiceImpl<NewsDao, News> implements INews
         return result && result2 ? "add success" : "add fail";
     }
 
-    public Page<News> queryByName(String newsKeyWord, int userId, int page, int count){
+    public Page<News> queryByName(String newsKeyWord, int userId,int page,int count){
 
         List<News> newsList = queryAllByUserId(userId);
         List<News> keyWordNewsList = new ArrayList<>();
         if (newsList != null) {
             for (News news : newsList) {
                 if(news.getNewsTitle().contains(newsKeyWord) || news.getNewsContent().contains(newsKeyWord)) {
-                    keyWordNewsList.add(news);
+                    if(keyWordNewsList.size() < 10){
+                        keyWordNewsList.add(news);
+                    }
                 }
             }
         }
@@ -153,7 +148,6 @@ public class NewsServiceImpl extends ServiceImpl<NewsDao, News> implements INews
         }else{
             newsList2 = keyWordNewsList.subList((page - 1) * count,(page - 1) * count + count);
         }
-
         newsPage.setRecords(newsList2);
         newsPage.setTotal(keyWordNewsList.size());
         return newsPage;
@@ -194,6 +188,7 @@ public class NewsServiceImpl extends ServiceImpl<NewsDao, News> implements INews
                                             if(!newsList.contains(news)){
                                                 newsList.add(news);
                                             }
+
                                         }
                                     }
                                 }
@@ -222,6 +217,39 @@ public class NewsServiceImpl extends ServiceImpl<NewsDao, News> implements INews
         return newsPage;
     }
 
+    @Override
+    public Page<News> queryByUserIdAndClassId(int userId, int classId, int page, int count) {
+        Page<News> newsPage = new Page<>(page,count);
+        List<News> newsList = new ArrayList<>();
+        if(classId == 0){
+            newsList = queryAllByUserId(userId);
+        }else{
+            //通过部门获取新闻分类，通过分类获取新闻
+            EntityWrapper<NewsClass> newsClassEntityWrapper = new EntityWrapper<>();
+            newsClassEntityWrapper.where("news_class_id = {0}",classId);
+            List<NewsClass> newsClassList = newsClassService.selectList(newsClassEntityWrapper);
+            if (newsClassList != null) {
+                for (NewsClass newsClass : newsClassList) {
+                    News news = this.selectById(newsClass.getNewsId());
+                    if (!newsList.contains(news)) {
+                        newsList.add(news);
+                    }
+                }
+            }
+        }
+
+        List<News> newsList2 = new ArrayList<>();
+        if (page * count > newsList.size()) {
+            newsList2 = newsList.subList((page - 1) * count,newsList.size());
+        }else{
+            newsList2 = newsList.subList((page - 1) * count,(page - 1) * count + count);
+        }
+
+        newsPage.setRecords(newsList2);
+        newsPage.setTotal(newsList.size());
+        return newsPage;
+    }
+
 
     /**
      * 富文本编辑器图片上传
@@ -237,18 +265,12 @@ public class NewsServiceImpl extends ServiceImpl<NewsDao, News> implements INews
         String newFileName = "cun" + suffixName;
         //使用架包 common-io实现图片上传
         FileUtils.copyInputStreamToFile(file.getInputStream(), new File(imageFilePath + newFileName));
-        //实现图片回显，基本上是固定代码，只需改路劲即可
-//        StringBuffer sb = new StringBuffer();
-//        sb.append("<script type=\"text/javascript\">");
-//        sb.append("window.parent.CKEDITOR.tools.callFunction(" + CKEditorFuncNum + ",'" + "/file/uploadImage/" + newFileName
-//                + "','')");
-//        sb.append("</script>");
         JSONObject result = new JSONObject();
         result.put("uploaded", 1);
 
         result.put("fileName", fileName);
 
-        result.put("url", "/file/uploadImage/cun.jpg");
+        result.put("url", "/file/"+newFileName);
         return result.toString();
     }
 
@@ -282,7 +304,7 @@ public class NewsServiceImpl extends ServiceImpl<NewsDao, News> implements INews
                 for (NewsClass aClass : newsClassList) {
                     aClass.deleteById();
                     //同时删除原本的静态化网页
-                    File file = new File("F:\\IdeaWorkSpace\\html\\news"+news.getNewsId()+"_"+aClass.getNewsClassId()+".html");
+                    File file = new File(staticFilePath+"/news"+news.getNewsId()+"_"+aClass.getNewsClassId()+".html");
                     file.delete();
                 }
             }

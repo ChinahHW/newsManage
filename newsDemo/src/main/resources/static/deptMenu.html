@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+            <link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+            <link href="bootstrap_select/css/bootstrap-select.min.css" rel="stylesheet" />
+            <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+            <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+            <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+
+            <script src="http://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+            <script src="ckeditor/ckeditor.js"></script>
+
+            <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+            <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+            
+            <script type="text/javascript" src="bootstrap_select/js/bootstrap-select.js"></script>
+            <script src="treeMenu/js/bootstrap-treeview.js"></script>
+        <style type="text/css">
+            .modal {padding-top: 25px}
+        </style>
+    
+</head>
+<body>
+    <div style="padding-left: 220px;padding-top: 60px" id="treeMenu">
+        <button class="btn btn-primary" v-on:click="showAdd">新增</button>
+        <button class="btn btn-warning" v-on:click="showUpdate">修改</button>
+        <button class="btn btn-danger" v-on:click="showDel">删除</button>
+        <div id="tree" style="padding-top: 10px"></div>
+
+        <!-- 新增的遮盖层 -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">新增</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label for="dept_name">部门名称</label>
+                        <input type="text" name="dept_name" class="form-control" id="dept_name" placeholder="部门名称">
+                    </div>
+                    <div class="form-group">
+                        <label for="parent_name">上级部门</label>
+                        <input type="text" name="parent_name" class="form-control" readonly="true"  v-bind:addParentId="addParentId" id="parent_name" placeholder="父级菜单" v-model="addParentName">
+                    </div>
+                    <div class="form-group">
+                        <label for="sort">排序规则(输入一个数字，数字越大，显示出来的位置越靠前)</label>
+                        <input type="text" name="sort" class="form-control" id="sort" placeholder="0">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="update_class_choose">部门新闻分类选择:</label>
+                        <!-- <select class="selectpicker" id="class_allNode" multiple v-html="classNodeList"></select> -->
+                        <select class="selectpicker" id="class_allNode" multiple></select>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
+                    <button type="button" id="btn_submit" class="btn btn-primary" data-dismiss="modal" v-on:click="add"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 修改的遮盖层 -->
+        <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="updateModalLabel">修改</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label for="new_name">新的名称</label>
+                        <input type="text" name="new_name" class="form-control" id="new_name" placeholder="菜单名称" v-model="name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="update_parent_name">父级菜单</label>
+                        <select class="form-control" id="allNode" v-html="nodeList"></select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="update_sort">排序规则(输入一个数字，0-30之间，数字越大，显示出来的位置越靠前)</label>
+                        <input type="text" name="update_sort" class="form-control" id="update_sort" placeholder="0" v-model="sort">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="update_class_list">部门对应新闻分类列表:</label>
+                        <input type="text" name="update_class_list" class="form-control" id="update_class_list"  readonly="true" v-model="selectClass" placeholder="该部门暂无新闻分类信息">
+                        <br/>
+                        <label for="update_class_choose">部门新闻分类选择:</label>
+                        <!-- <select class="selectpicker" id="update_class_choose" multiple v-html="classNodeList"></select> -->
+                        <select class="selectpicker" id="update_class_choose" multiple></select>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
+                    <button type="button" id="btn_submit" class="btn btn-primary" data-dismiss="modal" v-on:click="update"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>修改</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 删除的遮盖层 -->
+        <div class="modal fade" id="delModal" tabindex="-1" role="dialog" aria-labelledby="delModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="delModalLabel">删除</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label for="class_name">想要删除的菜单</label>
+                        <select class="form-control" id="delNode" v-html="nodeList"></select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
+                    <button type="button" id="btn_submit" class="btn btn-primary" data-dismiss="modal" v-on:click="del"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    
+    
+</body>
+<script type="text/javascript">
+    var projectPath = window.document.location.href.substr(0,window.document.location.href.lastIndexOf("/"));
+    // var projectPath = "http://localhost:8085";
+    var tree_vue = new Vue({
+        el: "#treeMenu",
+        data: {
+            // 增加和修改的父菜单处理方式不一致，增加是当前选中即为父类，而修改的父类是当前选中的父类
+            addParentName : "",
+            addParentId : "",
+            updateParentName : "",
+            updateParentId : "",
+            id : "",
+            name : "",
+            path : "",
+            // 可能修改父类
+            nodeList: "",
+            addPath:"",
+            sort : "",
+            // 对应的新闻分类
+            classNodeList:"",
+            selectClass : ""
+
+        },
+        methods: {
+            classNodeListAdd:function(queryArray,j){
+                    var titleAdd = ""
+                    for(var k = 0; k < j; k++){
+                        titleAdd += "--"
+                    }
+                    for(var i = 0; i < queryArray.length; i++){
+                        tree_vue.classNodeList += "<option value="+queryArray[i].groupId+">"+titleAdd+queryArray[i].groupName+"</option>"
+                        if(queryArray[i].subGroup.length != 0){
+                            tree_vue.classNodeListAdd(queryArray[i].subGroup,j+1,tree_vue.classNodeList)
+                        }
+                    }
+                },
+                nodeListAdd:function(queryArray,j){
+                    var titleAdd = ""
+                    for(var k = 0; k < j; k++){
+                        titleAdd += "--"
+                    }
+                    for(var i = 0; i < queryArray.length; i++){
+                        tree_vue.nodeList += "<option value="+queryArray[i].groupId+">"+titleAdd+queryArray[i].groupName+"</option>"
+                        if(queryArray[i].subGroup.length != 0){
+                            tree_vue.nodeListAdd(queryArray[i].subGroup,j+1,tree_vue.nodeList)
+                        }
+                    }
+                     //要以编程方式更新JavaScript的选择，首先操作选择，然后使用refresh方法更新UI以匹配新状态。 在删除或添加选项时，或通过JavaScript禁用/启用选择时，这是必需的。
+                    $('.selectpicker').selectpicker('refresh');
+                    //render方法强制重新渲染引导程序 - 选择ui,如果当您编程时更改任何相关值而影响元素布局，这将非常有用。
+                    $('.selectpicker').selectpicker('render');
+
+                },
+            showAdd:function(){
+                if($('#tree').treeview('getSelected').length == 0){
+                    this.addParentName = "当前为顶级菜单"
+                    this.addParentId = 0;
+                }else{
+                    this.addParentName = $('#tree').treeview('getSelected')[0].text;
+                    this.addParentId = $('#tree').treeview('getSelected')[0].groupId
+                }
+                
+                $("#myModalLabel").text("新增");
+                $('#myModal').modal();
+            },
+            showUpdate:function(){
+                if($('#tree').treeview('getSelected').length == 0){
+                    alert("请选择菜单")
+                }else{
+                    this.updateParentId = $('#tree').treeview('getSelected')[0].parentSeq;
+                    this.id = $('#tree').treeview('getSelected')[0].groupId;
+                    this.name = $('#tree').treeview('getSelected')[0].text;
+                    this.sort = $('#tree').treeview('getSelected')[0].order;
+                    this.path = $('#tree').treeview('getSelected')[0].path;
+                    
+
+                    // 默认的父类选中
+                    axios
+                    .get(projectPath+"/biz/dept/queryById",{
+                        params:{
+                            "deptId" : this.updateParentId
+                        }
+                    })
+                    .then(response => {
+                        if(response.data.data != null){
+                            this.nodeList = "<option value="+response.data.data.deptId+">"+response.data.data.deptName+"</option><option value=0>顶级父类</option>"
+                        }else{
+                            this.nodeList = "<option value=0>已为顶级父类</option>"
+                        }
+                    })
+
+                    // 父类下拉框添加数据
+                    axios
+                    .get(projectPath+"/biz/dept/queryTreeForList",{
+                        params:{
+                            "userId" : sessionStorage.getItem("userId")
+                        }
+                    })
+                    .then(response => {
+                        tree_vue.nodeListAdd(response.data.data,0)
+                    
+                    })
+
+                    axios
+                        .get(projectPath+"/biz/deptClass/queryClassByDeptId",{
+                            params : {
+                                "deptId" : this.id
+                            }
+                        })
+                        .then(response => {
+                            tree_vue.selectClass = "";
+                                for(var j = 0;j < response.data.data.length;j++){
+                                    tree_vue.selectClass += " "+ response.data.data[j].name
+                                }
+                        })
+
+
+                    $("#updateModalLabel").text("修改");
+                    $('#updateModal').modal();
+                    }
+                
+                
+            },
+            showDel: function(){
+                if($('#tree').treeview('getSelected').length == 0){
+                    alert("请选择菜单")
+                }else{
+                    this.id = $('#tree').treeview('getSelected')[0].groupId;
+                    this.name = $('#tree').treeview('getSelected')[0].text;
+                    this.nodeList = "<option value="+this.id+">"+this.name+"</option>";
+                    $("#delModalLabel").text("删除");
+                    $('#delModal').modal();
+                }
+            },
+            add : function(){
+                let param = new URLSearchParams()
+                param.append('deptName', $("#dept_name").val()),
+                param.append("parentId" , this.addParentId),
+                param.append("sort" , $("#sort").val())
+                param.append("userId", sessionStorage.getItem("userId"))
+                if($("#class_allNode").val() != null){
+                    param.append('classId' , $("#class_allNode").val())
+
+                    axios
+                    .post(projectPath+"/biz/dept/add",param
+                    )
+                    .then(response => {
+                        if(response.data.code == '200'){
+                            alert("添加成功")
+                            top.location='index.html';
+                        }else if(response.data.code == '400'){
+                            alert(response.data.msg)
+                        }
+                    })
+                }else{
+                    alert("角色权限不能为空")
+                }
+            },
+            update : function(){
+                let param = new URLSearchParams()
+                param.append('deptId', this.id)
+                param.append('deptName', $("#new_name").val())
+                param.append("parentId" , $("#allNode").val())
+                param.append("sort" , $("#update_sort").val())
+                if($("#update_class_choose").val() != null){
+                    param.append("classId" , $("#update_class_choose").val())
+                }
+                axios
+                .post(projectPath+"/biz/dept/update",param)
+                .then(response => {
+                    alert("修改成功");
+                    // location.reload();
+                    top.location='index.html';
+                })
+            },
+            del:function(){
+                axios
+                .get(projectPath+"/biz/dept/delete",{
+                    params:{
+                        "deptId" : this.id
+                            }
+                })
+                .then(response => {
+                    alert("删除成功");
+                    top.location='index.html';
+                })
+            }
+        },
+        mounted(){
+
+            // 下拉框添加剩余数据
+        axios
+            .get(projectPath+"/biz/class/queryTreeForList",{
+                params:{
+                    "userId" : sessionStorage.getItem("userId")
+                }
+            })
+            .then(response => {
+                tree_vue.classNodeListAdd(response.data.data,0);
+                $('.selectpicker').append(tree_vue.classNodeList);
+                //要以编程方式更新JavaScript的选择，首先操作选择，然后使用refresh方法更新UI以匹配新状态。 在删除或添加选项时，或通过JavaScript禁用/启用选择时，这是必需的。
+               $('.selectpicker').selectpicker('refresh');
+               //render方法强制重新渲染引导程序 - 选择ui,如果当您编程时更改任何相关值而影响元素布局，这将非常有用。
+               $('.selectpicker').selectpicker('render');
+            })
+
+        
+
+            axios
+                .get(projectPath+'/biz/dept/queryTreeDept',{
+                params:{
+                    "userId" : sessionStorage.getItem("userId")
+                }
+            })
+                .then(response =>{
+                    $('#tree').treeview({
+                        color : "#428bca",
+                        enableLinks: true,
+                        data : response.data.data,
+                        onNodeSelected : function(event, node) {
+
+                        },
+                        onNodeUnselected:function (event, node) {
+                            // var anh = $('#top').offset().top;
+                            // debugger
+                            // $("#content").stop().animate({scrollTop:anh},400);
+                        }
+                    })
+                })
+        
+        }
+
+        
+    })
+</script>
+</html>

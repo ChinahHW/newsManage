@@ -66,12 +66,7 @@
                                 <a href="#" data-toggle="dropdown" v-html="userName + '用户  ,您好'">
                                     </a>
                                 <ul class="dropdown-menu right" role="menu">
-                                    <li><a href="profile.html"><i class="st-user"></i> Profile</a>
-                                    </li>
-                                    <li><a href="file.html"><i class="st-cloud"></i> Files</a>
-                                    </li>
-                                    <li><a href="#"><i class="st-settings"></i> Settings</a>
-                                    </li>
+                                    
                                     <li><a href="login.html"><i class="im-exit"></i> Logout</a>
                                     </li>
                                 </ul>
@@ -145,7 +140,7 @@
             var my_vue = new Vue({
                 el: "#showPage",
                 data:{
-                    iframeSrc: "indexContent.html",
+                    iframeSrc: "news-tables.html",
                     userName: sessionStorage.getItem("userName"),
                     userId: sessionStorage.getItem("userId")
                 },

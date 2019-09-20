@@ -21,7 +21,7 @@ import java.util.Date;
  */
 @Data
 @Accessors(chain = true)
-public class Role extends Model<Role> {
+public class Role extends Model<Role> implements Comparable<Role>{
 
     private static final long serialVersionUID = 1L;
 
@@ -63,4 +63,8 @@ public class Role extends Model<Role> {
         return this.roleId;
     }
 
+    @Override
+    public int compareTo(Role o) {
+        return o.getRoleId() - this.getRoleId();
+    }
 }

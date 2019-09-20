@@ -16,15 +16,15 @@ import java.util.List;
  */
 public interface IRoleService extends IService<Role> {
 
-    List<Role> queryAll();
+    List<Role> queryAll(int userId);
 
-    Page<Role> queryByKeyWord(String keyWord, int page, int count);
+    Page<Role> queryByKeyWord(String keyWord, int page, int count, int userId);
 
     String add(Role role, int[] permission, int[] depts);
 
     boolean update(Role role, int[] permission, int[] depts);
 
-    Page<Role> queryByPage(int page, int count);
+    Page<Role> queryByPage(int page, int count,int userId);
 
     boolean delete(Role role);
 }

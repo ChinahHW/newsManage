@@ -27,10 +27,10 @@ public class DeptController extends BaseController{
     private IDeptService deptService;
 
     @RequestMapping("/queryTreeDept")
-    public BaseResponse queryTreeDept(){
+    public BaseResponse queryTreeDept(int userId){
         BaseResponse baseResponse = new BaseResponse();
         try {
-            baseResponse.success(deptService.queryTreeDept());
+            baseResponse.success(deptService.queryTreeDept(userId));
         }catch (Exception e){
             e.printStackTrace();
             logger.error(ExceptionUtils.getFullStackTrace(e));
@@ -39,10 +39,10 @@ public class DeptController extends BaseController{
     }
 
     @RequestMapping("/queryTreeForList")
-    public BaseResponse queryTreeForList(){
+    public BaseResponse queryTreeForList(int userId){
         BaseResponse baseResponse = new BaseResponse();
         try {
-            baseResponse.success(deptService.queryTreeForList());
+            baseResponse.success(deptService.queryTreeForList(userId));
         }catch (Exception e){
             e.printStackTrace();
             logger.error(ExceptionUtils.getFullStackTrace(e));
@@ -51,10 +51,10 @@ public class DeptController extends BaseController{
     }
 
     @RequestMapping("/add")
-    public BaseResponse add(Dept dept,int[] classId){
+    public BaseResponse add(Dept dept,int[] classId,int userId){
         BaseResponse baseResponse = new BaseResponse();
         try {
-            boolean result = deptService.add(dept,classId);
+            boolean result = deptService.add(dept,classId,userId);
             if(result){
                 baseResponse.success();
             }
@@ -96,10 +96,10 @@ public class DeptController extends BaseController{
     }
 
     @RequestMapping("/queryAll")
-    public BaseResponse queryAll(){
+    public BaseResponse queryAll(int userId){
         BaseResponse baseResponse = new BaseResponse();
         try {
-            List<Dept> treeDepts = deptService.queryAll();
+            List<Dept> treeDepts = deptService.queryAll(userId);
             baseResponse.success(treeDepts);
         }catch (Exception e){
             e.printStackTrace();

@@ -212,7 +212,7 @@
 
                                                 <div class="form-group">
                                                     <label for="update_parent_name">用户角色:</label>
-                                                    <select class="selectpicker" id="add_allNode" multiple v-html="nodeList"></select>
+                                                    <select class="selectpicker" id="add_allNode" multiple></select>
                                                 </div>
                                             </div>
                                         </div>
@@ -411,7 +411,8 @@
                     .get(projectPath+'/biz/user/queryByKeyWord',{params:{
                         userKeyWord: $("#search").val(),
                         "page": 1,
-                        "count" : 10
+                        "count" : 10,
+                        "userId": sessionStorage.getItem("userId")
                     }})
                     .then(response => {
                         vm.userList = [];
@@ -516,7 +517,7 @@
                                  $.ajax({
                                      url:projectPath+'/biz/user/queryByKeyWord',
                                      type:'POST',
-                                     data:{'page':page,'count':10,userKeyWord: $("#search").val()},
+                                     data:{'page':page,'count':10,userKeyWord: $("#search").val(),"userId": sessionStorage.getItem("userId")},
                                      dataType:'JSON',
                                      success:function (callback) {
                                             vm.userDetail = "";
@@ -652,7 +653,8 @@
                 .get(projectPath+'/biz/user/page',{
                     params: {
                         "page" : 1,
-                        "count" : 10
+                        "count" : 10,
+                        "userId" : sessionStorage.getItem("userId")
                     }
                 })
                 .then(response => {
@@ -761,7 +763,7 @@
                                  $.ajax({
                                      url:projectPath+'/biz/user/page',
                                      type:'POST',
-                                     data:{'page':page,'count':10},
+                                     data:{'page':page,'count':10,"userId" : sessionStorage.getItem("userId")},
                                      dataType:'JSON',
                                      success:function (callback) {
                                             vm.userDetail = "";
@@ -859,12 +861,17 @@
                     console.log(error)
                 })
                 axios
-                    .get(projectPath+"/biz/role/queryAll")
+                    .get(projectPath+"/biz/role/queryAll",{
+                    params: {
+                        "userId" : sessionStorage.getItem("userId")
+                    }
+                })
                     .then(response => {
 
                         for (var i = 0; i < response.data.data.length; i++) {
                             vm.nodeList += "<option value="+response.data.data[i].roleId+">"+response.data.data[i].roleName+"</option>"
                         }
+                        $('.selectpicker').append(vm.nodeList)
                         //要以编程方式更新JavaScript的选择，首先操作选择，然后使用refresh方法更新UI以匹配新状态。 在删除或添加选项时，或通过JavaScript禁用/启用选择时，这是必需的。
                         $('.selectpicker').selectpicker('refresh');
                         //render方法强制重新渲染引导程序 - 选择ui,如果当您编程时更改任何相关值而影响元素布局，这将非常有用。

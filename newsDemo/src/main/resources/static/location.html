@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Tables</title>
+        <!-- Mobile specific metas -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <!-- Force IE9 to render in normal mode -->
+        <!--[if IE]><meta http-equiv="x-ua-compatible" content="IE=9" /><![endif]-->
+        <meta name="author" content="SuggeElson" />
+        <meta name="description" content=""
+        />
+        <meta name="keywords" content=""
+        />
+        <meta name="application-name" content="sprFlat admin template" />
+        <!-- Import google fonts - Heading first/ text second -->
+        <link rel='stylesheet' type='text/css' />
+        <!--[if lt IE 9]>
+<link href="http://fonts.googleapis.com/css?family=Open+Sans:400" rel="stylesheet" type="text/css" />
+<link href="http://fonts.googleapis.com/css?family=Open+Sans:700" rel="stylesheet" type="text/css" />
+<link href="http://fonts.googleapis.com/css?family=Droid+Sans:400" rel="stylesheet" type="text/css" />
+<link href="http://fonts.googleapis.com/css?family=Droid+Sans:700" rel="stylesheet" type="text/css" />
+<![endif]-->
+        <!-- Css files -->
+        <!-- Icons -->
+        <link href="assets/css/icons.css" rel="stylesheet" />
+        <!-- jQueryUI -->
+        <link href="assets/css/sprflat-theme/jquery.ui.all.css" rel="stylesheet" />
+        <!-- Bootstrap stylesheets (included template modifications) -->
+        <!-- <link href="assets/css/bootstrap.css" rel="stylesheet" /> -->
+        <!-- Plugins stylesheets (all plugin custom css) -->
+        <link href="assets/css/plugins.css" rel="stylesheet" />
+        <!-- Main stylesheets (template main css file) -->
+        <link href="assets/css/main.css" rel="stylesheet" />
+        <!-- Custom stylesheets ( Put your own changes here ) -->
+        <link href="assets/css/custom.css" rel="stylesheet" />
+        <!-- Fav and touch icons -->
+
+
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/img/ico/apple-touch-icon-144-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/img/ico/apple-touch-icon-114-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/img/ico/apple-touch-icon-72-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" href="assets/img/ico/apple-touch-icon-57-precomposed.png">
+        <link rel="icon" href="assets/img/ico/favicon.ico" type="image/png">
+        <link href="http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+        <link href="bootstrap_select/css/bootstrap-select.min.css" rel="stylesheet" />
+        
+
+        
+
+            <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+            <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+            <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+
+            <script src="ckeditor/ckeditor.js"></script>
+
+            <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+            <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+            <script type="text/javascript" src="assets/js/bootstrap-paginator.js"></script>
+            <script src="ckeditor/ckeditor.js"></script>
+
+        <script type="text/javascript" src="bootstrap_select/js/bootstrap-select.js"></script>
+
+        <!-- Windows8 touch icon ( http://www.buildmypinnedsite.com/ )-->
+        <meta name="msapplication-TileColor" content="#3399cc" />
+        <style type="text/css">
+            .modal {padding-top: 25px}
+            .table th{
+                text-align: center;
+                font-size: 15px
+            }
+            .form-control1{
+                margin-left: 71%;
+                width: 15%;
+                height: 34px;
+                padding: 6px 12px;
+                font-size: 14px;
+                line-height: 1.42857143;
+                color: #555;
+                background-color: #fff;
+                background-image: none;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+                box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+                -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+                -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+                transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+            }
+        </style>
+        
+    </head>
+    <body>
+        <!-- Start #header -->
+        <div id="header" id="showUser">
+            <div class="container-fluid">
+                <div class="navbar">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="index.html">
+                            <i class="im-windows8 text-logo-element animated bounceIn"></i><span class="text-logo">spr</span><span class="text-slogan">flat</span> 
+                        </a>
+                    </div>
+                    <nav class="top-nav" role="navigation">
+                        <ul class="nav navbar-nav pull-right">
+                           
+                            
+                            <li class="dropdown">
+                                <a href="#" data-toggle="dropdown" v-html="locationName">
+                                    </a>
+                                <ul class="dropdown-menu right" role="menu">
+                                    <li><a href="profile.html"><i class="st-location"></i> Profile</a>
+                                    </li>
+                                    <li><a href="file.html"><i class="st-cloud"></i> Files</a>
+                                    </li>
+                                    <li><a href="#"><i class="st-settings"></i> Settings</a>
+                                    </li>
+                                    <li><a href="login.html"><i class="im-exit"></i> Logout</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li id="toggle-right-sidebar-li"><a href="#" id="toggle-right-sidebar"><i class="ec-cog"></i></a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <!-- Start #header-area -->
+                
+                <!-- End #header-area -->
+            </div>
+            <!-- Start .header-inner -->
+        </div>
+        <!-- End #header -->
+        
+        <!-- End #sidebar -->
+        <!-- Start #right-sidebar -->
+        <div id="right-sidebar" class="hide-sidebar">
+            <!-- Start .sidebar-inner -->
+            <div class="sidebar-inner">
+                <div class="sidebar-panel mt0">
+                    <div class="sidebar-panel-content fullwidth pt0">
+                        <div class="chat-location-list">
+                            <form class="form-horizontal chat-search" role="form">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Search for location...">
+                                    <button type="submit"><i class="ec-search s16"></i>
+                                    </button>
+                                </div>
+                                <!-- End .form-group  -->
+                            </form>
+                            
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <!-- End .sidebar-inner -->
+        </div>
+        <!-- End #right-sidebar -->
+        <!-- Start #content -->
+        <div id="content">
+            <!-- Start .content-wrapper -->
+            <div class="content-wrapper">
+                <div class="col-lg-12 heading">
+                        <h1 class="page-header"><i class="ec-locations"></i> 用户管理列表</h1>
+                    <!-- End .page-header -->
+                </div>
+                <!-- End .row -->
+                <div class="outlet"  id="locationTable">
+                    <!-- Start .outlet -->
+                    <!-- Page start here ( usual with .row ) -->
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <!-- col-lg-12 start here -->
+                            <div class="panel plain toggle panelClose panelRefresh">
+                                <!-- Start .panel -->
+                                <div class="panel-heading white-bg">
+                                    <button class="btn btn-primary" v-on:click="showAdd">新增广告位置</button>
+
+                                    <input type="text" name="search" class="form-control1" id="search" placeholder="请输入查询条件">
+                                    <button class="btn" v-on:click="queryUserByKeyWord"><i class="ec-search"></i>查询</button>
+                                </div>
+
+
+                                <!-- 添加的遮盖层 -->
+                                <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" style="padding-top: 25px">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title" id="addModalLabel">新增</h4>
+                                        </div>
+
+                                        <div class="modal-body">
+                                            <div id="testCkeditor">
+
+                                                <div class="form-group">
+                                                    <label for="location_name">广告位置名称：</label>
+                                                    <input type="text" name="location_name" class="form-control" id="add_name" placeholder="广告位置名称：" ref="name">
+                                                </div>
+                                                
+                                                <div class="form-group">
+                                                    <label for="password">具体位置信息：</label>
+                                                    <input type="text" name="text" class="form-control" id="add_location" placeholder="具体位置信息" ref="location">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="note">描述：</label>
+                                                    <input type="text" name="note" class="form-control" id="add_description" placeholder="描述" ref="description">
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
+                                            <button type="button" id="btn_submit" class="btn btn-primary" data-dismiss="modal" v-on:click="upload"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>保存</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>        
+
+
+
+
+
+                        <!-- 修改的遮盖层 -->
+                                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title" id="myModalLabel">修改</h4>
+                                        </div>
+                                        <div class="modal-body">
+
+                                            <div id="testCkeditor">
+
+                                                <div class="form-group">
+                                                    <label for="location_name">广告位置名称：</label>
+                                                    <input type="text" name="location_name" class="form-control" id="update_name" placeholder="广告位置名称：" ref="name">
+                                                </div>
+                                                
+                                                <div class="form-group">
+                                                    <label for="password">具体位置信息：</label>
+                                                    <input type="text" name="text" class="form-control" id="update_location" placeholder="具体位置信息" ref="location">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="note">描述：</label>
+                                                    <input type="text" name="note" class="form-control" id="update_description" placeholder="描述" ref="description">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
+                                            <button type="button" id="btn_submit" class="btn btn-primary" data-dismiss="modal" v-on:click="change"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>保存</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+                                <!-- 详情的遮盖层 -->
+                                <div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title" id="detailModalLabel">详情</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                           <div class="form-group">
+                                                    <label for="location_name">广告位置名称：</label>
+                                                    <input type="text" name="location_name" class="form-control" id="detail_name" placeholder="广告位置名称：" ref="name">
+                                                </div>
+                                                
+                                                <div class="form-group">
+                                                    <label for="password">具体位置信息：</label>
+                                                    <input type="text" name="text" class="form-control" id="detail_location" placeholder="具体位置信息" ref="location">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="note">描述：</label>
+                                                    <input type="text" name="note" class="form-control" id="detail_description" placeholder="描述" ref="description">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="update_parent_name">创建时间:</label>
+                                                    <input type="text" name="note" class="form-control" id="detail_createTime" placeholder="创建时间" ref="createTime">
+                                                </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
+                                            <button type="button" id="btn_submit" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>保存</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div style="height: 500px">
+                                    <table class="table table-hover table-striped table-bordered" id="datatable"  style="table-layout:fixed;word-break:break-all;//表格固定布局">
+                                        <thead>
+                                            <tr>
+                                                <th>广告位置名称</th>
+                                                <th>描述</th>
+                                                <th>创建时间</th>
+                                                <th>操作</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody v-html="locationDetail" id="locationDetail">
+                                            
+                                        </tbody>
+                                    </table>
+                                    
+                                </div>
+                                <div id="example" style="text-align: right;padding-right: 150px;padding-top: 100px"> <ul id="pageLimit"></ul> </div>
+                            </div>
+                            <!-- End .panel -->
+                        </div>
+                        <!-- col-lg-12 end here -->
+                    </div>
+                        <!-- col-lg-12 end here -->
+                    </div>
+                    <!-- Page End here -->
+                </div>
+                <!-- End .outlet -->
+            </div>
+            <!-- End .content-wrapper -->
+            <div class="clearfix"></div>
+        </div>
+
+        
+        <!-- End #content -->
+        <!-- Javascripts -->
+        <!-- Load pace first -->
+        
+        
+
+
+    </body>
+    <script type="text/javascript">
+        var projectPath = window.document.location.href.substr(0,window.document.location.href.lastIndexOf("/"));
+        var vm2 = new Vue({
+            el: "#showUser",
+            data: {
+                locationName: sessionStorage.getItem("locationName"),
+
+            }
+        })
+
+        var vm = new Vue({
+            el: "#locationTable",
+            data: {
+                locationList: [],
+                locationDetail: "",
+                permission: "",
+                nodeList: "",
+                id : "",
+                selectClass:""
+            },
+            methods: {
+                change : function(){
+                    let param = new URLSearchParams()
+                    param.append("id" ,this.id)
+                    param.append("name" , $("#update_name").val())
+                    param.append("location" , $("#update_location").val())
+                    param.append("description" , $("#update_description").val())
+                    axios
+                    .post(projectPath+"/biz/location/update",param)
+                    .then(response => {
+                        if(response.data.code == '200'){
+                            alert("修改成功");
+                            location.reload();
+                        }else{
+                            alert(response.data.msg)
+                        }
+                    })
+                },
+                null2str:function(data){
+                    for (let x in data) {
+                        if (data[x] === null) { // 如果是null 把直接内容转为 ''
+                          data[x] = '';
+                        } else {
+                          if (Array.isArray(data[x])) { // 是数组遍历数组 递归继续处理
+                            data[x] = data[x].map(z => {
+                              return null2str(z);
+                            });
+                          }
+                          if(typeof(data[x]) === 'object'){ // 是json 递归继续处理
+                            data[x] = null2str(data[x])
+                          }
+                        }
+                      }
+                      return data;  
+                },
+                queryUserByKeyWord:function(){
+                    axios
+                    .get(projectPath+'/biz/location/queryByKeyWord',{params:{
+                        locationKeyWord: $("#search").val(),
+                        "page": 1,
+                        "count" : 10
+                    }})
+                    .then(response => {
+                        vm.locationList = [];
+                        vm.locationDetail = '';
+                        window.total = response.data.data.pages
+                        for(var i = 0;i < response.data.data.records.length;i++) {
+                        vm.locationList.push(vm.null2str(response.data.data.records[i])),
+                        vm.locationDetail += '<tr class="gradeA"><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+this.locationList[i].name+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+this.locationList[i].description+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+this.locationList[i].createTime+'</td><td><button class="btn btn-info detail" id='+i+'>详情</button>  <button class="btn btn-warning update" id='+i+'>修改</button>   <button class="btn btn-danger delete" id='+i+'>删除</button></td></tr>';
+                        }
+
+                        //给修改按钮添加事件
+                        this.$nextTick().then(() => {
+                          $('.update').on('click',function(){
+                            vm.id = vm.locationList[$(this).attr("id")].id;
+                            $("#myModalLabel").text("修改");
+                            $("#update_name").val(vm.locationList[$(this).attr("id")].name);
+                            $("#update_location").val(vm.locationList[$(this).attr("id")].location);
+                            $("#update_description").val(vm.locationList[$(this).attr("id")].description);
+                            $('#myModal').modal();
+                        })
+
+                      })
+
+                        //给详情按钮添加事件
+                        this.$nextTick().then(() => {
+                          $('.detail').on('click',function(){
+                            vm.id = vm.locationList[$(this).attr("id")].id;
+                            $("#detailModalLabel").text("详情");
+                            $("#detail_name").val(vm.locationList[$(this).attr("id")].name);
+                            $("#detail_location").val(vm.locationList[$(this).attr("id")].location);
+                            $("#detail_description").val(vm.locationList[$(this).attr("id")].description);
+                            
+                            $("#detail_createTime").val(vm.locationList[$(this).attr("id")].createTime);
+                            $('#detailModal').modal();
+                        })
+
+                      })
+
+                        //给删除按钮添加事件
+                        this.$nextTick().then(() => {
+                          $('.delete').on('click',function(){
+                            axios
+                            .get(projectPath+"/biz/location/delete",{
+                                params : {
+                                    "locationId" :  vm.locationList[$(this).attr("id")].id
+                                }
+                            })
+                            .then(response => {
+                                if(response.data.code == '200'){
+                                    alert("删除成功");
+                                    location.reload();
+                                }else{
+                                    alert(response.data.msg)
+                                }
+                            })
+                          })
+
+                        })
+
+
+                        $('#pageLimit').bootstrapPaginator({
+                         currentPage: 1,//当前的请求页面。
+                         totalPages: window.total,//一共多少页。
+                         size:"normal",//应该是页眉的大小。
+                         bootstrapMajorVersion: 3,//bootstrap的版本要求。
+                         alignment:"right",
+                         numberOfPages:5,//一页列出多少数据。
+                         itemTexts: function (type, page, current) {//如下的代码是将页眉显示的中文显示我们自定义的中文。
+                             switch (type) {
+                             case "first": return "首页";
+                             case "prev": return "上一页";
+                             case "next": return "下一页";
+                             case "last": return "末页";
+                             case "page": return page;
+                             }
+                         },
+                         
+                         onPageClicked: function (event, originalEvent, type, page){//给每个页眉绑定一个事件，其实就是ajax请求，其中page变量为当前点击的页上的数字。
+                                 $.ajax({
+                                     url:projectPath+'/biz/location/queryByKeyWord',
+                                     type:'POST',
+                                     data:{locationKeyWord: $("#search").val(),'page':page,'count':10,},
+                                     dataType:'JSON',
+                                     success:function (callback) {
+                                            vm.locationDetail = "";
+                                            vm.locationList = [];
+                                            for(var i = 0;i < callback.data.records.length;i++) {
+                                                vm.locationList.push(vm.null2str(callback.data.records[i]));
+                                                vm.locationDetail += '<tr class="gradeA"><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+vm.locationList[i].name+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+vm.locationList[i].description+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+vm.locationList[i].createTime+'</td><td><button class="btn btn-info detail" id='+i+'>详情</button>  <button class="btn btn-warning update" id='+i+'>修改</button>   <button class="btn btn-danger delete" id='+i+'>删除</button></td></tr>';
+                                            }
+
+
+                                            //给修改按钮添加事件
+                                            vm.$nextTick().then(() => {
+                                              $('.update').on('click',function(){
+                                                vm.id = vm.locationList[$(this).attr("id")].id;
+                                                $("#myModalLabel").text("修改");
+                                                $("#update_name").val(vm.locationList[$(this).attr("id")].name);
+                                                $("#update_location").val(vm.locationList[$(this).attr("id")].location);
+                                                $("#update_description").val(vm.locationList[$(this).attr("id")].description);
+                                                $('#myModal').modal();
+                                            })
+
+                                          })
+
+                                            //给详情按钮添加事件
+                                            vm.$nextTick().then(() => {
+                                              $('.detail').on('click',function(){
+                                                vm.id = vm.locationList[$(this).attr("id")].id;
+                                                $("#detailModalLabel").text("详情");
+                                                $("#detail_name").val(vm.locationList[$(this).attr("id")].name);
+                                                $("#detail_location").val(vm.locationList[$(this).attr("id")].location);
+                                                $("#detail_description").val(vm.locationList[$(this).attr("id")].description);
+
+                                                $("#detail_createTime").val(vm.locationList[$(this).attr("id")].createTime);
+                                                $('#detailModal').modal();
+                                            })
+
+                                          })
+
+                                            //给删除按钮添加事件
+                                            vm.$nextTick().then(() => {
+                                              $('.delete').on('click',function(){
+                                                axios
+                                                .get(projectPath+"/biz/location/delete",{
+                                                    params : {
+                                                        "locationId" :  vm.locationList[$(this).attr("id")].id
+                                                    }
+                                                })
+                                                .then(response => {
+                                                    if(response.data.code == '200'){
+                                                        alert("删除成功");
+                                                        location.reload();
+                                                    }else{
+                                                        alert(response.data.msg)
+                                                    }
+                                                })
+                                            })
+
+                                          })
+                                         }
+                                 })
+                             }
+
+                     });
+
+                    })
+
+
+                },
+                showAdd : function(){
+                    $('#addModal').modal();
+                },
+                upload:function(){
+
+                let param = new URLSearchParams()
+                param.append('name', $("#add_name").val()),
+                param.append("location" , $("#add_location").val()),
+                param.append("description" , $("#add_description").val())
+                    axios
+                    .post(projectPath+"/biz/location/add",param)
+                    .then(response => {
+                        if(response.data.code == '200'){
+                            alert("添加成功");
+                            location.reload();
+                        }else if(response.data.code == '400'){
+                            alert(response.data.msg)
+                        }
+                    })
+                }
+            },
+            mounted(){
+                axios
+                .get(projectPath+'/biz/location/page',{
+                    params: {
+                        "page" : 1,
+                        "count" : 10,
+                        
+                    }
+                })
+                .then(response => {
+                    window.total = response.data.data.pages
+                    for(var i = 0;i < response.data.data.records.length;i++) {
+                        
+                        vm.locationList.push(vm.null2str(response.data.data.records[i])),
+                        vm.locationDetail += '<tr class="gradeA"><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+this.locationList[i].name+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+this.locationList[i].description+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+this.locationList[i].createTime+'</td><td><button class="btn btn-info detail" id='+i+'>详情</button>  <button class="btn btn-warning update" id='+i+'>修改</button>   <button class="btn btn-danger delete" id='+i+'>删除</button></td></tr>';
+                    }
+
+
+
+
+                    //给修改按钮添加事件
+                    this.$nextTick().then(() => {
+                          $('.update').on('click',function(){
+                            vm.id = vm.locationList[$(this).attr("id")].id;
+                            $("#myModalLabel").text("修改");
+                            $("#update_name").val(vm.locationList[$(this).attr("id")].name);
+                            $("#update_location").val(vm.locationList[$(this).attr("id")].location);
+                            $("#update_description").val(vm.locationList[$(this).attr("id")].description);
+                            $('#myModal').modal();
+                         })
+
+                    })
+
+                    //给详情按钮添加事件
+                    this.$nextTick().then(() => {
+                          $('.detail').on('click',function(){
+                            vm.id = vm.locationList[$(this).attr("id")].id;
+                            $("#detailModalLabel").text("详情");
+                            $("#detail_name").val(vm.locationList[$(this).attr("id")].name);
+                            $("#detail_location").val(vm.locationList[$(this).attr("id")].location);
+                            $("#detail_description").val(vm.locationList[$(this).attr("id")].description);
+                            
+                            $("#detail_createTime").val(vm.locationList[$(this).attr("id")].createTime);
+                            $('#detailModal').modal();
+                         })
+
+                    })
+
+                    //给删除按钮添加事件
+                    this.$nextTick().then(() => {
+                          $('.delete').on('click',function(){
+                            axios
+                                .get(projectPath+"/biz/location/delete",{
+                                    params : {
+                                        "locationId" :  vm.locationList[$(this).attr("id")].id
+                                    }
+                                })
+                                .then(response => {
+                                    if(response.data.code == '200'){
+                                        alert("删除成功");
+                                        location.reload();
+                                    }else{
+                                        alert(response.data.msg)
+                                    }
+                                })
+                         })
+
+                    })
+
+                    $('#pageLimit').bootstrapPaginator({
+                         currentPage: 1,//当前的请求页面。
+                         totalPages: window.total,//一共多少页。
+                         size:"normal",//应该是页眉的大小。
+                         bootstrapMajorVersion: 3,//bootstrap的版本要求。
+                         alignment:"right",
+                         numberOfPages:5,//一页列出多少数据。
+                         itemTexts: function (type, page, current) {//如下的代码是将页眉显示的中文显示我们自定义的中文。
+                             switch (type) {
+                             case "first": return "首页";
+                             case "prev": return "上一页";
+                             case "next": return "下一页";
+                             case "last": return "末页";
+                             case "page": return page;
+                             }
+                         },
+                         
+                         onPageClicked: function (event, originalEvent, type, page){//给每个页眉绑定一个事件，其实就是ajax请求，其中page变量为当前点击的页上的数字。
+                                 $.ajax({
+                                     url:projectPath+'/biz/location/page',
+                                     type:'POST',
+                                     data:{'page':page,'count':10,},
+                                     dataType:'JSON',
+                                     success:function (callback) {
+                                            vm.locationDetail = "";
+                                            vm.locationList = [];
+                                            for(var i = 0;i < callback.data.records.length;i++) {
+                                                vm.locationList.push(vm.null2str(callback.data.records[i]));
+                                            vm.locationDetail += '<tr class="gradeA"><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+vm.locationList[i].name+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+vm.locationList[i].description+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+vm.locationList[i].createTime+'</td><td><button class="btn btn-info detail" id='+i+'>详情</button>  <button class="btn btn-warning update" id='+i+'>修改</button>   <button class="btn btn-danger delete" id='+i+'>删除</button></td></tr>';
+                                            }
+
+
+                                            //给修改按钮添加事件
+                                            vm.$nextTick().then(() => {
+                                              $('.update').on('click',function(){
+                                                vm.id = vm.locationList[$(this).attr("id")].id;
+                                                $("#myModalLabel").text("修改");
+                                                $("#update_name").val(vm.locationList[$(this).attr("id")].name);
+                                                $("#update_location").val(vm.locationList[$(this).attr("id")].location);
+                                                $("#update_description").val(vm.locationList[$(this).attr("id")].description);
+                                                $('#myModal').modal();
+                                            })
+
+                                          })
+
+                                            //给详情按钮添加事件
+                                            vm.$nextTick().then(() => {
+                                              $('.detail').on('click',function(){
+                                                vm.id = vm.locationList[$(this).attr("id")].id;
+                                                $("#detailModalLabel").text("详情");
+                                                $("#detail_name").val(vm.locationList[$(this).attr("id")].name);
+                                                $("#detail_location").val(vm.locationList[$(this).attr("id")].location);
+                                                $("#detail_description").val(vm.locationList[$(this).attr("id")].description);
+
+                                                $("#detail_createTime").val(vm.locationList[$(this).attr("id")].createTime);
+                                                $('#detailModal').modal();
+                                            })
+
+                                          })
+
+                                            //给删除按钮添加事件
+                                            vm.$nextTick().then(() => {
+                                              $('.delete').on('click',function(){
+                                                axios
+                                                .get(projectPath+"/biz/location/delete",{
+                                                    params : {
+                                                        "locationId" :  vm.locationList[$(this).attr("id")].id
+                                                    }
+                                                })
+                                                .then(response => {
+                                                    if(response.data.code == '200'){
+                                                        alert("删除成功");
+                                                        location.reload();
+                                                    }else{
+                                                        alert(response.data.msg)
+                                                    }
+                                                })
+                                            })
+
+                                          })
+                                         }
+                                 })
+                             }
+
+                     });
+
+                }
+                    
+                    )
+                .catch(function (error){
+                    console.log(error)
+                })
+               
+                
+                document.addEventListener('keydown', (e) => {
+                      // console.log(e.keyCode)
+                      // 下面可以通过keyCode来添加键盘事件
+                      if(e.keyCode == 13){
+                        vm.queryUserByKeyWord()
+                      }
+                   }
+                )
+            }
+        })
+    </script>
+    <script>
+     
+ </script>
+</html>

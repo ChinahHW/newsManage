@@ -27,12 +27,9 @@ mybatis-plus:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 
-eureka:
-  client:
-    service-url:
-      defaultZone: http://127.0.0.1:8100/eureka/, http://127.0.0.1:9100/eureka/
+filePath: F:\IdeaWorkSpace\newsDemo\src\main\resources\staticHtmlPath
 
-filePath: F:\IdeaWorkSpace\html\
+imagePath: F:\IdeaWorkSpace\newsDemo\src\main\resources\uploadImage
 
 logging:
   config: F:\IdeaWorkSpace\newsDemo\src\main\resources\logback.xml

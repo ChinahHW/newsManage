@@ -15,6 +15,7 @@ public class CreateHtmlUtils {
      * @创建时间：2017年10月22日21:41:06
      */
     public static void createHtml(String templateName, String targetFileName, Map<String, Object> map) throws Exception{
+        System.out.println("---" + targetFileName);
         //创建fm的配置
         Configuration config = new Configuration();
         //指定默认编码格式

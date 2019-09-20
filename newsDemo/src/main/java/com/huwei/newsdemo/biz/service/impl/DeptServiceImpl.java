@@ -7,9 +7,11 @@ import com.huwei.newsdemo.biz.dao.DeptDao;
 import com.huwei.newsdemo.biz.entity.Dept;
 import com.huwei.newsdemo.biz.entity.DeptClass;
 import com.huwei.newsdemo.biz.entity.RoleDept;
+import com.huwei.newsdemo.biz.entity.UserRole;
 import com.huwei.newsdemo.biz.service.IDeptClassService;
 import com.huwei.newsdemo.biz.service.IDeptService;
 import com.huwei.newsdemo.biz.service.IRoleDeptService;
+import com.huwei.newsdemo.biz.service.IUserRoleService;
 import com.huwei.newsdemo.response.treeMenu;
 import com.huwei.newsdemo.util.GroupTreeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,20 +37,76 @@ public class DeptServiceImpl extends ServiceImpl<DeptDao, Dept> implements IDept
     @Autowired
     private IDeptClassService deptClassService;
 
+    @Autowired
+    private IUserRoleService userRoleService;
+
     @Override
-    public List<Dept> queryAll() {
-        EntityWrapper<Dept> wrapper = new EntityWrapper<>();
-        wrapper.where("del_flag != {0}",1);
-        wrapper.orderBy("sort",false);
-        List<Dept> DeptList = this.selectList(wrapper);
-        return DeptList;
+    public List<Dept> queryAll(int userId) {
+
+        List<Dept> deptList = new ArrayList<>();
+        //通过userId查询出角色，通过角色获得所属部门
+        EntityWrapper<UserRole> userRoleWrapper = new EntityWrapper<>();
+        userRoleWrapper.where("user_id = {0}",userId);
+        List<UserRole> userRoleList = userRoleService.selectList(userRoleWrapper);
+        if(userRoleList != null){
+            for (UserRole userRole : userRoleList) {
+                int roleId = userRole.getRoleId();
+                EntityWrapper<RoleDept> roleDeptEntityWrapper = new EntityWrapper<>();
+                roleDeptEntityWrapper.where("role_id = {0}",roleId);
+                List<RoleDept> roleDeptList = roleDeptService.selectList(roleDeptEntityWrapper);
+                if (roleDeptList != null) {
+                    for (RoleDept roleDept : roleDeptList) {
+                        EntityWrapper<Dept> wrapper = new EntityWrapper<>();
+                        wrapper.where("del_flag != {0}",1).and().where("dept_id = {0}",roleDept.getDeptId());
+                        wrapper.orderBy("sort",false);
+                        List<Dept> deptList1 = this.selectList(wrapper);
+                        if (deptList1 != null) {
+                            for (Dept dept : deptList1) {
+                                if(!deptList.contains(dept)){
+                                    deptList.add(dept);
+                                }
+                                //判断是否为父级，如果为父级，将子级分类添加
+                                List<Dept> deptList2 = new ArrayList<>();
+                                if(dept.getParentId() == 0){
+                                    deptList2 = querySonDept(dept,deptList2);
+                                }
+                                if (deptList2 != null) {
+                                    for (Dept dept1 : deptList2) {
+                                        if(!deptList.contains(dept1)){
+                                            deptList.add(dept1);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return deptList;
+    }
+
+    public List<Dept> querySonDept(Dept dept,List<Dept> deptList){
+        EntityWrapper<Dept> deptEntityWrapper = new EntityWrapper<>();
+        deptEntityWrapper.where("parent_id = {0}",dept.getDeptId()).and().where("del_flag != {0}", 1);
+        List<Dept> deptList1 = this.selectList(deptEntityWrapper);
+        if (deptList1 != null) {
+            for (Dept dept1 : deptList1) {
+                if(!deptList.contains(dept1)){
+                    deptList.add(dept1);
+                    querySonDept(dept1,deptList);
+                }
+            }
+        }
+        return deptList;
     }
 
     @Override
-    public String queryTreeDept() {
+    public String queryTreeDept(int userId) {
         List<treeMenu> treeDepts = new ArrayList<>();
 
-        treeDepts = queryTreeForList();
+        treeDepts = queryTreeForList(userId);
         String groupTreeJson = JSON.toJSONString(treeDepts);
         groupTreeJson = groupTreeJson.replace("groupName", "text");
         groupTreeJson = groupTreeJson.replace("subGroup", "nodes");
@@ -99,10 +157,11 @@ public class DeptServiceImpl extends ServiceImpl<DeptDao, Dept> implements IDept
     }
 
     @Override
-    public List<treeMenu> queryTreeForList() {
+    public List<treeMenu> queryTreeForList(int userId) {
         List<treeMenu> treeDepts = new ArrayList<>();
 
-        List<Dept> deptList = queryAll();
+        List<Dept> deptList = queryAll(userId);
+
         for (Dept dept : deptList) {
             treeMenu treeDept = new treeMenu();
             treeDept.setGroupId(dept.getDeptId());
@@ -114,12 +173,17 @@ public class DeptServiceImpl extends ServiceImpl<DeptDao, Dept> implements IDept
             treeDepts.add(treeDept);
         }
         GroupTreeUtils treeUtil = new GroupTreeUtils();
-        treeDepts = treeUtil.buildGroupTree(treeDepts);
+        if(treeDepts.size() == 1 && !treeDepts.get(0).getParentSeq().equals("0")){
+            //说明是非父级的节点
+            treeDepts = treeUtil.buildGroupTreeByUserId(treeDepts);
+        }else{
+            treeDepts = treeUtil.buildGroupTree(treeDepts);
+        }
         return treeDepts;
     }
 
     @Override
-    public boolean add(Dept dept, int[] classId) {
+    public boolean add(Dept dept, int[] classId, int userId) {
         EntityWrapper<Dept> qryWrapper = new EntityWrapper<>();
         qryWrapper.where("dept_name = {0}",dept.getDeptName()).and().where("del_flag != {0}",1);
         Dept dept1 = dept.selectOne(qryWrapper);
@@ -133,6 +197,19 @@ public class DeptServiceImpl extends ServiceImpl<DeptDao, Dept> implements IDept
                 deptClass.setClassId(clazzId);
                 deptClass.setDeptId(dept.getDeptId());
                 deptClass.insert();
+            }
+        }
+        //将当前新增的dept关联到当前角色下
+        EntityWrapper<UserRole> userRoleEntityWrapper = new EntityWrapper<>();
+        userRoleEntityWrapper.where("user_id = {0}",userId);
+        List<UserRole> userRoleList = userRoleService.selectList(userRoleEntityWrapper);
+        if (userRoleList != null) {
+            for (UserRole userRole : userRoleList) {
+                int roleId = userRole.getRoleId();
+                RoleDept roleDept = new RoleDept();
+                roleDept.setDeptId(dept.getDeptId());
+                roleDept.setRoleId(roleId);
+                roleDeptService.insert(roleDept);
             }
         }
         return true;

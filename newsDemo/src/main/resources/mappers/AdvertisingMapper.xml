@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huwei.newsdemo.biz.dao.AdvertisingDao">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id AS id, code AS code, name AS name, img AS img, simple_description AS simpleDescription, description AS description, tag AS tag, other_field AS otherField, create_time AS createTime, update_time AS updateTime, del_flag AS delFlag, dept_id AS deptId, sort AS sort, top_flag AS topFlag
+    </sql>
+
+</mapper>

@@ -64,12 +64,12 @@ public class NewsController extends BaseController{
     }
 
     @RequestMapping("queryByKeyWord")
-    public BaseResponse queryByName(String newsKeyWord, int userId, int page, int count){
+    public BaseResponse queryByName(String newsKeyWord, int userId,int page,int count){
         BaseResponse baseResponse = new BaseResponse();
         try {
-            Page<News> newsPage = newsService.queryByName(newsKeyWord, userId, page, count);
-            if(newsPage != null){
-                baseResponse.success(newsPage);
+            Page<News> newsList = newsService.queryByName(newsKeyWord, userId, page, count);
+            if(newsList != null){
+                baseResponse.success(newsList);
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -128,6 +128,21 @@ public class NewsController extends BaseController{
         try {
             if(newsService.delete(newsId)){
                 baseResponse.success();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            logger.error(ExceptionUtils.getFullStackTrace(e));
+        }
+        return baseResponse;
+    }
+
+    @RequestMapping("queryByUserIdAndClassId")
+    public BaseResponse queryByUserIdAndClassId(int userId,int classId, int page,int count){
+        BaseResponse baseResponse = new BaseResponse();
+        try {
+            Page<News> newsList = newsService.queryByUserIdAndClassId(userId, classId, page, count);
+            if(newsList != null){
+                baseResponse.success(newsList);
             }
         }catch (Exception e){
             e.printStackTrace();

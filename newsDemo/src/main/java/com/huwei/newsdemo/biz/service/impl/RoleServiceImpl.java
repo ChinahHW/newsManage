@@ -4,18 +4,14 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.huwei.newsdemo.biz.dao.RoleDao;
-import com.huwei.newsdemo.biz.entity.Role;
-import com.huwei.newsdemo.biz.entity.RoleDept;
-import com.huwei.newsdemo.biz.entity.RoleMenu;
-import com.huwei.newsdemo.biz.entity.UserRole;
-import com.huwei.newsdemo.biz.service.IRoleDeptService;
-import com.huwei.newsdemo.biz.service.IRoleMenuService;
-import com.huwei.newsdemo.biz.service.IRoleService;
-import com.huwei.newsdemo.biz.service.IUserRoleService;
+import com.huwei.newsdemo.biz.entity.*;
+import com.huwei.newsdemo.biz.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -38,25 +34,99 @@ public class RoleServiceImpl extends ServiceImpl<RoleDao, Role> implements IRole
     @Autowired
     private IRoleMenuService roleMenuService;
 
+    @Autowired
+    private IDeptService deptService;
+
     @Override
-    public List<Role> queryAll() {
-        EntityWrapper<Role> wrapper = new EntityWrapper<>();
-        wrapper.where("del_flag != {0}",1);
-        List<Role> roles = this.selectList(wrapper);
-        return roles;
+    public List<Role> queryAll(int userId) {
+        List<Role> roleList = new ArrayList<>();
+        List<Dept> deptList = new ArrayList<>();
+        //通过userid查询出角色，通过角色获得部门及其子部门，通过部门获取部门下所有角色
+        EntityWrapper<UserRole> userRoleEntityWrapper = new EntityWrapper<>();
+        userRoleEntityWrapper.where("user_id = {0}",userId);
+        List<UserRole> userRoleList = userRoleService.selectList(userRoleEntityWrapper);
+        if (userRoleList != null) {
+            for (UserRole userRole : userRoleList) {
+                EntityWrapper<RoleDept> roleDeptEntityWrapper = new EntityWrapper<>();
+                roleDeptEntityWrapper.where("role_id = {0}",userRole.getRoleId());
+                List<RoleDept> roleDeptList = roleDeptService.selectList(roleDeptEntityWrapper);
+                if (roleDeptList != null) {
+                    for (RoleDept roleDept : roleDeptList) {
+                        EntityWrapper<Dept> deptEntityWrapper = new EntityWrapper<>();
+                        deptEntityWrapper.where("dept_id = {0}",roleDept.getDeptId());
+                        List<Dept> deptList1 = deptService.selectList(deptEntityWrapper);
+                        if (deptList1 != null) {
+                            for (Dept dept : deptList1) {
+                                if(!deptList.contains(dept)){
+                                    deptList.add(dept);
+                                }
+                                //判断是否为父级，如果为父级，将子级分类添加
+                                List<Dept> deptList2 = new ArrayList<>();
+                                if(dept.getParentId() == 0){
+                                    deptList2 = deptService.querySonDept(dept,deptList2);
+                                }
+                                if (deptList2 != null) {
+                                    for (Dept dept1 : deptList2) {
+                                        if(!deptList.contains(dept1)){
+                                            deptList.add(dept1);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+
+        //已经获取了部门和其子部门,获取这些部门下的角色
+        for (Dept dept : deptList) {
+            EntityWrapper<RoleDept> roleDeptEntityWrapper = new EntityWrapper<>();
+            roleDeptEntityWrapper.where("dept_id = {0}",dept.getDeptId());
+            List<RoleDept> roleDeptList = roleDeptService.selectList(roleDeptEntityWrapper);
+            if (roleDeptList != null) {
+                for (RoleDept roleDept : roleDeptList) {
+                    EntityWrapper<Role> wrapper = new EntityWrapper<>();
+                    wrapper.where("del_flag != {0}",1).and().where("role_id = {0}",roleDept.getRoleId());
+                    List<Role> roles = this.selectList(wrapper);
+                    if (roles != null) {
+                        for (Role role : roles) {
+                            if(!roleList.contains(role)){
+                                roleList.add(role);
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+        return roleList;
     }
 
     @Override
-    public Page<Role> queryByKeyWord(String keyWord, int page, int count) {
+    public Page<Role> queryByKeyWord(String keyWord, int page, int count,int userId) {
         Page<Role> rolePage = new Page<>();
-        if (keyWord != null && !("").equals(keyWord)) {
-            EntityWrapper<Role> wrapper = new EntityWrapper<>();
-            wrapper.where("del_flag != {0}",1).and().like("role_name",keyWord).or().like("role_code",keyWord).or().like("role_desc",keyWord);
-            rolePage = this.selectPage(rolePage,wrapper);
-        }else{
-            rolePage = this.selectPage(rolePage);
+        List<Role> roleList = queryAll(userId);
+        List<Role> keyWordRoleList = new ArrayList<>();
+        if (roleList != null) {
+            for (Role role : roleList) {
+                if(role.getRoleName().contains(keyWord) || role.getRoleDesc().contains(keyWord)) {
+                    if(keyWordRoleList.size() < 10){
+                        keyWordRoleList.add(role);
+                    }
+                }
+            }
         }
-
+        Collections.sort(keyWordRoleList);
+        List<Role> roleList1 = new ArrayList<>();
+        if (page * count > keyWordRoleList.size()) {
+            roleList1 = keyWordRoleList.subList((page - 1) * count,keyWordRoleList.size());
+        }else{
+            roleList1 = keyWordRoleList.subList((page - 1) * count,(page - 1) * count + count);
+        }
+        rolePage.setRecords(roleList1);
+        rolePage.setTotal(keyWordRoleList.size());
         return rolePage;
     }
 
@@ -134,11 +204,19 @@ public class RoleServiceImpl extends ServiceImpl<RoleDao, Role> implements IRole
     }
 
     @Override
-    public Page<Role> queryByPage(int page, int count) {
+    public Page<Role> queryByPage(int page, int count,int userId) {
         Page<Role> rolePage = new Page<>(page,count);
-        EntityWrapper<Role> wrapper = new EntityWrapper<>();
-        wrapper.where("del_flag != {0}",1);
-        return this.selectPage(rolePage,wrapper);
+        List<Role> roleList = queryAll(userId);
+        List<Role> roleList1 = new ArrayList<>();
+        if (page * count > roleList.size()) {
+            roleList1 = roleList.subList((page - 1) * count,roleList.size());
+        }else{
+            roleList1 = roleList.subList((page - 1) * count,(page - 1) * count + count);
+        }
+
+        rolePage.setRecords(roleList1);
+        rolePage.setTotal(roleList.size());
+        return rolePage;
     }
 
     @Override

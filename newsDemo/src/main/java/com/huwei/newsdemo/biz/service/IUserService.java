@@ -16,11 +16,11 @@ import java.util.List;
  */
 public interface IUserService extends IService<User> {
 
-    List<User> queryAll();
+    List<User> queryAll(int userId);
 
-    Page<User> queryByKeyWord(String newsKeyWord, int page, int count);
+    Page<User> queryByKeyWord(String newsKeyWord, int page, int count, int userId);
 
-    Page<User> queryByPage(int page, int count);
+    Page<User> queryByPage(int page, int count, int userId);
 
     User toLogin(String userName, String password);
 

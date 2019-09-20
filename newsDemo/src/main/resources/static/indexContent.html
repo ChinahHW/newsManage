@@ -357,6 +357,23 @@
             iframeSrc: "http://www.baidu.com"
         },
         methods:{
+            null2str:function(data){
+                    for (let x in data) {
+                        if (data[x] === null) { // 如果是null 把直接内容转为 ''
+                          data[x] = '';
+                        } else {
+                          if (Array.isArray(data[x])) { // 是数组遍历数组 递归继续处理
+                            data[x] = data[x].map(z => {
+                              return null2str(z);
+                            });
+                          }
+                          if(typeof(data[x]) === 'object'){ // 是json 递归继续处理
+                            data[x] = null2str(data[x])
+                          }
+                        }
+                      }
+                      return data;  
+                },
             queryByKeyWord:function(){
                 axios
                     .get(projectPath+'/biz/news/queryByKeyWord',{params:{
@@ -367,7 +384,7 @@
                         my_vue.newsList = [];
                         my_vue.newsDetail = '';
                         for(var i = 0;i < response.data.data.length;i++) {
-                        my_vue.newsList.push(response.data.data[i]),
+                        my_vue.newsList.push(my_vue.null2str(response.data.data[i])),
                         my_vue.newsDetail += '<tr class="warning"><td>'+this.newsList[i].newsId+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+this.newsList[i].newsTitle+'</td><td>'+this.newsList[i].createTime+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+this.newsList[i].newsContent.substring(0,15)+'...'+'</td></tr>';
                         }
                     })
@@ -387,7 +404,7 @@
                 })
                 .then(response => {
                     for(var i = 0;i < response.data.data.records.length;i++) {
-                        my_vue.newsList.push(response.data.data.records[i]),
+                        my_vue.newsList.push(my_vue.null2str(response.data.data.records[i])),
                         my_vue.newsDetail += '<tr class="warning"><td>'+this.newsList[i].newsId+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+this.newsList[i].newsTitle+'</td><td>'+this.newsList[i].createTime+'</td><td>'+this.newsList[i].newsContent.substring(0,15)+'...'+'</td></tr>';
                     }
                 }
@@ -408,10 +425,28 @@
             permission: "admin,newsManage,newsAdd,search"
         },
         methods:{
+            null2str:function(data){
+                    for (let x in data) {
+                        if (data[x] === null) { // 如果是null 把直接内容转为 ''
+                          data[x] = '';
+                        } else {
+                          if (Array.isArray(data[x])) { // 是数组遍历数组 递归继续处理
+                            data[x] = data[x].map(z => {
+                              return null2str(z);
+                            });
+                          }
+                          if(typeof(data[x]) === 'object'){ // 是json 递归继续处理
+                            data[x] = null2str(data[x])
+                          }
+                        }
+                      }
+                      return data;  
+                },
             queryByKeyWord:function(){
                 axios
                     .get(projectPath+'/biz/user/queryByKeyWord',{params:{
-                        userKeyWord: this.$refs.userKeyWord.value
+                        userKeyWord: this.$refs.userKeyWord.value,
+                        "userId": sessionStorage.getItem("userId")
                     }})
                     .then(response => {
                         my_vue2.userList = [];
@@ -420,7 +455,7 @@
                         if (response.data.data[i].permission != null) {
                             response.data.data[i].permission = response.data.data[i].permission.substring(0,10)
                         }
-                        my_vue2.userList.push(response.data.data[i]),
+                        my_vue2.userList.push(my_vue2.null2str(response.data.data[i])),
                         my_vue2.userDetail += '<tr class="info"><td>'+this.userList[i].userId+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+this.userList[i].userName+'</td><td >'+this.userList[i].createTime+'</td><td>'+this.userList[i].note+'</td></tr>';
                         }
                     })
@@ -434,7 +469,8 @@
                 .get(projectPath+'/biz/user/page',{
                     params:{
                         "page" : 1,
-                        "count" : 10
+                        "count" : 10,
+                        "userId": sessionStorage.getItem("userId")
                     }
                 })
                 .then(response => {
@@ -442,7 +478,7 @@
                         if (response.data.data.records[i].permission != null) {
                             response.data.data.records[i].permission = response.data.data.records[i].permission.substring(0,10)
                         }
-                        my_vue2.userList.push(response.data.data.records[i]),
+                        my_vue2.userList.push(my_vue2.null2str(response.data.data.records[i])),
                         my_vue2.userDetail += '<tr class="info"><td>'+this.userList[i].userId+'</td><td>'+this.userList[i].userName+'</td><td>'+this.userList[i].createTime+'</td><td>'+this.userList[i].note+'</td></tr>';
                     }
                 }

@@ -29,10 +29,10 @@ public class UserController extends BaseController{
     private IUserService userService;
 
     @RequestMapping("/queryAll")
-    public BaseResponse queryAll(){
+    public BaseResponse queryAll(int userId){
         BaseResponse baseResponse = new BaseResponse();
         try {
-            List<User> userList = userService.queryAll();
+            List<User> userList = userService.queryAll(userId);
             if(userList != null){
                 baseResponse.success(userList);
             }
@@ -44,10 +44,10 @@ public class UserController extends BaseController{
     }
 
     @RequestMapping("queryByKeyWord")
-    public BaseResponse queryByName(String userKeyWord, int page, int count){
+    public BaseResponse queryByName(String userKeyWord, int page, int count,int userId){
         BaseResponse baseResponse = new BaseResponse();
         try {
-            Page<User> userPage = userService.queryByKeyWord(userKeyWord,page,count);
+            Page<User> userPage = userService.queryByKeyWord(userKeyWord,page,count,userId);
             if(userPage != null){
                 baseResponse.success(userPage);
             }
@@ -60,10 +60,10 @@ public class UserController extends BaseController{
     }
 
     @RequestMapping("/page")
-    public BaseResponse getPage(int page, int count){
+    public BaseResponse getPage(int page, int count, int userId){
         BaseResponse baseResponse = new BaseResponse();
         try {
-            Page<User> userPage = userService.queryByPage(page,count);
+            Page<User> userPage = userService.queryByPage(page,count,userId);
             if(userPage != null){
                 baseResponse.success(userPage);
             }

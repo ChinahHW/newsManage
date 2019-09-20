@@ -16,17 +16,19 @@ import java.util.List;
  */
 public interface IDeptService extends IService<Dept> {
 
-    List<Dept> queryAll();
+    List<Dept> queryAll(int userId);
 
-    String queryTreeDept();
+    String queryTreeDept(int userId);
 
     boolean delNode(Dept dept);
 
     Dept queryById(Dept dept);
 
-    List<treeMenu> queryTreeForList();
+    List<treeMenu> queryTreeForList(int userId);
 
-    boolean add(Dept dept,int[] classId);
+    boolean add(Dept dept,int[] classId, int userId);
 
     boolean update(Dept dept,int[] classId);
+
+    public List<Dept> querySonDept(Dept dept,List<Dept> deptList);
 }

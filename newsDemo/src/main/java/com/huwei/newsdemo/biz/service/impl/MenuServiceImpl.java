@@ -94,16 +94,19 @@ public class MenuServiceImpl extends ServiceImpl<MenuDao, Menu> implements IMenu
     @Override
     public List<treeMenu> queryTreeForList(User user) {
         List<Menu> menuList = new ArrayList<>();
-        List<Role> roleList = userRoleService.queryRoleByUserId(user.getUserId());
-        if(roleList != null){
-            if(roleList.size() != 0){
-                for (Role role : roleList) {
-                    List<Menu> menus = roleMenuService.queryMenuByRoleId(role.getRoleId());
-                    menuList.addAll(menus);
+        if(user.getUserId() != null){
+            List<Role> roleList = userRoleService.queryRoleByUserId(user.getUserId());
+            if(roleList != null){
+                if(roleList.size() != 0){
+                    for (Role role : roleList) {
+                        List<Menu> menus = roleMenuService.queryMenuByRoleId(role.getRoleId());
+                        menuList.addAll(menus);
+                    }
                 }
             }
+        }else{
+            menuList = this.queryAll();
         }
-        user = user.selectById();
         List<treeMenu> treeMenus = new ArrayList<>();
         for (Menu menu : menuList) {
             treeMenu treeMenu = new treeMenu();

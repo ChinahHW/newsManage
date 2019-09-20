@@ -378,7 +378,7 @@
                                     <!-- <h4 class="panel-title">Data table</h4> -->
                                     <button class="btn btn-primary" v-on:click="showAdd">添加新闻</button>
 
-                                    <select class="form-control2" id="chooseClass" v-html="nodeList" onchange="selectClassChange()"></select>
+                                    <select class="form-control2" id="chooseClass" v-html="classList" v-on:change="selectClassChange"></select>
 
                                     <input type="text" name="search" class="form-control1" id="search" placeholder="请输入查询条件">
                                     <button class="btn" v-on:click="queryNewsByKeyWord"><i class="ec-search"></i>查询</button>
@@ -410,7 +410,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="update_parent_name">新闻分类:</label>
-                                                    <select class="selectpicker" id="add_allNode" multiple v-html="nodeList"></select>
+                                                    <select class="selectpicker" id="add_allNode" multiple></select>
                                                 </div>
                                                 <!--在需要使用编辑器的地方插入textarea标签 -->
                                                 <label for="class_name">描述：</label>
@@ -456,7 +456,7 @@
                                                 <label for="update_parent_name">新闻分类</label>
                                                 <input type="text" name="news_class" class="form-control" id="news_class" v-model="selectClass" placeholder="0">
                                                 <br/>
-                                                <select class="selectpicker" multiple id="allNode" v-html="nodeList"></select>
+                                                <select class="selectpicker" multiple id="allNode"></select>
                                             </div>
 
                                             <div class="form-group">
@@ -532,7 +532,7 @@
                                      
                                 </div>
 
-                                <div id="example" style="text-align: right;padding-right: 150px;padding-top: 160px"> <ul id="pageLimit"></ul> </div>
+                                <div id="example" style="text-align: right;padding-right: 150px;padding-top: 160px"><ul id="pageLimit"></ul> </div>
                             </div>
                             <!-- End .panel -->
                         </div>
@@ -559,11 +559,6 @@
     <script type="text/javascript">
 
         var projectPath = window.document.location.href.substr(0,window.document.location.href.lastIndexOf("/"));
-        function selectClassChange(){
-            alert($("#chooseClass").val())
-            // axios
-            //     .get()
-        };
         var myeditor ;
         window.onload = function()
             {
@@ -579,8 +574,11 @@
                 newsDetail: "",
                 permission: "",
                 nodeList: "",
+                classList: "",
                 id : "",
-                selectClass : ""
+                selectClass : "",
+                showPage: "ok",
+                total : "1"
             },
             methods: {
                 nodeListAdd:function(queryArray,j){
@@ -593,8 +591,240 @@
                         if(queryArray[i].subGroup.length != 0){
                             vm.nodeListAdd(queryArray[i].subGroup,j+1,vm.nodeList)
                         }
+                        vm.classList = "<option value=0>选择分类进行筛选</option>" + vm.nodeList;
                     }
 
+                },
+                selectClassChange:function(){
+                    axios
+                    .get(projectPath+'/biz/news/queryByUserIdAndClassId',{params:{
+                        "userId" : sessionStorage.getItem("userId"),
+                        "classId": $("#chooseClass").val(),
+                        "page" : 1,
+                        "count" : 10
+                    }})
+                    .then(response => {
+                        vm.newsList = [];
+                        vm.newsDetail = '';
+                        vm.total = response.data.data.pages;
+                        for(var i = 0;i < response.data.data.records.length;i++) {
+                        vm.newsList.push(vm.null2str(response.data.data.records[i])),
+                        vm.newsDetail += '<tr class="gradeA" ><td>'+this.newsList[i].newsId+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+this.newsList[i].newsTitle+'</td><td>'+this.newsList[i].newsContent.substring(0,15)+"..."+'</td><td>'+this.newsList[i].updateTime+'</td><td>'+this.newsList[i].createTime+'</td><td><button class="btn btn-info detail" id='+i+'>详情</button>  <button class="btn btn-warning update" id='+i+'>修改</button>   <button class="btn btn-danger delete" id='+i+'>删除</button></td></tr>';
+                        }
+
+                        //给修改按钮添加事件
+                        this.$nextTick().then(() => {
+                          $('.update').on('click',function(){
+                            vm.id = vm.newsList[$(this).attr("id")].newsId;
+                            axios
+                                .get(projectPath+"/biz/newsClass/queryClassByNewsId",{
+                                    params : {
+                                        "newsId" : vm.id
+                                    }
+                                })
+                                .then(response => {
+                                    vm.selectClass = "";
+                                    for(var i = 0;i < response.data.data.length;i++) {
+                                        vm.selectClass += " "+response.data.data[i].name
+                                    }
+                                })
+                            $("#myModalLabel").text("修改");
+                            $("#news_title").val(vm.newsList[$(this).attr("id")].newsTitle);
+                            $("#update_sort").val(vm.newsList[$(this).attr("id")].sort);
+                            // $("#news_content").val(vm.newsList[$(this).attr("id")].newsContent);
+                            myeditor.setData(vm.newsList[$(this).attr("id")].newsContent);
+                            $("#creator").val(vm.newsList[$(this).attr("id")].updateTime);
+                            $('#myModal').modal();
+                            
+                         })
+
+                    })
+
+                    //给详情按钮添加事件
+                    this.$nextTick().then(() => {
+                          $('.detail').on('click',function(){
+                            vm.id = vm.newsList[$(this).attr("id")].newsId;
+                            axios
+                                .get(projectPath+"/biz/newsClass/queryClassByNewsId",{
+                                    params : {
+                                        "newsId" : vm.id
+                                    }
+                                })
+                                .then(response => {
+                                    vm.selectClass = "";
+                                    for(var i = 0;i < response.data.data.length;i++) {
+                                        vm.selectClass += " "+response.data.data[i].name
+                                    }
+                                })
+                            $("#detailModalLabel").text("详情");
+                            $("#detail_news_title").val(vm.newsList[$(this).attr("id")].newsTitle);
+                            $("#detail_sort").val(vm.newsList[$(this).attr("id")].sort);
+                            // $("#news_content").val(vm.newsList[$(this).attr("id")].newsContent);
+                            detail_editor.setData(vm.newsList[$(this).attr("id")].newsContent);
+                            $("#detail_creator").val(vm.newsList[$(this).attr("id")].updateTime);
+                            $('#detailModal').modal();
+                            vm.id = vm.newsList[$(this).attr("id")].newsId;
+                         })
+
+                    })
+
+                    //给删除按钮添加事件
+                    this.$nextTick().then(() => {
+                          $('.delete').on('click',function(){
+                            axios
+                                .get(projectPath+"/biz/news/delete",{
+                                    params : {
+                                        "newsId" :  vm.newsList[$(this).attr("id")].newsId
+                                    }
+                                })
+                                .then(response => {
+                                    alert("success")
+                                    location.reload();
+                                })
+                         })
+
+                    })
+                    if(vm.total != 0){
+                        $('#pageLimit').bootstrapPaginator({
+                         currentPage: 1,//当前的请求页面。
+                         totalPages: vm.total,//一共多少页。
+                         size:"normal",//应该是页眉的大小。
+                         bootstrapMajorVersion: 3,//bootstrap的版本要求。
+                         alignment:"right",
+                         numberOfPages:5,//一页列出多少数据。
+                         itemTexts: function (type, page, current) {//如下的代码是将页眉显示的中文显示我们自定义的中文。
+                             switch (type) {
+                             case "first": return "首页";
+                             case "prev": return "上一页";
+                             case "next": return "下一页";
+                             case "last": return "末页";
+                             case "page": return page;
+                             }
+                         },
+                         
+                         onPageClicked: function (event, originalEvent, type, page){//给每个页眉绑定一个事件，其实就是ajax请求，其中page变量为当前点击的页上的数字。
+                                 $.ajax({
+                                     url:projectPath+'/biz/news/queryByUserIdAndClassId',
+                                     type:'POST',
+                                     data:{'page':page,'count':10,"userId" : sessionStorage.getItem("userId"),"classId": $("#chooseClass").val()},
+                                     dataType:'JSON',
+                                     success:function (callback) {
+                                            vm.newsDetail = "";
+                                            vm.newsList = [];
+                                            for(var i = 0;i < callback.data.records.length;i++) {
+                                                vm.newsList.push(vm.null2str(callback.data.records[i])),
+                                                vm.newsDetail += '<tr class="gradeA"><td>'+callback.data.records[i].newsId+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+callback.data.records[i].newsTitle+'</td><td>'+callback.data.records[i].newsContent.substring(0,15)+"..."+'</td><td>'+callback.data.records[i].updateTime+'</td><td>'+callback.data.records[i].createTime+'</td><td><button class="btn btn-info detail" id='+i+'>详情</button>  <button class="btn btn-warning update" id='+i+'>修改</button>  <button class="btn btn-danger delete" id='+i+'>删除</button></td></tr>';
+                                            }
+
+                                            //给分页返回的修改按钮添加事件
+                                            vm.$nextTick().then(() => {
+                                                  $('.update').on('click',function(){
+                                                    vm.id = vm.newsList[$(this).attr("id")].newsId;
+                                                     axios
+                                                            .get(projectPath+"/biz/newsClass/queryClassByNewsId",{
+                                                                params : {
+                                                                    "newsId" : vm.id
+                                                                }
+                                                            })
+                                                            .then(response => {
+                                                                vm.selectClass = "";
+                                                                for(var i = 0;i < response.data.data.length;i++) {
+                                                                 vm.selectClass += " "+response.data.data[i].name
+                                                                }
+                                                            })
+                                                    $("#myModalLabel").text("修改");
+                                                    $("#news_title").val(vm.newsList[$(this).attr("id")].newsTitle);
+                                                    $("#update_sort").val(vm.newsList[$(this).attr("id")].sort);
+                                                    // $("#news_content").val(newsList[$(this).attr("id")].newsContent);
+                                                    myeditor.setData(vm.newsList[$(this).attr("id")].newsContent);
+                                                    $("#creator").val(vm.newsList[$(this).attr("id")].updateTime);
+                                                    $('#myModal').modal();
+                                                   
+                                                 })
+
+                                            })
+
+
+                                            //给分页返回的详情按钮添加事件
+                                            vm.$nextTick().then(() => {
+                                                  $('.detail').on('click',function(){
+                                                    vm.id = vm.newsList[$(this).attr("id")].newsId;
+                                                     axios
+                                                            .get(projectPath+"/biz/newsClass/queryClassByNewsId",{
+                                                                params : {
+                                                                    "newsId" : vm.id
+                                                                }
+                                                            })
+                                                            .then(response => {
+                                                                vm.selectClass = "";
+                                                                for(var i = 0;i < response.data.data.length;i++) {
+                                                                 vm.selectClass += " "+response.data.data[i].name
+                                                                }
+                                                            })
+                                                    $("#detailModalLabel").text("详情");
+                                                    $("#detail_news_title").val(vm.newsList[$(this).attr("id")].newsTitle);
+                                                    $("#detail_sort").val(vm.newsList[$(this).attr("id")].sort);
+                                                    // $("#news_content").val(newsList[$(this).attr("id")].newsContent);
+                                                    detail_editor.setData(vm.newsList[$(this).attr("id")].newsContent);
+                                                    $("#detail_creator").val(vm.newsList[$(this).attr("id")].updateTime);
+                                                    $('#detailModal').modal();
+                                                 })
+
+                                            })
+
+                                            //给分页返回的删除按钮添加事件
+                                            vm.$nextTick().then(() => {
+                                                  $('.delete').on('click',function(){
+                                                        axios
+                                                            .get(projectPath+"/biz/news/delete",{
+                                                                params : {
+                                                                    "newsId" :  vm.newsList[$(this).attr("id")].newsId
+                                                                }
+                                                            })
+                                                            .then(response => {
+                                                                alert("success")
+                                                                location.reload();
+                                                            })
+                                                     })
+
+                                            })
+                                         }
+                                 })
+
+
+                             }
+
+
+
+                     });
+                    }else{
+                        $('#pageLimit').bootstrapPaginator({
+                         currentPage: 1,//当前的请求页面。
+                         totalPages: 1,//一共多少页。
+                         size:"normal",//应该是页眉的大小。
+                         bootstrapMajorVersion: 3,//bootstrap的版本要求。
+                         alignment:"right",
+                         numberOfPages:5,//一页列出多少数据。
+                         itemTexts: function (type, page, current) {//如下的代码是将页眉显示的中文显示我们自定义的中文。
+                             switch (type) {
+                             case "first": return "首页";
+                             case "prev": return "上一页";
+                             case "next": return "下一页";
+                             case "last": return "末页";
+                             case "page": return page;
+                             }
+                         },
+                         onPageClicked: function (event, originalEvent, type, page){//给每个页眉绑定一个事件，其实就是ajax请求，其中page变量为当前点击的页上的数字。
+                         }
+                        })
+                    }
+
+                    
+
+                    })
+                    .catch(function (error) {
+                        console.log(error)
+                    })
                 },
                 change : function(){
                     let param = new URLSearchParams()
@@ -626,7 +856,7 @@
                     .then(response => {
                         vm.newsList = [];
                         vm.newsDetail = '';
-                        window.total = response.data.data.pages;
+                        vm.total = response.data.data.pages;
                         for(var i = 0;i < response.data.data.records.length;i++) {
                         vm.newsList.push(vm.null2str(response.data.data.records[i])),
                         vm.newsDetail += '<tr class="gradeA" ><td>'+this.newsList[i].newsId+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+this.newsList[i].newsTitle+'</td><td>'+this.newsList[i].newsContent.substring(0,15)+"..."+'</td><td>'+this.newsList[i].updateTime+'</td><td>'+this.newsList[i].createTime+'</td><td><button class="btn btn-info detail" id='+i+'>详情</button>  <button class="btn btn-warning update" id='+i+'>修改</button>   <button class="btn btn-danger delete" id='+i+'>删除</button></td></tr>';
@@ -707,7 +937,7 @@
 
                     $('#pageLimit').bootstrapPaginator({
                          currentPage: 1,//当前的请求页面。
-                         totalPages: window.total,//一共多少页。
+                         totalPages: vm.total,//一共多少页。
                          size:"normal",//应该是页眉的大小。
                          bootstrapMajorVersion: 3,//bootstrap的版本要求。
                          alignment:"right",
@@ -733,7 +963,7 @@
                                             vm.newsDetail = "";
                                             vm.newsList = [];
                                             for(var i = 0;i < callback.data.records.length;i++) {
-                                                vm.newsList.push(vm.null2str(response.data.data.records[i])),
+                                                vm.newsList.push(vm.null2str(callback.data.records[i])),
                                                 vm.newsDetail += '<tr class="gradeA"><td>'+callback.data.records[i].newsId+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+callback.data.records[i].newsTitle+'</td><td>'+callback.data.records[i].newsContent.substring(0,15)+"..."+'</td><td>'+callback.data.records[i].updateTime+'</td><td>'+callback.data.records[i].createTime+'</td><td><button class="btn btn-info detail" id='+i+'>详情</button>  <button class="btn btn-warning update" id='+i+'>修改</button>  <button class="btn btn-danger delete" id='+i+'>删除</button></td></tr>';
                                             }
 
@@ -877,7 +1107,7 @@
                     }
                 })
                 .then(response => {
-                    window.total = response.data.data.pages
+                    vm.total = response.data.data.pages
                     for(var i = 0;i < response.data.data.records.length;i++) {
                         vm.newsList.push(vm.null2str(response.data.data.records[i])),
                         vm.newsDetail += '<tr class="gradeA" ><td>'+this.newsList[i].newsId+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+this.newsList[i].newsTitle+'</td><td>'+this.newsList[i].newsContent.substring(0,15)+"..."+'</td><td>'+this.newsList[i].updateTime+'</td><td>'+this.newsList[i].createTime+'</td><td><button class="btn btn-info detail" id='+i+'>详情</button>  <button class="btn btn-warning update" id='+i+'>修改</button>   <button class="btn btn-danger delete" id='+i+'>删除</button></td></tr>';
@@ -963,7 +1193,7 @@
 
                     $('#pageLimit').bootstrapPaginator({
                          currentPage: 1,//当前的请求页面。
-                         totalPages: window.total,//一共多少页。
+                         totalPages: vm.total,//一共多少页。
                          size:"normal",//应该是页眉的大小。
                          bootstrapMajorVersion: 3,//bootstrap的版本要求。
                          alignment:"right",
@@ -1091,6 +1321,13 @@
                     })
                     .then(response => {
                         vm.nodeListAdd(response.data.data,0);
+                        $('#add_allNode').html(vm.nodeList)
+                        $('#allNode').html(vm.nodeList)
+                        //要以编程方式更新JavaScript的选择，首先操作选择，然后使用refresh方法更新UI以匹配新状态。 在删除或添加选项时，或通过JavaScript禁用/启用选择时，这是必需的。
+                        $('.selectpicker').selectpicker('refresh');
+                        //render方法强制重新渲染引导程序 - 选择ui,如果当您编程时更改任何相关值而影响元素布局，这将非常有用。
+                        $('.selectpicker').selectpicker('render');
+                        vm.nodeList = "";
                     })
 
                 document.addEventListener('keydown', (e) => {

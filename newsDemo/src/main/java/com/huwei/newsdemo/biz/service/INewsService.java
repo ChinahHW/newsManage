@@ -18,11 +18,13 @@ import java.util.List;
  */
 public interface INewsService extends IService<News> {
     String addNews(News news,int[] classId);
-    Page<News> queryByName(String newsKeyWord, int userId, int page, int count);
+    Page<News> queryByName(String newsKeyWord,int userId, int page, int count);
     List<News> queryAllByUserId(int userId);
 
     Page<News> queryByPage(int page, int count, int userId);
 
+
+    Page<News> queryByUserIdAndClassId(int userId,int classId,int page,int count);
 
     /**
      * 富文本编辑器图片上传
@@ -34,5 +36,4 @@ public interface INewsService extends IService<News> {
     boolean update(News news,int[] classId);
 
     boolean delete(int newsId);
-
 }

@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Tables</title>
+    <!-- Mobile specific metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- Force IE9 to render in normal mode -->
+    <!--[if IE]><meta http-equiv="x-ua-compatible" content="IE=9" /><![endif]-->
+    <meta name="author" content="SuggeElson" />
+    <meta name="description" content=""
+    />
+    <meta name="keywords" content=""
+    />
+    <meta name="application-name" content="sprFlat admin template" />
+    <!-- Import google fonts - Heading first/ text second -->
+    <link rel='stylesheet' type='text/css' />
+        <!--[if lt IE 9]>
+<link href="http://fonts.googleapis.com/css?family=Open+Sans:400" rel="stylesheet" type="text/css" />
+<link href="http://fonts.googleapis.com/css?family=Open+Sans:700" rel="stylesheet" type="text/css" />
+<link href="http://fonts.googleapis.com/css?family=Droid+Sans:400" rel="stylesheet" type="text/css" />
+<link href="http://fonts.googleapis.com/css?family=Droid+Sans:700" rel="stylesheet" type="text/css" />
+<![endif]-->
+<!-- Css files -->
+<!-- Icons -->
+<link href="assets/css/icons.css" rel="stylesheet" />
+<!-- jQueryUI -->
+<link href="assets/css/sprflat-theme/jquery.ui.all.css" rel="stylesheet" />
+<!-- Bootstrap stylesheets (included template modifications) -->
+<!-- <link href="assets/css/bootstrap.css" rel="stylesheet" /> -->
+<!-- Plugins stylesheets (all plugin custom css) -->
+<link href="assets/css/plugins.css" rel="stylesheet" />
+<!-- Main stylesheets (template main css file) -->
+<link href="assets/css/main.css" rel="stylesheet" />
+<!-- Custom stylesheets ( Put your own changes here ) -->
+<link href="assets/css/custom.css" rel="stylesheet" />
+<!-- Fav and touch icons -->
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/img/ico/apple-touch-icon-144-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/img/ico/apple-touch-icon-114-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/img/ico/apple-touch-icon-72-precomposed.png">
+<link rel="apple-touch-icon-precomposed" href="assets/img/ico/apple-touch-icon-57-precomposed.png">
+<link rel="icon" href="assets/img/ico/favicon.ico" type="image/png">
+<link href="http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+<link href="bootstrap_select/css/bootstrap-select.min.css" rel="stylesheet" />
+
+<link rel="stylesheet" type="text/css" href="css/fileinput.min.css">
+
+
+
+
+<!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+
+<script src="ckeditor/ckeditor.js"></script>
+
+<script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+<script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+<script type="text/javascript" src="assets/js/bootstrap-paginator.js"></script>
+<script src="ckeditor/ckeditor.js"></script>
+
+<script type="text/javascript" src="bootstrap_select/js/bootstrap-select.js"></script>
+
+<script type="text/javascript" src="js/fileinput.min.js"></script>
+<script type="text/javascript" src="js/zh.js"></script>
+
+<!-- Windows8 touch icon ( http://www.buildmypinnedsite.com/ )-->
+<meta name="msapplication-TileColor" content="#3399cc" />
+<style type="text/css">
+    .modal {padding-top: 25px}
+    .table th{
+        text-align: center;
+        font-size: 15px
+    }
+    .form-control1{
+        margin-left: 55%;
+        width: 15%;
+        height: 34px;
+        padding: 6px 12px;
+        font-size: 14px;
+        line-height: 1.42857143;
+        color: #555;
+        background-color: #fff;
+        background-image: none;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+        -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+        -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+        transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    }
+    .form-control2{
+        margin-left: 10%
+        width: 15%;
+        height: 34px;
+        padding: 6px 12px;
+        font-size: 14px;
+        line-height: 1.42857143;
+        color: #555;
+        background-color: #fff;
+        background-image: none;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+        -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+        -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+        transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    }
+    .form-control3{
+        margin-left: 10px;
+        margin-top: 10px;
+        width: 25%;
+        height: 34px;
+        padding: 6px 12px;
+        font-size: 14px;
+        line-height: 1.42857143;
+        color: #555;
+        background-color: #fff;
+        background-image: none;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+        -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+        -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+        transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    }
+</style>
+
+</head>
+<body>
+    <!-- Start #header -->
+    <div id="header">
+        <div class="container-fluid">
+            <div class="navbar">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="index.html">
+                        <i class="im-windows8 text-logo-element animated bounceIn"></i><span class="text-logo">spr</span><span class="text-slogan">flat</span> 
+                    </a>
+                </div>
+                <nav class="top-nav" role="navigation">
+                    <ul class="nav navbar-nav pull-right">
+
+
+                        <li class="dropdown">
+                            <a href="#" data-toggle="dropdown">
+                                <img class="user-avatar" src="assets/img/avatars/48.jpg" alt="SuggeElson">SuggeElson</a>
+                                <ul class="dropdown-menu right" role="menu">
+                                    <li><a href="profile.html"><i class="st-user"></i> Profile</a>
+                                    </li>
+                                    <li><a href="file.html"><i class="st-cloud"></i> Files</a>
+                                    </li>
+                                    <li><a href="#"><i class="st-settings"></i> Settings</a>
+                                    </li>
+                                    <li><a href="login.html"><i class="im-exit"></i> Logout</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li id="toggle-right-sidebar-li"><a href="#" id="toggle-right-sidebar"><i class="ec-cog"></i></a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <!-- Start #header-area -->
+                <div id="header-area" class="fadeInDown">
+                    <div class="header-area-inner">
+                        <ul class="list-unstyled list-inline">
+                            <li>
+                                <div class="shortcut-button">
+                                    <a href="#">
+                                        <i class="im-pie"></i>
+                                        <span>Earning Stats</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="shortcut-button">
+                                    <a href="#">
+                                        <i class="ec-images color-dark"></i>
+                                        <span>Gallery</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="shortcut-button">
+                                    <a href="#">
+                                        <i class="en-light-bulb color-orange"></i>
+                                        <span>Fresh ideas</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="shortcut-button">
+                                    <a href="#">
+                                        <i class="ec-link color-blue"></i>
+                                        <span>Links</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="shortcut-button">
+                                    <a href="#">
+                                        <i class="ec-support color-red"></i>
+                                        <span>Support</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="shortcut-button">
+                                    <a href="#">
+                                        <i class="st-lock color-teal"></i>
+                                        <span>Lock area</span>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- End #header-area -->
+            </div>
+            <!-- Start .header-inner -->
+        </div>
+        <!-- End #header -->
+        
+        <!-- End #sidebar -->
+        <!-- Start #right-sidebar -->
+        <div id="right-sidebar" class="hide-sidebar">
+            <!-- Start .sidebar-inner -->
+            <div class="sidebar-inner">
+                <div class="sidebar-panel mt0">
+                    <div class="sidebar-panel-content fullwidth pt0">
+                        <div class="chat-user-list">
+                            <form class="form-horizontal chat-search" role="form">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Search for user...">
+                                    <button type="submit"><i class="ec-search s16"></i>
+                                    </button>
+                                </div>
+                                <!-- End .form-group  -->
+                            </form>
+
+                        </div>
+                        <div class="chat-box">
+                            <h5>Chad Engle</h5>
+                            <a id="close-user-chat" href="#" class="btn btn-xs btn-primary"><i class="en-arrow-left4"></i></a>
+                            <ul class="chat-ui chat-messages">
+                                <li class="chat-user">
+                                    <p class="avatar">
+                                        <img src="assets/img/avatars/49.jpg" alt="@chadengle">
+                                    </p>
+                                    <p class="chat-name">Chad Engle <span class="chat-time">15 seconds ago</span>
+                                    </p>
+                                    <span class="status online"><i class="en-dot"></i></span>
+                                    <p class="chat-txt">Hello Sugge check out the last order.</p>
+                                </li>
+                                <li class="chat-me">
+                                    <p class="avatar">
+                                        <img src="assets/img/avatars/48.jpg" alt="SuggeElson">
+                                    </p>
+                                    <p class="chat-name">SuggeElson <span class="chat-time">10 seconds ago</span>
+                                    </p>
+                                    <span class="status online"><i class="en-dot"></i></span>
+                                    <p class="chat-txt">Ok i will check it out.</p>
+                                </li>
+                                <li class="chat-user">
+                                    <p class="avatar">
+                                        <img src="assets/img/avatars/49.jpg" alt="@chadengle">
+                                    </p>
+                                    <p class="chat-name">Chad Engle <span class="chat-time">now</span>
+                                    </p>
+                                    <span class="status online"><i class="en-dot"></i></span>
+                                    <p class="chat-txt">Thank you, have a nice day</p>
+                                </li>
+                            </ul>
+                            <div class="chat-write">
+                                <form action="#" class="form-horizontal" role="form">
+                                    <div class="form-group">
+                                        <textarea name="sendmsg" id="sendMsg" class="form-control elastic" rows="1"></textarea>
+                                        <a role="button" class="btn" id="attach_photo_btn">
+                                            <i class="fa-picture s20"></i> 
+                                        </a>
+                                        <input type="file" name="attach_photo" id="attach_photo">
+                                    </div>
+                                    <!-- End .form-group  -->
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End .sidebar-inner -->
+        </div>
+        <!-- End #right-sidebar -->
+        <!-- Start #content -->
+        <div id="content">
+            <!-- Start .content-wrapper -->
+            <div class="content-wrapper">
+                <div class="row">
+                    <!-- Start .row -->
+                    <!-- Start .page-header -->
+                    <div class="col-lg-12 heading">
+                        <h1 class="page-header"><i class="im-advertisingpaper"></i> 广告管理列表</h1>
+                        <!-- Start .bredcrumb -->
+                        
+                        <!-- End .option-buttons -->
+                    </div>
+                    <!-- End .page-header -->
+                </div>
+                <!-- End .row -->
+                <div class="outlet"  id="advertisingTable">
+                    <!-- Start .outlet -->
+                    <!-- Page start here ( usual with .row ) -->
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <!-- col-lg-12 start here -->
+                            <div class="panel plain toggle panelClose panelRefresh">
+                                <!-- Start .panel -->
+                                <div class="panel-heading white-bg">
+                                    <!-- <h4 class="panel-title">Data table</h4> -->
+                                    <button class="btn btn-primary" v-on:click="showAdd">添加广告</button>
+
+                                    <select class="form-control2" id="chooseClass" v-html="nodeList" v-on:change="selectDeptChange"></select>
+
+                                    <input type="text" name="search" class="form-control1" id="search" placeholder="请输入查询条件">
+                                    <button class="btn" v-on:click="queryNewsByKeyWord"><i class="ec-search"></i>查询</button>
+                                </div>
+
+
+
+
+
+                                <!-- 添加的遮盖层 -->
+                                <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" style="padding-top: 25px">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                <h4 class="modal-title" id="addModalLabel">新增</h4>
+                                            </div>
+
+                                            <div class="modal-body">
+                                                <div id="testCkeditor">
+                                                    <div class="form-group">
+                                                        <label for="advertisingTitle">广告标题：</label>
+                                                        <input type="text" name="advertisingTitle" class="form-control" id="add_advertisingTitle" placeholder="广告标题" ref="advertisingTitle">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="advertisingTitle">广告编号：</label>
+                                                        <input type="text" name="advertisingTitle" class="form-control" id="add_advertisingCode" placeholder="广告编号" ref="advertisingTitle">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="advertisingTag">广告标签：</label>
+                                                        <input type="text" name="advertisingTag" class="form-control" id="add_advertisingTag" placeholder="广告标签" ref="advertisingTag">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="update_parent_name">图片:</label>
+                                                        <input id="testfile" type="file" class="file" name="file" multiple/>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="advertisingTitle">简介：</label>
+                                                        <input type="text" name="advertisingTitle" class="form-control" id="add_advertisingSimpleDescription" placeholder="简介">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="advertisingTag">详细描述：</label>
+                                                        <input type="text" name="advertisingTag" class="form-control" id="add_advertisingDescription" placeholder="广告标签" ref="advertisingTag">
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="sort">排序规则(输入一个数字，0-30之间，数字越大，显示出来的位置越靠前)</label>
+                                                        <input type="text" name="sort" class="form-control" id="add_sort" placeholder="排序规则">
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="sort">是否置顶：</label>
+                                                        <input type="text" name="sort" class="form-control" id="add_topFlag" placeholder="排序规则">
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="update_parent_name">部门信息:</label>
+                                                        <select id="add_allNode" class="form-control" v-html="nodeList"></select>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="update_parent_name">位置信息:</label>
+                                                        <select id="add_alllocation" class="form-control"></select>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                    <label for="note">添加额外属性：</label>
+                                                    <button class="btn btn-primary" v-on:click="showInput">点击添加</button>
+                                                    </div>
+
+                                                    <div class="form-group" id="other-field">
+                                                    
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
+                                                <button type="button" id="btn_submit" class="btn btn-primary" data-dismiss="modal" v-on:click="upload"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>保存</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>        
+
+
+
+
+
+                                <!-- 修改的遮盖层 -->
+                                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                <h4 class="modal-title" id="myModalLabel">修改</h4>
+                                            </div>
+                                            <div class="modal-body">
+
+                                                <div class="form-group">
+                                                    <label for="advertisingTitle">广告标题：</label>
+                                                    <input type="text" name="advertisingTitle" class="form-control" id="update_advertisingTitle" placeholder="广告标题" ref="advertisingTitle">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="advertisingTitle">广告编号：</label>
+                                                    <input type="text" name="advertisingTitle" class="form-control" id="update_advertisingCode" placeholder="广告编号" ref="advertisingTitle">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="advertisingTag">广告标签：</label>
+                                                    <input type="text" name="advertisingTag" class="form-control" id="update_advertisingTag" placeholder="广告标签" ref="advertisingTag">
+                                                </div>
+                                                <div class="form-group">
+                                                        <label for="update_parent_name">图片:</label>
+                                                         <div id="picture">
+                                                             
+                                                         </div>
+                                                        <input id="updatefile" type="file" class="file" name="file" multiple/>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="advertisingTitle">简介：</label>
+                                                    <input type="text" name="advertisingTitle" class="form-control" id="update_advertisingSimpleDescription" placeholder="简介">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="advertisingTag">详细描述：</label>
+                                                    <input type="text" name="advertisingTag" class="form-control" id="update_advertisingDescription" placeholder="广告标签" ref="advertisingTag">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="sort">排序规则(输入一个数字，0-30之间，数字越大，显示出来的位置越靠前)</label>
+                                                    <input type="text" name="sort" class="form-control" id="update_sort" placeholder="排序规则">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="sort">是否置顶：</label>
+                                                    <input type="text" name="sort" class="form-control" id="update_topFlag" placeholder="排序规则">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="sort">当前所属部门</label>
+                                                    <input type="text" name="sort" class="form-control" id="update_dept" placeholder="当前所属部门" v-model="selectDept">
+                                                </div>
+
+
+                                                <div class="form-group">
+                                                    <label for="update_parent_name">部门信息:</label>
+                                                    <select class="form-control" id="update_allNode" v-html="nodeList"></select>
+                                                </div>
+
+                                                <div class="form-group">
+                                                        <label for="update_parent_name">位置信息:</label>
+                                                        <select class="selectpicker" id="update_alllocation" class="form-control"></select>
+                                                    </div>
+
+                                                <div class="form-group">
+                                                    <label for="sort">额外拓展属性</label>
+                                                    <button class="btn btn-primary" v-on:click="updateShowInput">点击添加</button>
+                                                </div>
+                                                
+                                                <div class="form-group" id="update_otherField" v-html="otherFieldList">
+                                                    
+                                                </div>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
+                                                <button type="button" id="btn_submit" class="btn btn-primary" data-dismiss="modal" v-on:click="change"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>保存</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+                                <!-- 详情的遮盖层 -->
+                                <div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                <h4 class="modal-title" id="detailModalLabel">详情</h4>
+                                            </div>
+                                            <div class="modal-body">
+
+                                                <div class="form-group">
+                                                    <label for="advertisingTitle">广告标题：</label>
+                                                    <input type="text" name="advertisingTitle" class="form-control" id="detail_advertisingTitle" placeholder="广告标题" ref="advertisingTitle">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="advertisingTitle">广告编号：</label>
+                                                    <input type="text" name="advertisingTitle" class="form-control" id="detail_advertisingCode" placeholder="广告编号" ref="advertisingTitle">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="advertisingTag">广告标签：</label>
+                                                    <input type="text" name="advertisingTag" class="form-control" id="detail_advertisingTag" placeholder="广告标签" ref="advertisingTag">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="update_parent_name">图片:</label>
+                                                    <div id="detail_picture">
+                                                             
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="advertisingTitle">简介：</label>
+                                                    <input type="text" name="advertisingTitle" class="form-control" id="detail_advertisingSimpleDescription" placeholder="简介">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="advertisingTag">详细描述：</label>
+                                                    <input type="text" name="advertisingTag" class="form-control" id="detail_advertisingDescription" placeholder="详细描述" ref="advertisingTag">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="sort">排序规则(输入一个数字，0-30之间，数字越大，显示出来的位置越靠前)</label>
+                                                    <input type="text" name="sort" class="form-control" id="detail_sort" placeholder="排序规则">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="sort">是否置顶：</label>
+                                                    <input type="text" name="sort" class="form-control" id="detail_topFlag" placeholder="是否置顶">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="sort">当前所属部门</label>
+                                                    <input type="text" name="sort" class="form-control" id="detail_dept" placeholder="当前所属部门" v-model="selectDept">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="sort">当前广告位置</label>
+                                                    <input type="text" name="sort" class="form-control" id="detail_dept" placeholder="当前广告位置" v-model="selectLocation">
+                                                </div>
+
+                                                <div class="form-group" id="detail_otherField" v-html="otherFieldList">
+                                                    
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
+                                                <button type="button" id="btn_submit" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>保存</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+
+                                <div  style="height: 500px">
+                                    <table class="table table-hover table-striped table-bordered" id="datatable" style="table-layout:fixed;word-break:break-all;//表格固定布局">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 100px">广告编号</th>
+                                                <th style="width: 180px">标题</th>
+                                                <th>简介</th>
+                                                <th>详细介绍</th>
+                                                <th>创建时间</th>
+                                                <th>操作</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody v-html="advertisingDetail" id="advertisingDetail">
+                                        </tbody>
+                                    </table>
+
+                                </div>
+
+                                <div id="example" style="text-align: right;padding-right: 150px;padding-top: 160px"><ul id="pageLimit"></ul> </div>
+                            </div>
+                            <!-- End .panel -->
+                        </div>
+                        <!-- col-lg-12 end here -->
+                    </div>
+                    <!-- col-lg-12 end here -->
+                </div>
+                <!-- Page End here -->
+            </div>
+
+            <!-- End .outlet -->
+        </div>
+        <!-- End .content-wrapper -->
+
+        <div class="clearfix"></div>
+    </div>
+    <!-- End #content -->
+    <!-- Javascripts -->
+    <!-- Load pace first -->
+
+
+
+</body>
+<script type="text/javascript">
+    var projectPath = window.document.location.href.substr(0,window.document.location.href.lastIndexOf("/"));
+    var myeditor;
+    var vm = new Vue({
+        el: "#advertisingTable",
+        data: {
+            advertisingList: [],
+            advertisingDetail: "",
+            permission: "",
+            nodeList: "",
+            classList: "",
+            id : "",
+            selectDept : "",
+            showPage: "ok",
+            total : "1",
+            otherFieldList : "",
+            locationList:"",
+            selectLocation : "",
+            locationId: "",
+            fileName : ""
+        },
+        methods: {
+            showInput:function(){
+                $("#other-field").append("<input type='text' style='width:35%' name='other-fields' class='form-control3' id='fields' placeholder='名称' ref='description'>：<input type='text' style='width:35%' name='other-fields' class='form-control3' id='fields' placeholder='值' ref='description'>");
+            },
+            updateShowInput:function(){
+                vm.otherFieldList += "<input type='text' style='width:35%' name='other-fields' class='form-control3' id='fields' placeholder='名称' ref='description'>：<input type='text' style='width:35%' name='other-fields' class='form-control3' id='fields' placeholder='值' ref='description'>";
+            },
+            nodeListAdd:function(queryArray,j){
+                var titleAdd = ""
+                for(var k = 0; k < j; k++){
+                    titleAdd += "--"
+                }
+                for(var i = 0; i < queryArray.length; i++){
+                    vm.nodeList += "<option value="+queryArray[i].groupId+">"+titleAdd+queryArray[i].groupName+"</option>"
+                    if(queryArray[i].subGroup.length != 0){
+                        vm.nodeListAdd(queryArray[i].subGroup,j+1,vm.nodeList)
+                    }
+
+                }
+
+            },
+            getFileName:function(o){
+                var pos=o.lastIndexOf("\\");
+                return o.substring(pos+1);  
+            },
+            addActionToButton:function(){
+                //给修改按钮添加事件
+                vm.$nextTick().then(() => {
+                  $('.update').on('click',function(){
+                    vm.id = vm.advertisingList[$(this).attr("id")].id;
+                    vm.selectLocation = "";
+                    vm.locationList = "";
+                    $("#myModalLabel").text("修改");
+
+                    
+
+                    axios
+                    .get(projectPath+"/biz/dept/queryById",{
+                        params : {
+                            "deptId" : vm.advertisingList[$(this).attr("id")].deptId
+                        }
+                    })
+                    .then(response => {
+                        vm.selectDept = "";
+                        vm.selectDept += " "+response.data.data.deptName
+                    })
+
+
+                    axios
+                    .get(projectPath+"/biz/advertisingLocation/queryLocationByAdvertisingId",{
+                        params : {
+                            "advertisingId" : vm.advertisingList[$(this).attr("id")].id
+                        }
+                    })
+                    .then(response => {
+                        vm.selectLocation = "";
+                        vm.locationList = "";
+                        window.locationId = "";
+                        if(response.data.data != null && response.data.data.length != 0){
+                            window.locationId = response.data.data[0].id;
+                            vm.locationList = "<option value="+response.data.data[0].id+">"+response.data.data[0].name+"</option>" + vm.locationList;
+                            for (var i = 0; i < response.data.data.length; i++) {
+                                vm.selectLocation += " "+response.data.data[i].name
+                            }
+                        }else{
+                            vm.locationList = "<option value=0>暂未选择广告位置</option>" + vm.locationList;
+                        }
+                        axios
+                        .get(projectPath+"/biz/location/queryAll")
+                        .then(response => {
+
+                            for (var i = 0; i < response.data.data.length; i++) {
+                                if(window.locationId != response.data.data[i].id){
+                                    vm.locationList += "<option value="+response.data.data[i].id+">"+response.data.data[i].name+"</option>"
+                                }
+                            }
+                            $('#update_alllocation').html(vm.locationList)
+                            //要以编程方式更新JavaScript的选择，首先操作选择，然后使用refresh方法更新UI以匹配新状态。 在删除或添加选项时，或通过JavaScript禁用/启用选择时，这是必需的。
+                            $('.selectpicker').selectpicker('refresh');
+                            //render方法强制重新渲染引导程序 - 选择ui,如果当您编程时更改任何相关值而影响元素布局，这将非常有用。
+                            $('.selectpicker').selectpicker('render');
+
+                            vm.locationList = "";
+                        })
+
+                    })
+
+
+                    
+                    
+
+                    
+
+                    vm.otherFieldList = "";
+                    if(vm.advertisingList[$(this).attr("id")].otherField != null && vm.advertisingList[$(this).attr("id")].otherField != ""){
+
+                        var fields = [];
+                        fields = JSON.parse(vm.advertisingList[$(this).attr("id")].otherField);
+                        for (var j = 0; j < fields.length; j++) {
+                            if(j % 2 != 0){
+                                if(fields[j-1] != ""){
+                                    vm.otherFieldList += '<input type="text" style="width:35%" name="sort" class="form-control3" id="detail_dept" value="'+fields[j-1]+'">：<input type="text" style="width:35%" name="sort" class="form-control3" id="detail_dept" value="'+fields[j]+'">';
+                                }
+                            }                                                            
+                        }
+
+                    }
+                    $("#update_advertisingTitle").val(vm.advertisingList[$(this).attr("id")].name);
+                    $("#update_advertisingCode").val(vm.advertisingList[$(this).attr("id")].code);
+                    $("#update_advertisingTag").val(vm.advertisingList[$(this).attr("id")].tag);
+                    $("#update_advertisingSimpleDescription").val(vm.advertisingList[$(this).attr("id")].simpleDescription);
+                    $("#update_advertisingDescription").val(vm.advertisingList[$(this).attr("id")].description);
+
+                    $("#picture").html("")
+                    if(vm.advertisingList[$(this).attr("id")].img != "" && vm.advertisingList[$(this).attr("id")].img != null){
+                        $("#picture").html("<img src='"+projectPath+"/file/"+vm.advertisingList[$(this).attr("id")].img+"' class='file-preview-image' style='height:100%;width:100%'>" );
+                    }
+                    $("#update_sort").val(vm.advertisingList[$(this).attr("id")].sort);
+                    $("#update_topFlag").val(vm.advertisingList[$(this).attr("id")].topFlag);
+
+                    
+                    $('#myModal').modal();
+
+                })
+
+              })
+
+                //给详情按钮添加事件
+                vm.$nextTick().then(() => {
+                  $('.detail').on('click',function(){
+                    vm.id = vm.advertisingList[$(this).attr("id")].advertisingId;
+                    $("#myModalLabel").text("修改");
+                    axios
+                    .get(projectPath+"/biz/dept/queryById",{
+                        params : {
+                            "deptId" : vm.advertisingList[$(this).attr("id")].deptId
+                        }
+                    })
+                    .then(response => {
+                        vm.selectDept = "";
+                        vm.selectDept += " "+response.data.data.deptName
+                    })
+
+                    axios
+                    .get(projectPath+"/biz/advertisingLocation/queryLocationByAdvertisingId",{
+                        params : {
+                            "advertisingId" : vm.advertisingList[$(this).attr("id")].id
+                        }
+                    })
+                    .then(response => {
+                        vm.selectLocation = "";
+                        vm.locationList = "";
+                        if(response.data.data != null && response.data.data.length != 0){
+                            vm.locationList = "<option value="+response.data.data[0].id+">"+response.data.data[0].name+"</option>" + vm.locationList;
+                            for (var i = 0; i < response.data.data.length; i++) {
+                                vm.selectLocation += " "+response.data.data[i].name
+                            }
+                        }else{
+                            vm.locationList = "<option value=0>暂未选择广告位置</option>" + vm.locationList;
+                        }
+
+
+                    })
+                    axios
+                    .get(projectPath+"/biz/location/queryAll")
+                    .then(response => {
+
+                        for (var i = 0; i < response.data.data.length; i++) {
+                            vm.locationList += "<option value="+response.data.data[i].id+">"+response.data.data[i].name+"</option>"
+                        }
+
+
+                    })
+
+                    vm.otherFieldList = "";
+                    if(vm.advertisingList[$(this).attr("id")].otherField != null && vm.advertisingList[$(this).attr("id")].otherField != ""){
+
+                        var fields = [];
+                        fields = JSON.parse(vm.advertisingList[$(this).attr("id")].otherField);
+                        for (var j = 0; j < fields.length; j++) {
+                            if(j % 2 != 0){
+                                if(fields[j-1] != ""){
+                                    vm.otherFieldList += '<label type="text" for="sort">'+fields[j-1]+'</label><input type="text" name="sort" class="form-control" id="detail_dept" placeholder="'+fields[j]+'" >';
+                                }
+                            }                                                            
+                        }
+
+                    }
+                    $("#detail_advertisingTitle").val(vm.advertisingList[$(this).attr("id")].name);
+                    $("#detail_advertisingCode").val(vm.advertisingList[$(this).attr("id")].code);
+                    $("#detail_advertisingTag").val(vm.advertisingList[$(this).attr("id")].tag);
+
+
+                    $("#detail_picture").html("")
+                    if(vm.advertisingList[$(this).attr("id")].img != "" && vm.advertisingList[$(this).attr("id")].img != null){
+                        $("#detail_picture").html("<img src='"+projectPath+"/file/"+vm.advertisingList[$(this).attr("id")].img+"' class='file-preview-image' style='height:100%;width:100%'>" );
+                    }else{
+                        $("#detail_picture").html("暂无图片");
+                    }
+
+
+                    $("#detail_advertisingSimpleDescription").val(vm.advertisingList[$(this).attr("id")].simpleDescription);
+                    $("#detail_advertisingDescription").val(vm.advertisingList[$(this).attr("id")].description);
+
+                    $("#detail_sort").val(vm.advertisingList[$(this).attr("id")].sort);
+                    $("#detail_topFlag").val(vm.advertisingList[$(this).attr("id")].topFlag);
+                    $('#detailModal').modal();
+                })
+
+              })
+
+                //给删除按钮添加事件
+                vm.$nextTick().then(() => {
+                  $('.delete').on('click',function(){
+                    axios
+                    .get(projectPath+"/biz/advertising/delete",{
+                        params : {
+                            "advertisingId" :  vm.advertisingList[$(this).attr("id")].id
+                        }
+                    })
+                    .then(response => {
+                        alert("success")
+                        location.reload();
+                    })
+                })
+
+              })
+            },
+            selectDeptChange:function(){
+                axios
+                .get(projectPath+'/biz/advertising/queryByUserIdAndDeptId',{params:{
+                    "userId" : sessionStorage.getItem("userId"),
+                    "deptId": $("#chooseClass").val(),
+                    "page" : 1,
+                    "count" : 10
+                }})
+                .then(response => {
+                    vm.advertisingList = [];
+                    vm.advertisingDetail = '';
+                    vm.total = response.data.data.pages;
+                    for(var i = 0;i < response.data.data.records.length;i++) {
+                        vm.advertisingList.push(vm.null2str(response.data.data.records[i])),
+                        vm.advertisingDetail += '<tr class="gradeA" ><td>'+vm.advertisingList[i].code+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+vm.advertisingList[i].name+'</td><td>'+vm.advertisingList[i].simpleDescription.substring(0,15)+"..."+'</td><td>'+vm.advertisingList[i].description+'</td><td>'+vm.advertisingList[i].createTime+'</td><td><button class="btn btn-info detail" id='+i+'>详情</button>  <button class="btn btn-warning update" id='+i+'>修改</button>   <button class="btn btn-danger delete" id='+i+'>删除</button></td></tr>';
+                    }
+                        vm.addActionToButton();
+
+
+                        if(vm.total != 0){
+                        $('#pageLimit').bootstrapPaginator({
+                         currentPage: 1,//当前的请求页面。
+                         totalPages: vm.total,//一共多少页。
+                         size:"normal",//应该是页眉的大小。
+                         bootstrapMajorVersion: 3,//bootstrap的版本要求。
+                         alignment:"right",
+                         numberOfPages:5,//一页列出多少数据。
+                         itemTexts: function (type, page, current) {//如下的代码是将页眉显示的中文显示我们自定义的中文。
+                             switch (type) {
+                                 case "first": return "首页";
+                                 case "prev": return "上一页";
+                                 case "next": return "下一页";
+                                 case "last": return "末页";
+                                 case "page": return page;
+                             }
+                         },
+
+                         onPageClicked: function (event, originalEvent, type, page){//给每个页眉绑定一个事件，其实就是ajax请求，其中page变量为当前点击的页上的数字。
+                           $.ajax({
+                               url:projectPath+'/biz/advertising/queryByUserIdAndDeptId',
+                               type:'POST',
+                               data:{'page':page,'count':10,"userId" : sessionStorage.getItem("userId"),"deptId": $("#chooseClass").val()},
+                               dataType:'JSON',
+                               success:function (callback) {
+                                vm.advertisingDetail = "";
+                                vm.advertisingList = [];
+                                for(var i = 0;i < callback.data.records.length;i++) {
+                                    vm.advertisingList.push(vm.null2str(callback.data.records[i])),
+                                    vm.advertisingDetail += '<tr class="gradeA" ><td>'+vm.advertisingList[i].code+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+vm.advertisingList[i].name+'</td><td>'+vm.advertisingList[i].simpleDescription.substring(0,15)+"..."+'</td><td>'+vm.advertisingList[i].description+'</td><td>'+vm.advertisingList[i].createTime+'</td><td><button class="btn btn-info detail" id='+i+'>详情</button>  <button class="btn btn-warning update" id='+i+'>修改</button>   <button class="btn btn-danger delete" id='+i+'>删除</button></td></tr>';
+                                }
+
+
+                                vm.addActionToButton(); 
+                            }
+                        })
+
+
+                    }
+                                });
+                                }else{
+                                    $('#pageLimit').bootstrapPaginator({
+                                                         currentPage: 1,//当前的请求页面。
+                                                         totalPages: 1,//一共多少页。
+                                                         size:"normal",//应该是页眉的大小。
+                                                         bootstrapMajorVersion: 3,//bootstrap的版本要求。
+                                                         alignment:"right",
+                                                         numberOfPages:5,//一页列出多少数据。
+                                                         itemTexts: function (type, page, current) {//如下的代码是将页眉显示的中文显示我们自定义的中文。
+                                                             switch (type) {
+                                                                 case "first": return "首页";
+                                                                 case "prev": return "上一页";
+                                                                 case "next": return "下一页";
+                                                                 case "last": return "末页";
+                                                                 case "page": return page;
+                                                             }
+                                                         },
+                                                         onPageClicked: function (event, originalEvent, type, page){//给每个页眉绑定一个事件，其实就是ajax请求，其中page变量为当前点击的页上的数字。
+                                                         }
+                                                     })
+                                }
+
+
+
+                                })
+                                .catch(function (error) {
+                                    console.log(error)
+                                })
+                                },
+                                change : function(){
+                                    let param = new URLSearchParams()
+                                    param.append("id" , this.id)
+                                    param.append("name" , $("#update_advertisingTitle").val())
+                                    param.append("code" , $("#update_advertisingCode").val())
+                                    param.append("tag" , $("#update_advertisingTag").val())
+
+                                    param.append("simpleDescription" , $("#update_advertisingSimpleDescription").val())
+                                    param.append("description" , $("#update_advertisingDescription").val())
+
+                                    param.append("sort" , $("#update_sort").val())
+                                    param.append("topFlag" , $("#update_topFlag").val())
+
+                                    var numArr = []; // 定义一个空数组
+                                    var txt = $('#update_otherField').find(':text'); // 获取所有文本框
+                                    for (var i = 0; i < txt.length; i++) {
+                                        numArr.push(txt.eq(i).val()); // 将文本框的值添加到数组中
+                                    }
+                                    var numArr = JSON.stringify(numArr);
+                                    param.append("otherField", numArr)
+
+                                    if($("#update_allNode").val() != '0'){
+                                        param.append('deptId' , $("#update_allNode").val())
+                                    }
+
+                                    if(vm.fileName != ''){
+                                        param.append('img' , vm.fileName)
+                                        vm.fileName = ""
+                                    }
+
+                                    axios
+                                    .post(projectPath+"/biz/advertising/update",param
+                                        )
+                                    .then(response => {
+                                        if(response.data.code == '200'){
+                                            alert("修改成功")
+                                            location.reload();
+                                        }else if(response.data.code == '400'){
+                                            alert(response.data.msg)
+                                        }
+                                    })
+                                },
+                                showAdd : function(){
+                                    $('#addModal').modal();
+                                },
+                                queryNewsByKeyWord:function(){
+                                    axios
+                                    .get(projectPath+'/biz/advertising/queryByKeyWord',{params:{
+                                        "userId" : sessionStorage.getItem("userId"),
+                                        advertisingKeyWord: $("#search").val(),
+                                        "page" : 1,
+                                        "count" : 10
+                                    }})
+                                    .then(response => {
+                                        vm.advertisingList = [];
+                                        vm.advertisingDetail = '';
+                                        vm.total = response.data.data.pages;
+                                        for(var i = 0;i < response.data.data.records.length;i++) {
+                                            vm.advertisingList.push(vm.null2str(response.data.data.records[i])),
+                                            vm.advertisingDetail += '<tr class="gradeA" ><td>'+vm.advertisingList[i].code+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+vm.advertisingList[i].name+'</td><td>'+vm.advertisingList[i].simpleDescription.substring(0,15)+"..."+'</td><td>'+vm.advertisingList[i].description+'</td><td>'+vm.advertisingList[i].createTime+'</td><td><button class="btn btn-info detail" id='+i+'>详情</button>  <button class="btn btn-warning update" id='+i+'>修改</button>   <button class="btn btn-danger delete" id='+i+'>删除</button></td></tr>';
+                                        }
+
+
+
+                                    vm.addActionToButton();
+
+                                    $('#pageLimit').bootstrapPaginator({
+                                        currentPage: 1,//当前的请求页面。
+                                        totalPages: vm.total,//一共多少页。
+                                        size:"normal",//应该是页眉的大小。
+                                        bootstrapMajorVersion: 3,//bootstrap的版本要求。
+                                        alignment:"right",
+                                        numberOfPages:5,//一页列出多少数据。
+                                        itemTexts: function (type, page, current) {//如下的代码是将页眉显示的中文显示我们自定义的中文。
+                                         switch (type) {
+                                             case "first": return "首页";
+                                             case "prev": return "上一页";
+                                             case "next": return "下一页";
+                                             case "last": return "末页";
+                                             case "page": return page;
+                                         }
+                                     },
+
+                                        onPageClicked: function (event, originalEvent, type, page){//给每个页眉绑定一个事件，其实就是ajax请求，其中page变量为当前点击的页上的数字。
+                                           $.ajax({
+                                               url:projectPath+'/biz/advertising/queryByKeyWord',
+                                               type:'POST',
+                                               data:{'page':page,'count':10,"userId" : sessionStorage.getItem("userId"),advertisingKeyWord: $("#search").val()},
+                                               dataType:'JSON',
+                                               success:function (callback) {
+
+                                                vm.advertisingDetail = "";
+                                                vm.advertisingList = [];
+                                                for(var i = 0;i < callback.data.records.length;i++) {
+                                                    vm.advertisingList.push(vm.null2str(callback.data.records[i])),
+                                                    vm.advertisingDetail += '<tr class="gradeA" ><td>'+vm.advertisingList[i].code+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+vm.advertisingList[i].name+'</td><td>'+vm.advertisingList[i].simpleDescription.substring(0,15)+"..."+'</td><td>'+vm.advertisingList[i].description+'</td><td>'+vm.advertisingList[i].createTime+'</td><td><button class="btn btn-info detail" id='+i+'>详情</button>  <button class="btn btn-warning update" id='+i+'>修改</button>   <button class="btn btn-danger delete" id='+i+'>删除</button></td></tr>';
+                                                }
+
+                                                vm.addActionToButton();
+                                            }
+                                        })
+
+
+                                }
+
+
+
+                                });
+
+                                })
+                                .catch(function (error) {
+                                    console.log(error)
+                                })
+                                },
+                                null2str:function(data){
+                                    for (let x in data) {
+                                                        if (data[x] === null) { // 如果是null 把直接内容转为 ''
+                                                          data[x] = '';
+                                                  } else {
+                                                          if (Array.isArray(data[x])) { // 是数组遍历数组 递归继续处理
+                                                            data[x] = data[x].map(z => {
+                                                              return null2str(z);
+                                                          });
+                                                        }
+                                                          if(typeof(data[x]) === 'object'){ // 是json 递归继续处理
+                                                            data[x] = null2str(data[x])
+                                                        }
+                                                    }
+                                                }
+                                                return data;  
+                                            },
+                                            upload:function(){
+                                                let param = new URLSearchParams()
+                                                param.append("name" , $("#add_advertisingTitle").val())
+                                                param.append("code" , $("#add_advertisingCode").val())
+                                                param.append("tag" , $("#add_advertisingTag").val())
+                                                var numArr = []; // 定义一个空数组
+                                                var txt = $('#other-field').find(':text'); // 获取所有文本框
+                                                for (var i = 0; i < txt.length; i++) {
+                                                    numArr.push(txt.eq(i).val()); // 将文本框的值添加到数组中
+                                                }
+                                                var numArr = JSON.stringify(numArr);
+                                                param.append("otherField", numArr)
+
+                                                    // param.append("img" , $("#add_advertisingPicture").val())
+                                                    param.append("simpleDescription" , $("#add_advertisingSimpleDescription").val())
+                                                    param.append("description" , $("#add_advertisingDescription").val())
+
+                                                    param.append("sort" , $("#add_sort").val())
+                                                    param.append("topFlag" , $("#add_topFlag").val())
+                                                    if($("#add_alllocation").val() != '0'){
+                                                        param.append('locationId' , $("#add_alllocation").val())
+                                                    }
+                                                    if(vm.fileName != ""){
+                                                        param.append('img' , vm.fileName)
+                                                        vm.fileName = ""
+                                                    }
+                                                    
+                                                    if($("#add_allNode").val() != '0'){
+                                                        param.append('deptId' , $("#add_allNode").val())
+
+                                                        axios
+                                                        .post(projectPath+"/biz/advertising/add",param
+                                                            )
+                                                        .then(response => {
+                                                            if(response.data.code == '200'){
+                                                                alert("上传成功")
+                                                                location.reload();
+                                                            }else if(response.data.code == '400'){
+                                                                alert(response.data.msg)
+                                                            }
+                                                        })
+                                                    }else{
+                                                        alert("部门不能为空")
+                                                    }
+                                                }
+                                                
+                                            },
+                                            mounted(){
+                                                axios
+                                                .get(projectPath+'/biz/advertising/page',{
+                                                    params: {
+                                                        "page" : 1,
+                                                        "count" : 10,
+                                                        "userId" : sessionStorage.getItem("userId")
+                                                    }
+                                                })
+                                                .then(response => {
+                                                    vm.total = response.data.data.pages
+                                                    
+                                                    // console.log(response.data.data.records[0])
+                                                    for(var i = 0;i < response.data.data.records.length;i++) {
+                                                        vm.advertisingList.push(vm.null2str(response.data.data.records[i]));
+                                                        
+                                                        vm.advertisingDetail += '<tr class="gradeA" ><td>'+this.advertisingList[i].code+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+this.advertisingList[i].name+'</td><td>'+this.advertisingList[i].simpleDescription.substring(0,15)+"..."+'</td><td>'+this.advertisingList[i].description+'</td><td>'+this.advertisingList[i].createTime+'</td><td><button class="btn btn-info detail" id='+i+'>详情</button>  <button class="btn btn-warning update" id='+i+'>修改</button>   <button class="btn btn-danger delete" id='+i+'>删除</button></td></tr>';
+
+                                                    }
+
+
+
+
+
+                                                    vm.addActionToButton();
+                                                    
+
+
+                                                    $('#pageLimit').bootstrapPaginator({
+                                                         currentPage: 1,//当前的请求页面。
+                                                         totalPages: vm.total,//一共多少页。
+                                                         size:"normal",//应该是页眉的大小。
+                                                         bootstrapMajorVersion: 3,//bootstrap的版本要求。
+                                                         alignment:"right",
+                                                         numberOfPages:5,//一页列出多少数据。
+                                                         itemTexts: function (type, page, current) {//如下的代码是将页眉显示的中文显示我们自定义的中文。
+                                                             switch (type) {
+                                                                 case "first": return "首页";
+                                                                 case "prev": return "上一页";
+                                                                 case "next": return "下一页";
+                                                                 case "last": return "末页";
+                                                                 case "page": return page;
+                                                             }
+                                                         },
+
+                                                         onPageClicked: function (event, originalEvent, type, page){//给每个页眉绑定一个事件，其实就是ajax请求，其中page变量为当前点击的页上的数字。
+                                                             $.ajax({
+                                                                 url:projectPath+'/biz/advertising/page',
+                                                                 type:'POST',
+                                                                 data:{'page':page,'count':10,"userId" : sessionStorage.getItem("userId")},
+                                                                 dataType:'JSON',
+                                                                 success:function (callback) {
+                                                                    vm.advertisingDetail = "";
+                                                                    vm.advertisingList = [];
+                                                                    for(var i = 0;i < callback.data.records.length;i++) {
+                                                                        vm.advertisingList.push(vm.null2str(callback.data.records[i])),
+                                                                        vm.advertisingDetail += '<tr class="gradeA" ><td>'+vm.advertisingList[i].code+'</td><td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;width50px">'+vm.advertisingList[i].name+'</td><td>'+vm.advertisingList[i].simpleDescription.substring(0,15)+"..."+'</td><td>'+vm.advertisingList[i].description+'</td><td>'+vm.advertisingList[i].createTime+'</td><td><button class="btn btn-info detail" id='+i+'>详情</button>  <button class="btn btn-warning update" id='+i+'>修改</button>   <button class="btn btn-danger delete" id='+i+'>删除</button></td></tr>';
+                                                                    }
+
+                                                                    vm.addActionToButton();
+                                                                    
+                                                                }
+                                                        })
+
+
+                                }
+
+
+
+                                });
+
+
+
+
+                                }
+
+                                )
+                                .catch(function (error){
+                                })
+                                // 下拉框添加剩余数据
+                                axios
+                                .get(projectPath+"/biz/dept/queryTreeForList",{
+                                    params:{
+                                        "userId" : sessionStorage.getItem("userId")
+                                    }
+                                })
+                                .then(response => {
+                                    vm.nodeListAdd(response.data.data,0);
+                                    vm.nodeList = "<option value=0>请选择部门</option>" + vm.nodeList;
+
+                                })
+
+                                axios
+                                .get(projectPath+"/biz/location/queryAll")
+                                .then(response => {
+
+                                    for (var i = 0; i < response.data.data.length; i++) {
+                                        // if(response.data.data[i].id != vm.locationId){
+                                            vm.locationList += "<option value="+response.data.data[i].id+">"+response.data.data[i].name+"</option>"
+                                        // }
+                                        
+
+                                                                            }
+                                    $('#add_alllocation').html(vm.locationList)
+                                    //要以编程方式更新JavaScript的选择，首先操作选择，然后使用refresh方法更新UI以匹配新状态。 在删除或添加选项时，或通过JavaScript禁用/启用选择时，这是必需的。
+                                    $('.selectpicker').selectpicker('refresh');
+                                    //render方法强制重新渲染引导程序 - 选择ui,如果当您编程时更改任何相关值而影响元素布局，这将非常有用。
+                                    $('.selectpicker').selectpicker('render');
+                                    vm.locationList = "";
+
+                                })
+
+                                
+
+                                document.addEventListener('keydown', (e) => {
+                                  if(e.keyCode == 13){
+                                    vm.queryNewsByKeyWord()
+                                }
+                            }
+                            )
+                            }
+                        })
+                    </script>
+
+                    <script type="text/javascript">
+                        var projectPath = window.document.location.href.substr(0,window.document.location.href.lastIndexOf("/"));
+                        $('#testfile').fileinput({
+                           language: 'zh',
+                           uploadUrl: projectPath + '/biz/advertising/uploadImg',
+                           showCaption: true,
+                           showUpload: true,
+                           showRemove: true,
+                           showClose: true,
+                            // layoutTemplates:{
+                            //     actionDelete: ''
+                            // },
+                            browseClass: 'btn btn-primary'
+                        });
+                        
+                        $('#testfile').on('fileuploaded', function(event, data, previewId, index) {
+                            vm.fileName = data.response.data;
+                            console.log(vm.fileName)
+                        });
+
+
+                        $('#updatefile').fileinput({
+                           language: 'zh',
+                           uploadUrl: projectPath + '/biz/advertising/uploadImg',
+                           showCaption: false,
+                           showPreview:false,
+                           showUpload: false,
+                           showRemove: true,
+                           showClose: true,
+                            // layoutTemplates:{
+                            //     actionDelete: ''
+                            // },
+                            browseClass: 'btn btn-primary'
+                        });
+                        
+                        $('#updatefile').on('fileuploaded', function(event, data, previewId, index) {
+                            vm.fileName = data.response.data;
+                            $("#picture").html("<img src='"+projectPath+"/file/"+vm.fileName+"' class='file-preview-image' style='height:100%;width:100%'>" );
+                        });
+                        $("#updatefile").on("filebatchselected", function(event, files) {
+                            $("#updatefile").fileinput("upload");
+                        });
+                    </script>
+                    </html>

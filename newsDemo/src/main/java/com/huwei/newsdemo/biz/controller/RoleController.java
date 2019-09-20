@@ -43,10 +43,10 @@ public class RoleController extends BaseController{
     }
 
     @RequestMapping("queryByKeyWord")
-    public BaseResponse queryByName(String roleKeyWord, int page, int count){
+    public BaseResponse queryByName(String roleKeyWord, int page, int count,int userId){
         BaseResponse baseResponse = new BaseResponse();
         try {
-            Page<Role> rolePage = roleService.queryByKeyWord(roleKeyWord,page,count);
+            Page<Role> rolePage = roleService.queryByKeyWord(roleKeyWord,page,count,userId);
             if(rolePage != null){
                 baseResponse.success(rolePage);
             }
@@ -59,10 +59,10 @@ public class RoleController extends BaseController{
     }
 
     @RequestMapping("/page")
-    public BaseResponse page(int page,int count){
+    public BaseResponse page(int page,int count,int userId){
         BaseResponse baseResponse = new BaseResponse();
         try {
-            baseResponse.success(roleService.queryByPage(page,count));
+            baseResponse.success(roleService.queryByPage(page,count,userId));
         }catch (Exception e){
             e.printStackTrace();
             logger.error(ExceptionUtils.getFullStackTrace(e));
@@ -95,10 +95,10 @@ public class RoleController extends BaseController{
     }
 
     @RequestMapping("/queryAll")
-    public BaseResponse queryAll(){
+    public BaseResponse queryAll(int userId){
         BaseResponse baseResponse = new BaseResponse();
         try {
-            baseResponse.success(roleService.queryAll());
+            baseResponse.success(roleService.queryAll(userId));
         }catch (Exception e){
             e.printStackTrace();
             logger.error(ExceptionUtils.getFullStackTrace(e));
