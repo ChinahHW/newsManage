@@ -47,6 +47,15 @@ public class RoleServiceImpl extends ServiceImpl<RoleDao, Role> implements IRole
         List<UserRole> userRoleList = userRoleService.selectList(userRoleEntityWrapper);
         if (userRoleList != null) {
             for (UserRole userRole : userRoleList) {
+
+                //添加本身的角色
+                Role role = new Role();
+                role = role.selectById(userRole.getRoleId());
+                if(!roleList.contains(role)){
+                    roleList.add(role);
+                }
+
+
                 EntityWrapper<RoleDept> roleDeptEntityWrapper = new EntityWrapper<>();
                 roleDeptEntityWrapper.where("role_id = {0}",userRole.getRoleId());
                 List<RoleDept> roleDeptList = roleDeptService.selectList(roleDeptEntityWrapper);
@@ -57,14 +66,19 @@ public class RoleServiceImpl extends ServiceImpl<RoleDao, Role> implements IRole
                         List<Dept> deptList1 = deptService.selectList(deptEntityWrapper);
                         if (deptList1 != null) {
                             for (Dept dept : deptList1) {
-                                if(!deptList.contains(dept)){
-                                    deptList.add(dept);
-                                }
+//                                if(!deptList.contains(dept)){
+//                                    deptList.add(dept);
+//                                }
                                 //判断是否为父级，如果为父级，将子级分类添加
                                 List<Dept> deptList2 = new ArrayList<>();
-                                if(dept.getParentId() == 0){
+                                EntityWrapper<Dept> deptEntityWrapper1 = new EntityWrapper<>();
+                                deptEntityWrapper1.where("parent_id = {0}",dept.getDeptId());
+                                if (deptService.selectList(deptEntityWrapper1) != null) {
                                     deptList2 = deptService.querySonDept(dept,deptList2);
                                 }
+//                                if(dept.getParentId() == 0){
+//                                    deptList2 = deptService.querySonDept(dept,deptList2);
+//                                }
                                 if (deptList2 != null) {
                                     for (Dept dept1 : deptList2) {
                                         if(!deptList.contains(dept1)){
@@ -80,7 +94,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleDao, Role> implements IRole
             }
         }
 
-        //已经获取了部门和其子部门,获取这些部门下的角色
+        //已经获取了子部门,获取这些部门下的角色
         for (Dept dept : deptList) {
             EntityWrapper<RoleDept> roleDeptEntityWrapper = new EntityWrapper<>();
             roleDeptEntityWrapper.where("dept_id = {0}",dept.getDeptId());

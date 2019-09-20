@@ -40,6 +40,14 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements IUser
         List<User> userList = new ArrayList<>();
         List<Dept> deptList = new ArrayList<>();
         List<Role> roleList = new ArrayList<>();
+
+        //添加本身的用户
+        User user = new User();
+        user = user.selectById(userId);
+        if(!userList.contains(user)){
+            userList.add(user);
+        }
+
         //通过userid查询出角色，通过角色获得部门及其子部门，通过部门获取部门下所有角色,再获取这些角色对应的用户
         EntityWrapper<UserRole> userRoleEntityWrapper = new EntityWrapper<>();
         userRoleEntityWrapper.where("user_id = {0}",userId);
@@ -56,14 +64,19 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements IUser
                         List<Dept> deptList1 = deptService.selectList(deptEntityWrapper);
                         if (deptList1 != null) {
                             for (Dept dept : deptList1) {
-                                if(!deptList.contains(dept)){
-                                    deptList.add(dept);
-                                }
+//                                if(!deptList.contains(dept)){
+//                                    deptList.add(dept);
+//                                }
                                 //判断是否为父级，如果为父级，将子级分类添加
                                 List<Dept> deptList2 = new ArrayList<>();
-                                if(dept.getParentId() == 0){
+                                EntityWrapper<Dept> deptEntityWrapper1 = new EntityWrapper<>();
+                                deptEntityWrapper1.where("parent_id = {0}",dept.getDeptId());
+                                if (deptService.selectList(deptEntityWrapper1) != null) {
                                     deptList2 = deptService.querySonDept(dept,deptList2);
                                 }
+//                                if(dept.getParentId() == 0){
+//                                    deptList2 = deptService.querySonDept(dept,deptList2);
+//                                }
                                 if (deptList2 != null) {
                                     for (Dept dept1 : deptList2) {
                                         if(!deptList.contains(dept1)){
@@ -112,9 +125,9 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements IUser
                         userEntityWrapper.where("userId = {0}",userRole.getUserId());
                         List<User> userList1 = selectList(userEntityWrapper);
                         if (userList1 != null) {
-                            for (User user : userList1) {
-                                if(!userList.contains(user)){
-                                    userList.add(user);
+                            for (User user2 : userList1) {
+                                if(!userList.contains(user2)){
+                                    userList.add(user2);
                                 }
                             }
                         }

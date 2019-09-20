@@ -1,0 +1,80 @@
+@Override
+    public List<Role> queryAll(int userId) {
+        List<Role> roleList = new ArrayList<>();
+        List<Dept> deptList = new ArrayList<>();
+        //通过userid查询出角色，通过角色获得部门及其子部门，通过部门获取部门下所有角色
+        EntityWrapper<UserRole> userRoleEntityWrapper = new EntityWrapper<>();
+        userRoleEntityWrapper.where("user_id = {0}",userId);
+        List<UserRole> userRoleList = userRoleService.selectList(userRoleEntityWrapper);
+        if (userRoleList != null) {
+            for (UserRole userRole : userRoleList) {
+
+                //添加本身的角色
+                Role role = new Role();
+                role = role.selectById(userRole.getRoleId());
+                if(!roleList.contains(role)){
+                    roleList.add(role);
+                }
+
+
+                EntityWrapper<RoleDept> roleDeptEntityWrapper = new EntityWrapper<>();
+                roleDeptEntityWrapper.where("role_id = {0}",userRole.getRoleId());
+                List<RoleDept> roleDeptList = roleDeptService.selectList(roleDeptEntityWrapper);
+                if (roleDeptList != null) {
+                    for (RoleDept roleDept : roleDeptList) {
+                        EntityWrapper<Dept> deptEntityWrapper = new EntityWrapper<>();
+                        deptEntityWrapper.where("dept_id = {0}",roleDept.getDeptId());
+                        List<Dept> deptList1 = deptService.selectList(deptEntityWrapper);
+                        if (deptList1 != null) {
+                            for (Dept dept : deptList1) {
+//                                if(!deptList.contains(dept)){
+//                                    deptList.add(dept);
+//                                }
+                                //判断是否为父级，如果为父级，将子级分类添加
+                                List<Dept> deptList2 = new ArrayList<>();
+                                EntityWrapper<Dept> deptEntityWrapper1 = new EntityWrapper<>();
+                                deptEntityWrapper1.where("parent_id = {0}",dept.getDeptId());
+                                if (deptService.selectList(deptEntityWrapper1) != null) {
+                                    deptList2 = deptService.querySonDept(dept,deptList2);
+                                }
+//                                if(dept.getParentId() == 0){
+//                                    deptList2 = deptService.querySonDept(dept,deptList2);
+//                                }
+                                if (deptList2 != null) {
+                                    for (Dept dept1 : deptList2) {
+                                        if(!deptList.contains(dept1)){
+                                            deptList.add(dept1);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+
+        //已经获取了子部门,获取这些部门下的角色
+        for (Dept dept : deptList) {
+            EntityWrapper<RoleDept> roleDeptEntityWrapper = new EntityWrapper<>();
+            roleDeptEntityWrapper.where("dept_id = {0}",dept.getDeptId());
+            List<RoleDept> roleDeptList = roleDeptService.selectList(roleDeptEntityWrapper);
+            if (roleDeptList != null) {
+                for (RoleDept roleDept : roleDeptList) {
+                    EntityWrapper<Role> wrapper = new EntityWrapper<>();
+                    wrapper.where("del_flag != {0}",1).and().where("role_id = {0}",roleDept.getRoleId());
+                    List<Role> roles = this.selectList(wrapper);
+                    if (roles != null) {
+                        for (Role role : roles) {
+                            if(!roleList.contains(role)){
+                                roleList.add(role);
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+        return roleList;
+    }
