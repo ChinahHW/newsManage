@@ -44,7 +44,7 @@
         <link rel="icon" href="assets/img/ico/favicon.ico" type="image/png">
         <link href="http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
         <link href="bootstrap_select/css/bootstrap-select.min.css" rel="stylesheet" />
-        
+        <link href="toastr/toastr.css" rel="stylesheet" />
 
         
 
@@ -61,6 +61,7 @@
             <script src="ckeditor/ckeditor.js"></script>
 
         <script type="text/javascript" src="bootstrap_select/js/bootstrap-select.js"></script>
+        <script src="toastr/toastr.min.js"></script>
 
         <!-- Windows8 touch icon ( http://www.buildmypinnedsite.com/ )-->
         <meta name="msapplication-TileColor" content="#3399cc" />
@@ -279,7 +280,7 @@
                                         <div class="modal-body">
                                             <div class="form-group">
                                                     <label for="detail_user_id">用户编号：</label>
-                                                    <input type="text" name="detail_user_id" class="form-control" readonly="true" id="detail_user_id" placeholder="用户名称" ref="detail_user_id">
+                                                    <input type="text" name="detail_user_id" class="form-control" readonly="true" id="detail_user_id" placeholder="用户编号" ref="detail_user_id">
                                                 </div>
                                             <div class="form-group">
                                                     <label for="detail_user_name">用户名称：</label>
@@ -382,10 +383,15 @@
                 .post(projectPath+"/biz/user/update",param)
                 .then(response => {
                     if(response.data.code == '200'){
-                        alert("修改成功");
-                        location.reload();
+                        toastr.success("修改成功");
+                        setTimeout(function(){
+                            setTimeout(function(){
+                    location.reload();
+                        },2000)
+                        },2000)
+                        
                     }else{
-                        alert(response.data.msg)
+                        toastr.error(response.data.msg)
                     }
                 })
                 },
@@ -487,10 +493,14 @@
                                         })
                                         .then(response => {
                                             if(response.data.code == '200'){
-                                                alert("删除成功");
-                                                location.reload();
+                                                toastr.success("删除成功");
+                                                setTimeout(function(){
+                            setTimeout(function(){
+                    location.reload();
+                        },2000)
+                        },2000)
                                             }else{
-                                                alert(response.data.msg)
+                                                toastr.error(response.data.msg)
                                             }
                                         })
                                  })
@@ -593,10 +603,12 @@
                                                             })
                                                             .then(response => {
                                                                 if(response.data.code == '200'){
-                                                                    alert("删除成功");
-                                                                    location.reload();
+                                                                    toastr.success("删除成功")
+                                                                    setTimeout(function(){
+                                                                        location.reload();
+                                                                    },2000)
                                                                 }else{
-                                                                    alert(response.data.msg)
+                                                                    toastr.error(response.data.msg)
                                                                 }
                                                             })
                                                      })
@@ -635,14 +647,16 @@
                     )
                     .then(response => {
                         if(response.data.code == '200'){
-                            alert("添加成功")
-                            location.reload();
+                            toastr.success("添加成功")
+                            setTimeout(function(){
+                                location.reload();
+                            },2000)
                         }else if(response.data.code == '400'){
-                            alert(response.data.msg)
+                            toastr.error(response.data.msg)
                         }
                     })
                 }else{
-                    alert("角色权限不能为空")
+                    toastr.warning("角色权限不能为空")
                 }
                 
                 
@@ -732,10 +746,12 @@
                                 })
                                 .then(response => {
                                     if(response.data.code == '200'){
-                                        alert("删除成功");
-                                        location.reload();
+                                        toastr.success("删除成功")
+                                        setTimeout(function(){
+                    location.reload();
+                        },2000)
                                     }else{
-                                        alert(response.data.msg)
+                                        toastr.error(response.data.msg)
                                     }
                                 })
                          })
@@ -839,10 +855,12 @@
                                                             })
                                                             .then(response => {
                                                                 if(response.data.code == '200'){
-                                                                    alert("删除成功");
-                                                                    location.reload();
+                                                                    toastr.success("删除成功")
+                                                                    setTimeout(function(){
+                    location.reload();
+                        },2000)
                                                                 }else{
-                                                                    alert(response.data.msg)
+                                                                    toastr.error(response.data.msg)
                                                                 }
                                                             })
                                                      })
@@ -889,7 +907,7 @@
             }
         })
     </script>
-    <script>
-     
- </script>
+    <script type="text/javascript">
+        toastr.options.positionClass = 'toast-center-center';
+    </script>
 </html>

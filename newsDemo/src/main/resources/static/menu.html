@@ -6,6 +6,7 @@
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
     <link href="http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <link href="treeMenu/css/bootstrap-treeview.css" rel="stylesheet" />
+    <link href="toastr/toastr.css" rel="stylesheet" />
 
     <style type="text/css">
             .modal {padding-top: 25px}
@@ -38,7 +39,7 @@
                     </div>
                     <div class="form-group">
                         <label for="sort">排序规则(输入一个数字，0-30之间，数字越大，显示出来的位置越靠前)</label>
-                        <input type="text" name="sort" class="form-control" id="sort" placeholder="0">
+                        <input type="text" name="sort" class="form-control" id="sort" placeholder="排序规则">
                     </div>
                     <div class="form-group">
                         <label for="path">跳转路径</label>
@@ -65,7 +66,7 @@
 
                     <div class="form-group">
                         <label for="new_name">新的名称</label>
-                        <input type="text" name="new_name" class="form-control" id="new_name" placeholder="菜单名称" v-model="name">
+                        <input type="text" name="new_name" class="form-control" id="new_name" placeholder="新的名称" v-model="name">
                     </div>
 
                     <div class="form-group">
@@ -75,7 +76,7 @@
 
                     <div class="form-group">
                         <label for="update_sort">排序规则(输入一个数字，数字越大，显示出来的位置越靠前)</label>
-                        <input type="text" name="update_sort" class="form-control" id="update_sort" placeholder="0" v-model="sort">
+                        <input type="text" name="update_sort" class="form-control" id="update_sort" placeholder="排序规则0" v-model="sort">
                     </div>
                     <div class="form-group">
                         <label for="path">跳转路径</label>
@@ -130,6 +131,8 @@
 <script src="treeMenu/js/bootstrap-treeview.js"></script>
 <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
 <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+<script src="toastr/toastr.min.js"></script>
+
 <script type="text/javascript">
     var projectPath = window.document.location.href.substr(0,window.document.location.href.lastIndexOf("/"));
     var tree_vue = new Vue({
@@ -165,7 +168,7 @@
             },
             showUpdate:function(){
                 if($('#tree').treeview('getSelected').length == 0){
-                    alert("请选择菜单")
+                    toastr.info("请选择菜单")
                 }else{
                     this.updateParentId = $('#tree').treeview('getSelected')[0].parentSeq;
                     this.id = $('#tree').treeview('getSelected')[0].groupId;
@@ -212,7 +215,7 @@
             },
             showDel: function(){
                 if($('#tree').treeview('getSelected').length == 0){
-                    alert("请选择菜单")
+                    toastr.info("请选择菜单")
                 }else{
                     this.id = $('#tree').treeview('getSelected')[0].groupId;
                     this.name = $('#tree').treeview('getSelected')[0].text;
@@ -232,8 +235,10 @@
                             }
                 })
                 .then(response => {
-                    alert("新增成功");
-                    top.location='index.html';
+                    toastr.success("新增成功");
+                    setTimeout(function(){
+                        top.location='index.html';
+                    },2000)
                 })
             },
             update : function(){
@@ -249,9 +254,11 @@
                             }
                 })
                 .then(response => {
-                    alert("修改成功");
+                    toastr.success("修改成功");
                     // location.reload();
-                    top.location='index.html';
+                    setTimeout(function(){
+                        top.location='index.html';
+                    },2000)
                 })
             },
             del:function(){
@@ -262,8 +269,10 @@
                             }
                 })
                 .then(response => {
-                    alert("删除成功");
-                    top.location='index.html';
+                    toastr.success("删除成功");
+                    setTimeout(function(){
+                        top.location='index.html';
+                    },2000)
                 })
             }
         },
@@ -291,5 +300,8 @@
                 })
         }
     })
+</script>
+<script type="text/javascript">
+    toastr.options.positionClass = 'toast-center-center';
 </script>
 </html>

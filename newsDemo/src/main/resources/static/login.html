@@ -40,9 +40,12 @@
         <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/img/ico/apple-touch-icon-72-precomposed.png">
         <link rel="apple-touch-icon-precomposed" href="assets/img/ico/apple-touch-icon-57-precomposed.png">
         <link rel="icon" href="assets/img/ico/favicon.ico" type="image/png">
+        <link href="toastr/toastr.css" rel="stylesheet" />
+
 
         <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
-<script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+        <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+        
         <!-- Windows8 touch icon ( http://www.buildmypinnedsite.com/ )-->
         <meta name="msapplication-TileColor" content="#3399cc" />
     </head>
@@ -116,7 +119,13 @@
         <script src="assets/plugins/forms/validation/additional-methods.min.js"></script>
         <!-- Init plugins olny for this page -->
         <script src="assets/js/pages/login.js"></script>
+        <script src="toastr/toastr.min.js"></script>
 
+
+
+        <script type="text/javascript">
+            toastr.options.positionClass = 'toast-center-center';
+        </script>
         <script type="text/javascript">
             var projectPath = window.document.location.href.substr(0,window.document.location.href.lastIndexOf("/"));
             // var projectPath = "http://localhost:8085";
@@ -138,7 +147,7 @@
                                 sessionStorage.setItem("userId",response.data.data.userId)
                                 window.location.href="index.html"
                             }else if(response.data.code == '400'){
-                                alert(response.data.msg)
+                                toastr.error(response.data.msg)
                             }
                             
                         })
@@ -155,6 +164,11 @@
                 )}
 
             })
+
+
+
+            
         </script>
+        
     </body>
 </html>

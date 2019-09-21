@@ -46,6 +46,7 @@
 <link href="bootstrap_select/css/bootstrap-select.min.css" rel="stylesheet" />
 
 <link rel="stylesheet" type="text/css" href="css/fileinput.min.css">
+<link href="toastr/toastr.css" rel="stylesheet" />
 
 
 
@@ -66,6 +67,7 @@
 
 <script type="text/javascript" src="js/fileinput.min.js"></script>
 <script type="text/javascript" src="js/zh.js"></script>
+<script src="toastr/toastr.min.js"></script>
 
 <!-- Windows8 touch icon ( http://www.buildmypinnedsite.com/ )-->
 <meta name="msapplication-TileColor" content="#3399cc" />
@@ -368,7 +370,7 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="advertisingTag">详细描述：</label>
-                                                        <input type="text" name="advertisingTag" class="form-control" id="add_advertisingDescription" placeholder="广告标签" ref="advertisingTag">
+                                                        <input type="text" name="advertisingTag" class="form-control" id="add_advertisingDescription" placeholder="详细描述" ref="advertisingTag">
                                                     </div>
 
                                                     <div class="form-group">
@@ -378,7 +380,7 @@
 
                                                     <div class="form-group">
                                                         <label for="sort">是否置顶：</label>
-                                                        <input type="text" name="sort" class="form-control" id="add_topFlag" placeholder="排序规则">
+                                                        <input type="text" name="sort" class="form-control" id="add_topFlag" placeholder="是否置顶">
                                                     </div>
 
                                                     <div class="form-group">
@@ -450,7 +452,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="advertisingTag">详细描述：</label>
-                                                    <input type="text" name="advertisingTag" class="form-control" id="update_advertisingDescription" placeholder="广告标签" ref="advertisingTag">
+                                                    <input type="text" name="advertisingTag" class="form-control" id="update_advertisingDescription" placeholder="详细描述" ref="advertisingTag">
                                                 </div>
 
                                                 <div class="form-group">
@@ -460,7 +462,7 @@
 
                                                 <div class="form-group">
                                                     <label for="sort">是否置顶：</label>
-                                                    <input type="text" name="sort" class="form-control" id="update_topFlag" placeholder="排序规则">
+                                                    <input type="text" name="sort" class="form-control" id="update_topFlag" placeholder="是否置顶">
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="sort">当前所属部门</label>
@@ -856,8 +858,10 @@
                         }
                     })
                     .then(response => {
-                        alert("success")
-                        location.reload();
+                        toastr.success("删除成功")
+                        setTimeout(function(){
+                            location.reload();
+                        },2000)
                     })
                 })
 
@@ -986,10 +990,12 @@
                                         )
                                     .then(response => {
                                         if(response.data.code == '200'){
-                                            alert("修改成功")
-                                            location.reload();
+                                            toastr.success("修改成功")
+                                            setTimeout(function(){
+                                                location.reload();
+                                            },2000)
                                         }else if(response.data.code == '400'){
-                                            alert(response.data.msg)
+                                            toastr.error(response.data.msg)
                                         }
                                     })
                                 },
@@ -1085,7 +1091,7 @@
                                             upload:function(){
                                                 let param = new URLSearchParams()
                                                 param.append("name" , $("#add_advertisingTitle").val())
-                                                param.append("code" , $("#add_advertisingCode").val())
+                                                
                                                 param.append("tag" , $("#add_advertisingTag").val())
                                                 var numArr = []; // 定义一个空数组
                                                 var txt = $('#other-field').find(':text'); // 获取所有文本框
@@ -1109,23 +1115,33 @@
                                                         vm.fileName = ""
                                                     }
                                                     
-                                                    if($("#add_allNode").val() != '0'){
-                                                        param.append('deptId' , $("#add_allNode").val())
+                                                    if($("#add_advertisingCode").val() != null && $("#add_advertisingCode").val() != ''){
 
-                                                        axios
-                                                        .post(projectPath+"/biz/advertising/add",param
-                                                            )
-                                                        .then(response => {
-                                                            if(response.data.code == '200'){
-                                                                alert("上传成功")
-                                                                location.reload();
-                                                            }else if(response.data.code == '400'){
-                                                                alert(response.data.msg)
-                                                            }
-                                                        })
+                                                        param.append("code" , $("#add_advertisingCode").val())
+
+                                                        if($("#add_allNode").val() != '0'){
+                                                            param.append('deptId' , $("#add_allNode").val())
+
+                                                            axios
+                                                            .post(projectPath+"/biz/advertising/add",param
+                                                                )
+                                                            .then(response => {
+                                                                if(response.data.code == '200'){
+                                                                    toastr.success("上传成功")
+                                                                    setTimeout(function(){
+                                                                        location.reload();
+                                                                    },2000)
+                                                                }else if(response.data.code == '400'){
+                                                                    toastr.error(response.data.msg)
+                                                                }
+                                                            })
+                                                        }else{
+                                                            toastr.warning("部门不能为空")
+                                                        }
                                                     }else{
-                                                        alert("部门不能为空")
+                                                        toastr.warning("广告编码尚未填写！！")
                                                     }
+                                                    
                                                 }
                                                 
                                             },
@@ -1295,5 +1311,8 @@
                         $("#updatefile").on("filebatchselected", function(event, files) {
                             $("#updatefile").fileinput("upload");
                         });
+                    </script>
+                    <script type="text/javascript">
+                        toastr.options.positionClass = 'toast-center-center';
                     </script>
                     </html>

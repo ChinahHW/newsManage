@@ -6,8 +6,8 @@ spring:
   datasource:
     driverClassName: com.mysql.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/huwei?characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    name: root
     password:
-    username: root
 
   main:
     allow-bean-definition-overriding: true
@@ -32,7 +32,7 @@ filePath: F:\IdeaWorkSpace\newsDemo\src\main\resources\staticHtmlPath
 imagePath: F:\IdeaWorkSpace\newsDemo\src\main\resources\uploadImage
 
 logging:
-  config: E:\Git\newsManage\newsDemo\src\main\resources\logback.xml
+  config: F:\IdeaWorkSpace\newsDemo\src\main\resources\logback.xml
   path: /workspace/news/log
 
 

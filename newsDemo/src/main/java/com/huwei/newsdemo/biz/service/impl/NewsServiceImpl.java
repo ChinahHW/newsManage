@@ -271,6 +271,7 @@ public class NewsServiceImpl extends ServiceImpl<NewsDao, News> implements INews
         result.put("fileName", fileName);
 
         result.put("url", "/file/"+newFileName);
+
         return result.toString();
     }
 

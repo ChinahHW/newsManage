@@ -44,6 +44,8 @@
         <link rel="icon" href="assets/img/ico/favicon.ico" type="image/png">
         <link href="http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
         <link href="bootstrap_select/css/bootstrap-select.min.css" rel="stylesheet" />
+        <link href="toastr/toastr.css" rel="stylesheet" />
+
         
 
         
@@ -64,6 +66,7 @@
 
         <!-- Windows8 touch icon ( http://www.buildmypinnedsite.com/ )-->
         <meta name="msapplication-TileColor" content="#3399cc" />
+        <script src="toastr/toastr.min.js"></script>
         <style type="text/css">
             .modal {padding-top: 25px}
             .table th{
@@ -375,10 +378,12 @@
                     .post(projectPath+"/biz/location/update",param)
                     .then(response => {
                         if(response.data.code == '200'){
-                            alert("修改成功");
-                            location.reload();
+                            toastr.success("修改成功");
+                            setTimeout(function(){
+                                location.reload();
+                            },2000)
                         }else{
-                            alert(response.data.msg)
+                            toastr.error(response.data.msg)
                         }
                     })
                 },
@@ -454,10 +459,12 @@
                             })
                             .then(response => {
                                 if(response.data.code == '200'){
-                                    alert("删除成功");
-                                    location.reload();
+                                    toastr.success("删除成功");
+                                    setTimeout(function(){
+                                        location.reload();
+                                    },2000)
                                 }else{
-                                    alert(response.data.msg)
+                                    toastr.error(response.data.msg)
                                 }
                             })
                           })
@@ -536,10 +543,12 @@
                                                 })
                                                 .then(response => {
                                                     if(response.data.code == '200'){
-                                                        alert("删除成功");
-                                                        location.reload();
+                                                        toastr.success("删除成功");
+                                                        setTimeout(function(){
+                                                            location.reload();
+                                                        },2000)
                                                     }else{
-                                                        alert(response.data.msg)
+                                                        toastr.error(response.data.msg)
                                                     }
                                                 })
                                             })
@@ -568,10 +577,12 @@
                     .post(projectPath+"/biz/location/add",param)
                     .then(response => {
                         if(response.data.code == '200'){
-                            alert("添加成功");
-                            location.reload();
+                            toastr.success("添加成功");
+                            setTimeout(function(){
+                                location.reload();
+                            },2000)
                         }else if(response.data.code == '400'){
-                            alert(response.data.msg)
+                            toastr.error(response.data.msg)
                         }
                     })
                 }
@@ -635,10 +646,12 @@
                                 })
                                 .then(response => {
                                     if(response.data.code == '200'){
-                                        alert("删除成功");
-                                        location.reload();
+                                        toastr.success("删除成功");
+                                        setTimeout(function(){
+                                            location.reload();
+                                        },2000)
                                     }else{
-                                        alert(response.data.msg)
+                                        toastr.error(response.data.msg)
                                     }
                                 })
                          })
@@ -716,10 +729,12 @@
                                                 })
                                                 .then(response => {
                                                     if(response.data.code == '200'){
-                                                        alert("删除成功");
-                                                        location.reload();
+                                                        toastr.success("删除成功");
+                                                        setTimeout(function(){
+                                                            location.reload();
+                                                        },2000)
                                                     }else{
-                                                        alert(response.data.msg)
+                                                        toastr.error(response.data.msg)
                                                     }
                                                 })
                                             })
@@ -750,7 +765,7 @@
             }
         })
     </script>
-    <script>
-     
- </script>
+    <script type="text/javascript">
+        toastr.options.positionClass = 'toast-center-center';
+    </script>
 </html>

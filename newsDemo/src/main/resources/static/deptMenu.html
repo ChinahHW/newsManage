@@ -5,6 +5,7 @@
     <title>Title</title>
             <link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
             <link href="bootstrap_select/css/bootstrap-select.min.css" rel="stylesheet" />
+            <link href="toastr/toastr.css" rel="stylesheet" />
             <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
             <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
             <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
@@ -18,6 +19,7 @@
             
             <script type="text/javascript" src="bootstrap_select/js/bootstrap-select.js"></script>
             <script src="treeMenu/js/bootstrap-treeview.js"></script>
+            <script src="toastr/toastr.min.js"></script>
         <style type="text/css">
             .modal {padding-top: 25px}
         </style>
@@ -205,7 +207,7 @@
             },
             showUpdate:function(){
                 if($('#tree').treeview('getSelected').length == 0){
-                    alert("请选择菜单")
+                    toastr.warning("请选择菜单")
                 }else{
                     this.updateParentId = $('#tree').treeview('getSelected')[0].parentSeq;
                     this.id = $('#tree').treeview('getSelected')[0].groupId;
@@ -263,7 +265,7 @@
             },
             showDel: function(){
                 if($('#tree').treeview('getSelected').length == 0){
-                    alert("请选择菜单")
+                    toastr.warning("请选择菜单")
                 }else{
                     this.id = $('#tree').treeview('getSelected')[0].groupId;
                     this.name = $('#tree').treeview('getSelected')[0].text;
@@ -286,14 +288,16 @@
                     )
                     .then(response => {
                         if(response.data.code == '200'){
-                            alert("添加成功")
-                            top.location='index.html';
+                            toastr.success("添加成功")
+                            setTimeout(function(){
+                                window.top.location = "index.html"
+                            },2000)
                         }else if(response.data.code == '400'){
-                            alert(response.data.msg)
+                            toastr.error(response.data.msg)
                         }
                     })
                 }else{
-                    alert("角色权限不能为空")
+                    toastr.warning("角色权限不能为空")
                 }
             },
             update : function(){
@@ -308,9 +312,10 @@
                 axios
                 .post(projectPath+"/biz/dept/update",param)
                 .then(response => {
-                    alert("修改成功");
-                    // location.reload();
-                    top.location='index.html';
+                    toastr.success("修改成功");
+                    setTimeout(function(){
+                        window.top.location = "index.html"
+                    },2000)
                 })
             },
             del:function(){
@@ -321,8 +326,10 @@
                             }
                 })
                 .then(response => {
-                    alert("删除成功");
-                    top.location='index.html';
+                    toastr.success("删除成功");
+                    setTimeout(function(){
+                        window.top.location = "index.html"
+                    },2000)
                 })
             }
         },
@@ -372,5 +379,9 @@
 
         
     })
+</script>
+
+<script type="text/javascript">
+    toastr.options.positionClass = 'toast-center-center';
 </script>
 </html>

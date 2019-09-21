@@ -60,6 +60,30 @@ public class GroupTreeUtils {
         return list;
     }
 
+
+    public List<treeMenu> buildGroupTreeNonRoot(List<treeMenu> treeMenuList,String parentId) {
+        list.clear();
+        this.treeMenuList = treeMenuList;
+        for (treeMenu gr : treeMenuList){
+            if(parentId.equals(gr.getParentSeq())) {//根级目录
+                treeMenu group = new treeMenu();
+                group.setGroupId(gr.getGroupId());
+                group.setParentSeq(gr.getParentSeq());
+                group.setGroupName(gr.getGroupName());
+                group.setGroupDesc(gr.getGroupDesc());
+                group.setGroupType(gr.getGroupType());
+                group.setHref("#");
+                group.setOrder(gr.getOrder());
+                group.setOpenFlag(gr.isOpenFlag());
+                group.setSubGroup(treeChild(gr.getGroupId()+""));
+                group.setPath(gr.getPath());
+                group.setIcon(gr.getIcon());
+                list.add(group);
+            }
+        }
+        return list;
+    }
+
     /**
      *  treeChild:(递归遍历子级分组)
      * @author nicky
